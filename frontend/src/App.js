@@ -103,8 +103,8 @@ const ThriveRemoteDesktop = () => {
 
   return (
     <div className="desktop-environment">
-      {/* KDE Music Player Integration */}
-      <KDEMusicPlayer />
+      {/* YouTube Music Player Integration */}
+      <YouTubeMusicPlayer />
 
       {/* Desktop Background */}
       <div className="desktop-wallpaper"></div>
