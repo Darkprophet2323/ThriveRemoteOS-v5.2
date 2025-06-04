@@ -384,25 +384,84 @@ body {
   color: var(--rose-gold);
 }
 
-/* ELEGANT WINDOWS */
+/* CINEMATIC WINDOWS WITH EXPANDING BOX ANIMATIONS */
 .window {
   position: absolute;
   background: linear-gradient(135deg, 
-    rgba(248, 246, 240, 0.95) 0%, 
-    rgba(254, 254, 254, 0.9) 100%);
-  backdrop-filter: blur(30px);
-  border-radius: 16px;
+    rgba(248, 246, 244, 0.98) 0%, 
+    rgba(253, 245, 230, 0.95) 100%);
+  backdrop-filter: blur(40px);
+  border-radius: 20px;
   box-shadow: 
-    0 30px 80px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(229, 228, 226, 0.2),
-    inset 0 1px 0 rgba(248, 246, 240, 0.3);
-  border: 1px solid rgba(229, 228, 226, 0.2);
+    0 40px 100px var(--noir-shadow),
+    0 0 0 1px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(248, 246, 244, 0.4),
+    0 0 60px rgba(212, 175, 55, 0.1);
+  border: 2px solid rgba(212, 175, 55, 0.3);
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  min-width: 400px;
-  min-height: 300px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  min-width: 450px;
+  min-height: 350px;
   display: flex;
   flex-direction: column;
+  transform: scale(0);
+  opacity: 0;
+  animation: expandingBox 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes expandingBox {
+  0% {
+    transform: scale(0) rotate(2deg);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  30% {
+    transform: scale(0.3) rotate(1deg);
+    opacity: 0.3;
+    filter: blur(5px);
+  }
+  60% {
+    transform: scale(0.8) rotate(0deg);
+    opacity: 0.8;
+    filter: blur(2px);
+  }
+  80% {
+    transform: scale(1.05) rotate(0deg);
+    opacity: 0.95;
+    filter: blur(0px);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.window.closing {
+  animation: contractingBox 0.4s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+@keyframes contractingBox {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0px);
+  }
+  30% {
+    transform: scale(0.9) rotate(-1deg);
+    opacity: 0.8;
+    filter: blur(2px);
+  }
+  70% {
+    transform: scale(0.3) rotate(-2deg);
+    opacity: 0.3;
+    filter: blur(5px);
+  }
+  100% {
+    transform: scale(0) rotate(-3deg);
+    opacity: 0;
+    filter: blur(10px);
+  }
 }
 
 .window.maximized {
@@ -411,100 +470,154 @@ body {
   width: 100vw !important;
   height: calc(100vh - 80px) !important;
   border-radius: 0;
-  transition: none;
+  animation: maximizeBox 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes maximizeBox {
+  0% {
+    border-radius: 20px;
+    transform: scale(1);
+  }
+  100% {
+    border-radius: 0;
+    transform: scale(1);
+  }
 }
 
 .window-header {
   background: linear-gradient(135deg, 
-    rgba(10, 10, 10, 0.9) 0%, 
-    rgba(128, 0, 32, 0.1) 50%,
-    rgba(28, 28, 28, 0.9) 100%);
-  color: var(--warm-cream);
-  padding: 12px 16px;
+    rgba(13, 13, 13, 0.95) 0%, 
+    rgba(128, 0, 32, 0.1) 30%,
+    rgba(26, 26, 26, 0.9) 70%,
+    rgba(13, 13, 13, 0.95) 100%);
+  color: var(--champagne);
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: move;
   user-select: none;
   flex-shrink: 0;
-  border-bottom: 1px solid rgba(229, 228, 226, 0.1);
-  min-height: 45px;
-  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  min-height: 50px;
+  backdrop-filter: blur(25px);
+  position: relative;
+  overflow: hidden;
+}
+
+.window-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+  transition: left 1s ease;
+}
+
+.window-header:hover::before {
+  left: 100%;
 }
 
 .window-title {
   display: flex;
   align-items: center;
-  font-weight: 300;
-  font-size: 0.9rem;
+  font-weight: 400;
+  font-size: 1rem;
   flex: 1;
   overflow: hidden;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 8px var(--noir-shadow);
   font-family: 'Playfair Display', serif;
   letter-spacing: 0.02em;
 }
 
 .window-icon {
-  margin-right: 10px;
-  font-size: 1.1rem;
-  background: linear-gradient(135deg, var(--rose-gold), var(--champagne));
+  margin-right: 12px;
+  font-size: 1.2rem;
+  background: var(--gold-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
 }
 
 .window-controls {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
 .window-control {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.window-control::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.window-control:hover::before {
+  width: 120%;
+  height: 120%;
 }
 
 .window-control.minimize {
-  background: linear-gradient(135deg, #FFB347, #FFCC99);
+  background: linear-gradient(135deg, #FFB347, #FFA500);
 }
 
 .window-control.maximize {
-  background: linear-gradient(135deg, #90EE90, #98FB98);
+  background: linear-gradient(135deg, #90EE90, #32CD32);
 }
 
 .window-control.close {
-  background: linear-gradient(135deg, var(--rose-gold), #FF69B4);
+  background: linear-gradient(135deg, var(--rose-gold), #DC143C);
 }
 
 .window-control:hover {
-  transform: scale(1.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: scale(1.3);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .window-content {
   flex: 1;
   overflow: hidden;
-  background: rgba(248, 246, 240, 0.98);
-  color: var(--luxury-black);
+  background: rgba(248, 246, 244, 0.98);
+  color: var(--noir-black);
   display: flex;
   flex-direction: column;
 }
 
 .window-content-inner {
   flex: 1;
-  padding: 20px;
+  padding: 25px;
   overflow-y: auto;
   overflow-x: hidden;
   font-family: 'Inter', sans-serif;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* SOPHISTICATED TASKBAR */
