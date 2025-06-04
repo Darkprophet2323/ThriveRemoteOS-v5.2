@@ -495,14 +495,16 @@ body {
   position: relative;
 }
 
-/* KDE Style Start Button */
+/* BLACK & GOLD START BUTTON */
 .start-button {
-  background: linear-gradient(135deg, var(--kde-primary) 0%, var(--kde-primary-dark) 100%);
-  border: 1px solid var(--kde-border);
+  background: linear-gradient(135deg, 
+    rgba(218, 165, 32, 0.9) 0%, 
+    rgba(184, 134, 11, 0.95) 100%);
+  border: 1px solid rgba(255, 215, 0, 0.6);
   padding: 8px 12px;
   border-radius: 6px;
-  color: var(--kde-text-primary);
-  font-weight: 600;
+  color: #000000;
+  font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -510,8 +512,11 @@ body {
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
-  text-shadow: 0 1px 2px var(--kde-shadow);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   font-family: 'Noto Sans', sans-serif;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 215, 0, 0.4);
 }
 
 .start-button::before {
@@ -532,22 +537,26 @@ body {
 .start-button:hover {
   transform: translateY(-1px) scale(1.02);
   box-shadow: 
-    0 6px 15px var(--kde-glow),
-    0 0 15px var(--kde-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-color: var(--kde-primary);
-  background: linear-gradient(135deg, var(--kde-primary-dark) 0%, var(--kde-primary) 100%);
+    0 6px 15px rgba(0, 0, 0, 0.6),
+    0 0 15px rgba(218, 165, 32, 0.8),
+    inset 0 1px 0 rgba(255, 215, 0, 0.6);
+  border-color: rgba(255, 215, 0, 0.9);
+  background: linear-gradient(135deg, 
+    rgba(255, 215, 0, 0.95) 0%, 
+    rgba(218, 165, 32, 0.9) 100%);
 }
 
 .start-icon {
   font-size: 1.1rem;
-  filter: drop-shadow(0 0 6px currentColor);
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.8));
+  color: #000000;
 }
 
 .start-text {
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.3px;
+  color: #000000;
 }
 
 /* KDE VERME ITE START MENU */
