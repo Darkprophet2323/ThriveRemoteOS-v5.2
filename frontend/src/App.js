@@ -848,6 +848,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ThriveRemoteDesktop />} />
+          <Route path="/waitress-job-portal" element={<WaitressJobPortal />} />
         </Routes>
       </BrowserRouter>
     </div>
