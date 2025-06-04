@@ -3,34 +3,34 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 
 :root {
-  /* KDE Verme Ite Color Palette */
-  --kde-primary: #3DAEE9;
-  --kde-primary-dark: #2980B9;
-  --kde-secondary: #8E44AD;
-  --kde-accent: #E74C3C;
-  --kde-success: #27AE60;
-  --kde-warning: #F39C12;
+  /* BLACK & GOLD THEME COLOR PALETTE */
+  --kde-primary: #DAA520;
+  --kde-primary-dark: #B8860B;
+  --kde-secondary: #FFD700;
+  --kde-accent: #FFA500;
+  --kde-success: #32CD32;
+  --kde-warning: #FF8C00;
   
   /* Background Colors */
-  --kde-bg-primary: #2C3E50;
-  --kde-bg-secondary: #34495E;
-  --kde-bg-tertiary: #1B2631;
-  --kde-bg-overlay: rgba(44, 62, 80, 0.95);
+  --kde-bg-primary: #000000;
+  --kde-bg-secondary: #1A1A1A;
+  --kde-bg-tertiary: #0D0D0D;
+  --kde-bg-overlay: rgba(0, 0, 0, 0.95);
   
   /* Text Colors */
-  --kde-text-primary: #ECF0F1;
-  --kde-text-secondary: #BDC3C7;
-  --kde-text-muted: #95A5A6;
+  --kde-text-primary: #FFD700;
+  --kde-text-secondary: #DAA520;
+  --kde-text-muted: #B8860B;
   
   /* Surface Colors */
-  --kde-surface: rgba(52, 73, 94, 0.9);
-  --kde-surface-hover: rgba(52, 73, 94, 0.95);
-  --kde-surface-active: rgba(61, 174, 233, 0.2);
+  --kde-surface: rgba(0, 0, 0, 0.9);
+  --kde-surface-hover: rgba(218, 165, 32, 0.1);
+  --kde-surface-active: rgba(255, 215, 0, 0.2);
   
   /* Border and Shadows */
-  --kde-border: rgba(189, 195, 199, 0.2);
-  --kde-shadow: rgba(0, 0, 0, 0.3);
-  --kde-glow: rgba(61, 174, 233, 0.4);
+  --kde-border: rgba(218, 165, 32, 0.3);
+  --kde-shadow: rgba(0, 0, 0, 0.8);
+  --kde-glow: rgba(218, 165, 32, 0.5);
   
   /* Spacing System */
   --kde-space-xs: 4px;
