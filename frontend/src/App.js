@@ -841,6 +841,111 @@ const VirtualSheepRedirect = () => {
   );
 };
 
+// Desktop Environment Component
+function DesktopEnvironment() {
+  const sounds = useSounds();
+  const [bootComplete, setBootComplete] = useState(false);
+  const [showStartMenu, setShowStartMenu] = useState(false);
+  const [windows, setWindows] = useState([]);
+  const [nextWindowId, setNextWindowId] = useState(1);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Backend URL from environment
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+
+  // Boot sequence with luxury timing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setBootComplete(true);
+      sounds.playSuccess();
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [sounds]);
+
+  // Real-time clock
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Enhanced window management with animations and sounds
+  const openWindow = (title, icon, content, width = 600, height = 400) => {
+    sounds.playWindowOpen();
+    const newWindow = {
+      id: nextWindowId,
+      title,
+      icon,
+      content,
+      x: 50 + (nextWindowId * 30),
+      y: 50 + (nextWindowId * 30),
+      width,
+      height,
+      isMinimized: false,
+      isMaximized: false,
+      zIndex: nextWindowId + 100,
+    };
+    setWindows(prev => [...prev, newWindow]);
+    setNextWindowId(prev => prev + 1);
+  };
+
+  const closeWindow = (id) => {
+    sounds.playWindowClose();
+    // Add closing animation class
+    const windowElement = document.querySelector(`[data-window-id="${id}"]`);
+    if (windowElement) {
+      windowElement.classList.add('closing');
+      setTimeout(() => {
+        setWindows(prev => prev.filter(w => w.id !== id));
+      }, 400);
+    } else {
+      setWindows(prev => prev.filter(w => w.id !== id));
+    }
+  };
+
+  const minimizeWindow = (id) => {
+    sounds.playClick();
+    setWindows(prev => prev.map(w => 
+      w.id === id ? { ...w, isMinimized: !w.isMinimized } : w
+    ));
+  };
+
+  const maximizeWindow = (id) => {
+    sounds.playClick();
+    setWindows(prev => prev.map(w => 
+      w.id === id ? { ...w, isMaximized: !w.isMaximized } : w
+    ));
+  };
+
+  const bringToFront = (id) => {
+    const maxZ = Math.max(...windows.map(w => w.zIndex));
+    setWindows(prev => prev.map(w => 
+      w.id === id ? { ...w, zIndex: maxZ + 1 } : w
+    ));
+  };
+
+  // Enhanced desktop icon click handler
+  const handleIconClick = (title, icon, content, width, height) => {
+    sounds.playClick();
+    openWindow(title, icon, content, width, height);
+  };
+
+  // Enhanced start menu handlers
+  const toggleStartMenu = () => {
+    sounds.playHover();
+    setShowStartMenu(!showStartMenu);
+  };
+
+  const handleStartMenuClick = (title, icon, content) => {
+    sounds.playClick();
+    openWindow(title, icon, content);
+    setShowStartMenu(false);
+  };
+
+  return <ThriveRemoteDesktop />;
+}
+
 function App() {
   return (
     <div className="App">
