@@ -52,8 +52,8 @@
 
 body {
   font-family: 'Inter', 'Helvetica Neue', sans-serif;
-  background: var(--luxury-gradient);
-  color: var(--warm-cream);
+  background: var(--dramatic-gradient);
+  color: var(--cream);
   overflow: hidden;
   height: 100vh;
   line-height: 1.6;
