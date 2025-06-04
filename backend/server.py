@@ -687,15 +687,102 @@ def get_current_user(session_token: str = None):
     return user_id
 
 # API Routes
-@app.get("/")
-async def root():
+@app.get("/api/")
+async def read_root():
     return {
-        "message": "ThriveRemote API Server Running", 
-        "version": "4.0", 
-        "features": ["real_jobs", "user_tracking", "live_data", "multi_user_auth", "relocation_integration", "mysql_backend"],
-        "database": "MySQL/MariaDB",
-        "easter_egg": "Try the Konami code! ⬆⬆⬇⬇⬅➡⬅➡BA"
+        "message": "ThriveRemoteOS API v5.1.0 with YouTube Integration",
+        "timestamp": datetime.now().isoformat(),
+        "features": ["desktop", "virtual_pets", "ai_jobs", "youtube_music"],
+        "youtube_enabled": True
     }
+
+# YouTube Music API Endpoints
+@app.get("/api/music/playlist")
+async def get_music_playlist():
+    """Get the curated YouTube music playlist"""
+    try:
+        playlist = youtube_service.get_curated_playlist()
+        return {
+            "success": True,
+            "playlist": playlist,
+            "count": len(playlist)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching playlist: {str(e)}")
+
+@app.get("/api/music/trending")
+async def get_trending_music():
+    """Get trending music from YouTube"""
+    try:
+        trending = youtube_service.get_trending_music()
+        return {
+            "success": True,
+            "trending": trending,
+            "count": len(trending)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching trending music: {str(e)}")
+
+@app.post("/api/music/search")
+async def search_music(request: SearchRequest):
+    """Search YouTube for music"""
+    try:
+        results = youtube_service.search_youtube(request.query, request.max_results)
+        return {
+            "success": True,
+            "query": request.query,
+            "results": results,
+            "count": len(results)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error searching music: {str(e)}")
+
+@app.get("/api/music/track/{video_id}")
+async def get_track_info(video_id: str):
+    """Get detailed information about a YouTube track"""
+    try:
+        track_info = youtube_service.get_video_info(video_id)
+        if track_info:
+            return {
+                "success": True,
+                "track": track_info
+            }
+        else:
+            raise HTTPException(status_code=404, detail="Track not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching track info: {str(e)}")
+
+@app.get("/api/music/recommendations/{video_id}")
+async def get_music_recommendations(video_id: str):
+    """Get music recommendations based on a track"""
+    try:
+        recommendations = youtube_service.get_music_recommendations(video_id)
+        return {
+            "success": True,
+            "based_on": video_id,
+            "recommendations": recommendations,
+            "count": len(recommendations)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error fetching recommendations: {str(e)}")
+
+@app.post("/api/music/validate")
+async def validate_youtube_url(url: str):
+    """Validate if a URL is a valid YouTube URL"""
+    try:
+        is_valid = youtube_service.validate_youtube_url(url)
+        video_id = youtube_service.get_video_id_from_url(url) if is_valid else None
+        
+        return {
+            "success": True,
+            "valid": is_valid,
+            "video_id": video_id,
+            "url": url
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error validating URL: {str(e)}")
+
+# Original API endpoints
 
 # Content Management API Endpoints
 @app.get("/api/content/all")
