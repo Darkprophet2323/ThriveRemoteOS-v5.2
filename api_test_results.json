@@ -8,11 +8,11 @@
       "host": "localhost",
       "database": "thriveremote_db",
       "tables": {
-        "users": 6,
+        "users": 7,
         "jobs": 0,
         "applications": 0,
         "tasks": 0,
-        "achievements": 54,
+        "achievements": 63,
         "job_resources": 9,
         "ai_tools": 4,
         "peak_district_content": 6,
@@ -21,7 +21,7 @@
         "relocate_data": 5,
         "site_content": 2
       },
-      "total_records": 98,
+      "total_records": 108,
       "migration_status": "completed",
       "relocation_focus": "Arizona to Peak District",
       "features": [
@@ -539,7 +539,7 @@
         ]
       },
       "total_items": 33,
-      "retrieved_at": "2025-06-04T19:53:37.932314"
+      "retrieved_at": "2025-06-04T20:59:16.168192"
     }
   },
   "Content Jobs": {
@@ -1137,7 +1137,7 @@
       "created_date": "2025-06-04T18:52:14",
       "last_active": "2025-06-04T18:52:14",
       "total_sessions": 1,
-      "productivity_score": 35,
+      "productivity_score": 40,
       "daily_streak": 1,
       "last_streak_date": "2025-06-04",
       "savings_goal": 5000.0,
@@ -1160,12 +1160,12 @@
       "active_jobs_watching": 0,
       "monthly_savings": 25.0,
       "days_to_goal": 99,
-      "skill_development_hours": 3.5,
+      "skill_development_hours": 4.0,
       "daily_streak": 1,
-      "productivity_score": 35,
+      "productivity_score": 40,
       "achievements_unlocked": 0,
       "pong_high_score": 0,
-      "last_updated": "2025-06-04T19:53:38.276924",
+      "last_updated": "2025-06-04T20:59:16.639123",
       "total_tasks": 0,
       "completion_rate": 0,
       "database_type": "MySQL/MariaDB"
@@ -1175,13 +1175,13 @@
     "status": "passed",
     "response_code": 200,
     "data": {
-      "arizona_connections": 145,
-      "peak_district_nodes": 97,
+      "arizona_connections": 133,
+      "peak_district_nodes": 105,
       "remote_opportunities": 1200,
       "classified_servers": 15,
-      "active_users": 24,
-      "data_processed": "818.3 GB",
-      "uptime_hours": 5851,
+      "active_users": 63,
+      "data_processed": "756.7 GB",
+      "uptime_hours": 5852,
       "security_level": "MAXIMUM",
       "threat_level": "GREEN",
       "database": "MySQL/MariaDB Connected"
@@ -1331,7 +1331,7 @@
         }
       },
       "message": "Relocation data fetched successfully",
-      "last_updated": "2025-06-04T19:53:38.409220"
+      "last_updated": "2025-06-04T20:59:16.706903"
     }
   },
   "Arizona to Peak District Relocation Content": {
@@ -1564,10 +1564,15 @@
     }
   },
   "Populate Relocation Content": {
-    "status": "failed",
-    "response_code": 500,
-    "expected_code": 200,
-    "error": "{\"detail\":\"Failed to populate content: 500: Database operation failed: 1062 (23000): Duplicate entry 'arizona-to-peak-district-guide' for key 'slug'\"}"
+    "status": "passed",
+    "response_code": 200,
+    "data": {
+      "success": true,
+      "message": "Relocation content already exists in database",
+      "items_created": 0,
+      "existing_items": 1,
+      "action": "skipped_duplicate_population"
+    }
   },
   "Virtual Pets": {
     "status": "passed",
@@ -1861,9 +1866,9 @@
     "response_code": 200,
     "data": {
       "message": "User registered successfully!",
-      "user_id": "cde4fd93-ab28-45be-ad96-7dbf30bd0aa6",
-      "username": "test_user_195338",
-      "session_token": "k29LTF5Vd5AwX9WjV94EwOCmA4MBL5-2q_Fu3YAAaQU"
+      "user_id": "8bf332e5-e9fa-4dce-a1f3-8f0bd196080c",
+      "username": "test_user_205916",
+      "session_token": "jjK2I-xuM0JR4WG9C41CfIAGR9VPqOWN2Egk6TfQPVw"
     }
   }
 }
