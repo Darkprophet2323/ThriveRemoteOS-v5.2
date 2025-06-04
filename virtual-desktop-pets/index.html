@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐾 Desktop Virtual Pets - ThriveRemoteOS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            cursor: none;
+        }
+        
+        .desktop-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .pet {
+            position: absolute;
+            font-size: 4rem;
+            z-index: 1000;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+        
+        .pet.dragging {
+            z-index: 1001;
+            transform: scale(1.1);
+        }
+        
+        .pet.sleeping {
+            opacity: 0.7;
+            animation: sleep 3s ease-in-out infinite;
+        }
+        
+        .pet.walking {
+            animation: walk 0.5s ease-in-out infinite;
+        }
+        
+        .pet.running {
+            animation: run 0.3s ease-in-out infinite;
+        }
+        
+        .pet.playing {
+            animation: bounce 0.6s ease-in-out infinite;
+        }
+        
+        .pet.eating {
+            animation: chomp 0.8s ease-in-out;
+        }
+        
+        .pet.happy {
+            animation: wiggle 1s ease-in-out;
+        }
+        
+        @keyframes sleep {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
+        @keyframes walk {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes run {
+            0%, 100% { transform: translateY(0px) scaleX(1); }
+            50% { transform: translateY(-15px) scaleX(1.1); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+        
+        @keyframes chomp {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            75% { transform: scale(0.9); }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+        
+        .pet-bubble {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            color: #333;
+            pointer-events: none;
+            z-index: 1002;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            animation: bubbleAppear 0.3s ease;
+        }
+        
+        .pet-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid rgba(255, 255, 255, 0.95);
+        }
+        
+        @keyframes bubbleAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .food-item {
+            position: absolute;
+            font-size: 2rem;
+            cursor: pointer;
+            user-select: none;
+            z-index: 500;
+            animation: foodFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+        
+        @keyframes foodFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        .pet-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            min-width: 250px;
+            z-index: 2000;
+        }
+        
+        .panel-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .pet-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .pet-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+        }
+        
+        .pet-option:hover, .pet-option.selected {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+        }
+        
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: white;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .pet-stats {
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+        
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            animation: trailFade 1s ease-out forwards;
+        }
+        
+        @keyframes trailFade {
+            to {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        
+        .desktop-note {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+        }
+        
+        @media (max-width: 768px) {
+            .pet-panel {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                min-width: unset;
+            }
+            
+            .pet {
+                font-size: 3rem;
+            }
+            
+            .desktop-note {
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+                max-width: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop-container" id="desktop">
+        <div class="custom-cursor" id="customCursor"></div>
+        
+        <!-- Pet Panel -->
+        <div class="pet-panel">
+            <div class="panel-title">🐾 Desktop Pets</div>
+            
+            <div class="pet-selector">
+                <div class="pet-option selected" data-pet="🐱">🐱</div>
+                <div class="pet-option" data-pet="🐶">🐶</div>
+                <div class="pet-option" data-pet="🐰">🐰</div>
+                <div class="pet-option" data-pet="🐻">🐻</div>
+                <div class="pet-option" data-pet="🦊">🦊</div>
+                <div class="pet-option" data-pet="🐼">🐼</div>
+                <div class="pet-option" data-pet="🐸">🐸</div>
+                <div class="pet-option" data-pet="🐧">🐧</div>
+            </div>
+            
+            <div class="controls">
+                <button class="control-btn" onclick="addPet()">➕ Add Pet</button>
+                <button class="control-btn" onclick="removeAllPets()">🗑️ Clear All</button>
+                <button class="control-btn" onclick="feedAllPets()">🍖 Feed All</button>
+                <button class="control-btn" onclick="playWithPets()">🎾 Play Time</button>
+                <button class="control-btn" onclick="makeAllSleep()">😴 Sleep Mode</button>
+                <button class="control-btn" onclick="spawnFood()">🍎 Spawn Food</button>
+            </div>
+            
+            <div class="pet-stats">
+                <div class="stat-line">
+                    <span>Active Pets:</span>
+                    <span id="petCount">0</span>
+                </div>
+                <div class="stat-line">
+                    <span>Food Items:</span>
+                    <span id="foodCount">0</span>
+                </div>
+                <div class="stat-line">
+                    <span>Interactions:</span>
+                    <span id="interactionCount">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="desktop-note">
+            <strong>🎮 Desktop Pets Instructions:</strong><br>
+            • Click pets to interact with them<br>
+            • Drag pets to move them around<br>
+            • Add food and watch pets eat<br>
+            • Pets have AI behavior and roam freely<br>
+            • Double-click empty space to add pets
+        </div>
+    </div>
+
+    <script>
+        class DesktopPet {
+            constructor(emoji, x, y) {
+                this.emoji = emoji;
+                this.x = x;
+                this.y = y;
+                this.vx = (Math.random() - 0.5) * 2;
+                this.vy = (Math.random() - 0.5) * 2;
+                this.energy = 100;
+                this.happiness = 80;
+                this.hunger = 50;
+                this.state = 'idle'; // idle, walking, running, sleeping, eating, playing
+                this.element = null;
+                this.bubble = null;
+                this.lastInteraction = Date.now();
+                this.isDragging = false;
+                this.aiTimer = 0;
+                this.stateTimer = 0;
+                this.targetX = x;
+                this.targetY = y;
+                this.speed = 0.5;
+                
+                this.createElement();
+                this.startAI();
+            }
+            
+            createElement() {
+                this.element = document.createElement('div');
+                this.element.className = 'pet';
+                this.element.textContent = this.emoji;
+                this.element.style.left = this.x + 'px';
+                this.element.style.top = this.y + 'px';
+                
+                this.element.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.interact();
+                });
+                
+                this.element.addEventListener('mousedown', (e) => {
+                    this.startDrag(e);
+                });
+                
+                document.getElementById('desktop').appendChild(this.element);
+            }
+            
+            startDrag(e) {
+                this.isDragging = true;
+                this.element.classList.add('dragging');
+                this.setState('idle');
+                
+                const startX = e.clientX - this.x;
+                const startY = e.clientY - this.y;
+                
+                const mouseMoveHandler = (e) => {
+                    if (this.isDragging) {
+                        this.x = e.clientX - startX;
+                        this.y = e.clientY - startY;
+                        this.keepInBounds();
+                        this.updatePosition();
+                    }
+                };
+                
+                const mouseUpHandler = () => {
+                    this.isDragging = false;
+                    this.element.classList.remove('dragging');
+                    document.removeEventListener('mousemove', mouseMoveHandler);
+                    document.removeEventListener('mouseup', mouseUpHandler);
+                    this.showBubble('Wheee! That was fun! 🎢');
+                };
+                
+                document.addEventListener('mousemove', mouseMoveHandler);
+                document.addEventListener('mouseup', mouseUpHandler);
+            }
+            
+            interact() {
+                const interactions = [
+                    () => {
+                        this.happiness = Math.min(100, this.happiness + 10);
+                        this.showBubble(['😊 Yay!', '❤️ Love you!', '🎉 Fun!'][Math.floor(Math.random() * 3)]);
+                        this.setState('happy');
+                    },
+                    () => {
+                        this.energy = Math.min(100, this.energy + 5);
+                        this.showBubble(['⚡ Energized!', '💪 Strong!', '🌟 Amazing!'][Math.floor(Math.random() * 3)]);
+                        this.setState('playing');
+                    },
+                    () => {
+                        this.hunger = Math.max(0, this.hunger - 15);
+                        this.showBubble(['🍖 Tasty!', '😋 Yummy!', '🤤 Delicious!'][Math.floor(Math.random() * 3)]);
+                        this.setState('eating');
+                    }
+                ];
+                
+                interactions[Math.floor(Math.random() * interactions.length)]();
+                this.lastInteraction = Date.now();
+                game.updateStats();
+            }
+            
+            showBubble(text) {
+                if (this.bubble) {
+                    this.bubble.remove();
+                }
+                
+                this.bubble = document.createElement('div');
+                this.bubble.className = 'pet-bubble';
+                this.bubble.textContent = text;
+                this.bubble.style.left = (this.x + 30) + 'px';
+                this.bubble.style.top = (this.y - 40) + 'px';
+                
+                document.getElementById('desktop').appendChild(this.bubble);
+                
+                setTimeout(() => {
+                    if (this.bubble) {
+                        this.bubble.remove();
+                        this.bubble = null;
+                    }
+                }, 2000);
+            }
+            
+            setState(newState) {
+                this.element.className = `pet ${newState}`;
+                this.state = newState;
+                this.stateTimer = Date.now();
+                
+                // Set random target for walking/running
+                if (newState === 'walking' || newState === 'running') {
+                    this.targetX = Math.random() * (window.innerWidth - 100);
+                    this.targetY = Math.random() * (window.innerHeight - 150);
+                    this.speed = newState === 'running' ? 2 : 0.8;
+                }
+            }
+            
+            startAI() {
+                setInterval(() => {
+                    if (this.isDragging) return;
+                    
+                    const now = Date.now();
+                    const timeSinceStateChange = now - this.stateTimer;
+                    const timeSinceInteraction = now - this.lastInteraction;
+                    
+                    // Natural stat decay
+                    this.energy = Math.max(0, this.energy - 0.02);
+                    this.happiness = Math.max(0, this.happiness - 0.01);
+                    this.hunger = Math.min(100, this.hunger + 0.03);
+                    
+                    // AI behavior decisions
+                    if (timeSinceStateChange > 3000) { // Change state every 3 seconds
+                        if (this.energy < 20) {
+                            this.setState('sleeping');
+                        } else if (this.hunger > 80) {
+                            this.lookForFood();
+                        } else if (this.happiness < 30) {
+                            this.setState('playing');
+                        } else {
+                            const behaviors = ['idle', 'walking', 'running'];
+                            if (Math.random() < 0.7) { // 70% chance to move
+                                this.setState(behaviors[Math.floor(Math.random() * behaviors.length)]);
+                            }
+                        }
+                    }
+                    
+                    // Movement AI
+                    this.updateMovement();
+                    
+                    // Random interactions
+                    if (Math.random() < 0.001 && timeSinceInteraction > 10000) {
+                        const randomThoughts = [
+                            '🤔 Hmm...', '💭 Thinking...', '👀 Looking around...',
+                            '🎵 La la la...', '😴 Getting sleepy...', '🍖 Hungry...'
+                        ];
+                        this.showBubble(randomThoughts[Math.floor(Math.random() * randomThoughts.length)]);
+                    }
+                    
+                }, 100);
+            }
+            
+            lookForFood() {
+                const foods = document.querySelectorAll('.food-item');
+                if (foods.length > 0) {
+                    const nearestFood = Array.from(foods).reduce((nearest, food) => {
+                        const foodRect = food.getBoundingClientRect();
+                        const foodX = foodRect.left;
+                        const foodY = foodRect.top;
+                        const distance = Math.sqrt(Math.pow(this.x - foodX, 2) + Math.pow(this.y - foodY, 2));
+                        
+                        return !nearest || distance < nearest.distance 
+                            ? { element: food, distance, x: foodX, y: foodY }
+                            : nearest;
+                    }, null);
+                    
+                    if (nearestFood) {
+                        this.targetX = nearestFood.x;
+                        this.targetY = nearestFood.y;
+                        this.setState('running');
+                        this.speed = 2;
+                    }
+                }
+            }
+            
+            updateMovement() {
+                if (this.state === 'walking' || this.state === 'running') {
+                    const dx = this.targetX - this.x;
+                    const dy = this.targetY - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance > 5) {
+                        this.x += (dx / distance) * this.speed;
+                        this.y += (dy / distance) * this.speed;
+                        this.keepInBounds();
+                        this.updatePosition();
+                    } else {
+                        this.setState('idle');
+                    }
+                }
+                
+                // Check for food collision
+                this.checkFoodCollision();
+            }
+            
+            checkFoodCollision() {
+                const foods = document.querySelectorAll('.food-item');
+                foods.forEach(food => {
+                    const foodRect = food.getBoundingClientRect();
+                    const petRect = this.element.getBoundingClientRect();
+                    
+                    const distance = Math.sqrt(
+                        Math.pow(foodRect.left - petRect.left, 2) + 
+                        Math.pow(foodRect.top - petRect.top, 2)
+                    );
+                    
+                    if (distance < 50) {
+                        food.remove();
+                        this.hunger = Math.max(0, this.hunger - 30);
+                        this.happiness = Math.min(100, this.happiness + 15);
+                        this.energy = Math.min(100, this.energy + 10);
+                        this.setState('eating');
+                        this.showBubble('😋 Nom nom nom!');
+                        game.updateStats();
+                    }
+                });
+            }
+            
+            keepInBounds() {
+                this.x = Math.max(0, Math.min(window.innerWidth - 80, this.x));
+                this.y = Math.max(0, Math.min(window.innerHeight - 100, this.y));
+            }
+            
+            updatePosition() {
+                this.element.style.left = this.x + 'px';
+                this.element.style.top = this.y + 'px';
+                
+                if (this.bubble) {
+                    this.bubble.style.left = (this.x + 30) + 'px';
+                    this.bubble.style.top = (this.y - 40) + 'px';
+                }
+            }
+            
+            remove() {
+                if (this.element) {
+                    this.element.remove();
+                }
+                if (this.bubble) {
+                    this.bubble.remove();
+                }
+            }
+        }
+        
+        class DesktopPetGame {
+            constructor() {
+                this.pets = [];
+                this.selectedPetType = '🐱';
+                this.interactionCount = 0;
+                this.init();
+            }
+            
+            init() {
+                this.setupCursor();
+                this.setupEventListeners();
+                this.updateStats();
+                
+                // Add initial pet
+                this.addPet();
+            }
+            
+            setupCursor() {
+                const cursor = document.getElementById('customCursor');
+                let trailElements = [];
+                
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX - 10 + 'px';
+                    cursor.style.top = e.clientY - 10 + 'px';
+                    
+                    // Create cursor trail
+                    if (Math.random() < 0.3) {
+                        const trail = document.createElement('div');
+                        trail.className = 'cursor-trail';
+                        trail.style.left = e.clientX - 2 + 'px';
+                        trail.style.top = e.clientY - 2 + 'px';
+                        document.body.appendChild(trail);
+                        
+                        setTimeout(() => {
+                            if (trail.parentNode) {
+                                trail.parentNode.removeChild(trail);
+                            }
+                        }, 1000);
+                    }
+                });
+            }
+            
+            setupEventListeners() {
+                // Pet type selection
+                document.querySelectorAll('.pet-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        document.querySelectorAll('.pet-option').forEach(o => o.classList.remove('selected'));
+                        option.classList.add('selected');
+                        this.selectedPetType = option.dataset.pet;
+                    });
+                });
+                
+                // Double click to add pet
+                document.addEventListener('dblclick', (e) => {
+                    if (e.target.id === 'desktop' || e.target.classList.contains('desktop-container')) {
+                        this.addPet(e.clientX, e.clientY);
+                    }
+                });
+            }
+            
+            addPet(x = null, y = null) {
+                const petX = x || Math.random() * (window.innerWidth - 100);
+                const petY = y || Math.random() * (window.innerHeight - 150);
+                
+                const pet = new DesktopPet(this.selectedPetType, petX, petY);
+                this.pets.push(pet);
+                this.updateStats();
+            }
+            
+            removeAllPets() {
+                this.pets.forEach(pet => pet.remove());
+                this.pets = [];
+                this.updateStats();
+            }
+            
+            feedAllPets() {
+                this.pets.forEach(pet => {
+                    pet.hunger = Math.max(0, pet.hunger - 20);
+                    pet.happiness = Math.min(100, pet.happiness + 10);
+                    pet.showBubble('😋 Thanks for the food!');
+                });
+                this.interactionCount += this.pets.length;
+                this.updateStats();
+            }
+            
+            playWithPets() {
+                this.pets.forEach(pet => {
+                    pet.happiness = Math.min(100, pet.happiness + 15);
+                    pet.energy = Math.min(100, pet.energy + 10);
+                    pet.setState('playing');
+                    pet.showBubble('🎾 Playtime!');
+                });
+                this.interactionCount += this.pets.length;
+                this.updateStats();
+            }
+            
+            makeAllSleep() {
+                this.pets.forEach(pet => {
+                    pet.setState('sleeping');
+                    pet.energy = Math.min(100, pet.energy + 20);
+                    pet.showBubble('😴 Zzz...');
+                });
+                this.updateStats();
+            }
+            
+            spawnFood() {
+                const food = document.createElement('div');
+                food.className = 'food-item';
+                food.textContent = ['🍖', '🍎', '🥕', '🍪', '🥩'][Math.floor(Math.random() * 5)];
+                food.style.left = Math.random() * (window.innerWidth - 50) + 'px';
+                food.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+                
+                document.getElementById('desktop').appendChild(food);
+                
+                // Remove food after 30 seconds if not eaten
+                setTimeout(() => {
+                    if (food.parentNode) {
+                        food.parentNode.removeChild(food);
+                        this.updateStats();
+                    }
+                }, 30000);
+                
+                this.updateStats();
+            }
+            
+            updateStats() {
+                document.getElementById('petCount').textContent = this.pets.length;
+                document.getElementById('foodCount').textContent = document.querySelectorAll('.food-item').length;
+                document.getElementById('interactionCount').textContent = this.interactionCount;
+            }
+        }
+        
+        // Global functions
+        function addPet() { game.addPet(); }
+        function removeAllPets() { game.removeAllPets(); }
+        function feedAllPets() { game.feedAllPets(); }
+        function playWithPets() { game.playWithPets(); }
+        function makeAllSleep() { game.makeAllSleep(); }
+        function spawnFood() { game.spawnFood(); }
+        
+        // Initialize game
+        const game = new DesktopPetGame();
+    </script>
+</body>
+</html>

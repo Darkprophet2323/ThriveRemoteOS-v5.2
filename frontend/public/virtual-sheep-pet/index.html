@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐑 Cosmic Sheep - Virtual Pet</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, #0a0a0a, #1a0a2e, #16213e);
+            color: #00ffff;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+            cursor: none;
+        }
+        
+        .cosmic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .hud {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 20, 40, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            z-index: 1000;
+            min-width: 250px;
+        }
+        
+        .hud-title {
+            font-size: 1.5rem;
+            color: #00ffff;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px #00ffff;
+        }
+        
+        .stat-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #66ccff;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 0 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ffff, #66ccff);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .sheep {
+            position: absolute;
+            font-size: 6rem;
+            transition: all 0.3s ease;
+            z-index: 100;
+            cursor: pointer;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            user-select: none;
+        }
+        
+        .sheep.moving {
+            animation: bounce 0.6s ease-in-out infinite;
+        }
+        
+        .sheep.eating {
+            animation: chomp 0.5s ease-in-out;
+        }
+        
+        .sheep.happy {
+            animation: wiggle 1s ease-in-out;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+        
+        @keyframes chomp {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        
+        .food-icon {
+            position: absolute;
+            font-size: 2rem;
+            animation: foodFloat 3s ease-in-out infinite;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            user-select: none;
+            z-index: 50;
+        }
+        
+        .food-icon:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+        }
+        
+        .food-icon.eaten {
+            animation: eatAnimation 0.5s ease-in-out forwards;
+        }
+        
+        @keyframes foodFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+        
+        @keyframes eatAnimation {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) rotate(180deg); opacity: 0.7; }
+            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+        }
+        
+        .particle {
+            position: absolute;
+            font-size: 1rem;
+            pointer-events: none;
+            animation: particleFloat 2s ease-out forwards;
+            z-index: 200;
+        }
+        
+        @keyframes particleFloat {
+            0% { 
+                transform: translateY(0px) scale(1); 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translateY(-100px) scale(0.5); 
+                opacity: 0; 
+            }
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 20, 40, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            background: linear-gradient(45deg, #004466, #006699);
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            color: #00ffff;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: linear-gradient(45deg, #006699, #0099cc);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            color: #00ffff;
+            text-align: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .message.show {
+            opacity: 1;
+        }
+        
+        .achievements {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 20, 40, 0.9);
+            border: 2px solid #00ffff;
+            border-radius: 15px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            max-width: 200px;
+        }
+        
+        .achievement {
+            padding: 5px 0;
+            font-size: 0.8rem;
+            color: #66ccff;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+        
+        .achievement.unlocked {
+            color: #00ff88;
+            text-shadow: 0 0 5px #00ff88;
+        }
+        
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #00ffff, transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+        
+        .sheep-info {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.8rem;
+        }
+        
+        .sheep-name {
+            color: #ffaa00;
+            font-weight: bold;
+        }
+        
+        .sheep-level {
+            color: #00ff88;
+        }
+        
+        @media (max-width: 768px) {
+            .hud, .controls, .achievements {
+                position: relative;
+                margin: 10px;
+                width: calc(100% - 20px);
+            }
+            
+            .sheep {
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cosmic-bg"></div>
+    <div class="stars" id="starField"></div>
+    <div class="custom-cursor" id="customCursor"></div>
+    
+    <div class="game-container">
+        <!-- HUD -->
+        <div class="hud">
+            <div class="hud-title">🐑 Cosmic Sheep</div>
+            
+            <div class="stat-bar">
+                <span class="stat-label">Hunger</span>
+                <div class="progress-bar">
+                    <div id="hungerBar" class="progress-fill" style="width: 80%;"></div>
+                </div>
+                <span id="hungerValue">80</span>
+            </div>
+            
+            <div class="stat-bar">
+                <span class="stat-label">Happiness</span>
+                <div class="progress-bar">
+                    <div id="happinessBar" class="progress-fill" style="width: 90%;"></div>
+                </div>
+                <span id="happinessValue">90</span>
+            </div>
+            
+            <div class="stat-bar">
+                <span class="stat-label">Energy</span>
+                <div class="progress-bar">
+                    <div id="energyBar" class="progress-fill" style="width: 75%;"></div>
+                </div>
+                <span id="energyValue">75</span>
+            </div>
+            
+            <div class="stat-bar">
+                <span class="stat-label">Growth</span>
+                <div class="progress-bar">
+                    <div id="growthBar" class="progress-fill" style="width: 30%;"></div>
+                </div>
+                <span id="growthValue">30</span>
+            </div>
+            
+            <div class="sheep-info">
+                <div class="sheep-name" id="sheepName">Woolly</div>
+                <div class="sheep-level">Level <span id="sheepLevel">1</span></div>
+                <div style="color: #66ccff; margin-top: 5px;">
+                    Icons Eaten: <span id="foodEaten">0</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Achievements -->
+        <div class="achievements">
+            <div style="color: #00ffff; font-weight: bold; margin-bottom: 10px;">🏆 Achievements</div>
+            <div class="achievement" id="achievement1">🍎 First Bite</div>
+            <div class="achievement" id="achievement2">🌟 Star Eater</div>
+            <div class="achievement" id="achievement3">🚀 Space Grazer</div>
+            <div class="achievement" id="achievement4">👑 Sheep Master</div>
+            <div class="achievement" id="achievement5">🌌 Cosmic Guardian</div>
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button class="btn" onclick="spawnRandomFood()">🍎 Spawn Food</button>
+            <button class="btn" onclick="petSheep()">❤️ Pet Sheep</button>
+            <button class="btn" onclick="resetSheep()">🔄 Reset</button>
+            <button class="btn" onclick="toggleAutoMode()">🤖 Auto Mode</button>
+        </div>
+        
+        <!-- Sheep -->
+        <div class="sheep" id="sheep">🐑</div>
+        
+        <!-- Message overlay -->
+        <div class="message" id="messageOverlay"></div>
+    </div>
+    
+    <script>
+        class CosmicSheep {
+            constructor() {
+                this.sheep = document.getElementById('sheep');
+                this.gameContainer = document.querySelector('.game-container');
+                
+                // Sheep stats
+                this.stats = {
+                    hunger: 80,
+                    happiness: 90,
+                    energy: 75,
+                    growth: 30,
+                    level: 1,
+                    foodEaten: 0
+                };
+                
+                this.name = "Woolly";
+                this.position = { x: 400, y: 300 };
+                this.targetPosition = { x: 400, y: 300 };
+                this.isMoving = false;
+                this.autoMode = false;
+                this.lastUpdate = Date.now();
+                
+                // Food types with different effects
+                this.foodTypes = [
+                    { emoji: '🍎', hunger: +15, happiness: +5, energy: +0, name: 'Apple' },
+                    { emoji: '🥕', hunger: +20, happiness: +3, energy: +5, name: 'Carrot' },
+                    { emoji: '🌽', hunger: +12, happiness: +8, energy: +3, name: 'Corn' },
+                    { emoji: '🍇', hunger: +10, happiness: +15, energy: +2, name: 'Grapes' },
+                    { emoji: '🌿', hunger: +25, happiness: +10, energy: +10, name: 'Grass' },
+                    { emoji: '⭐', hunger: +5, happiness: +20, energy: +15, name: 'Star' },
+                    { emoji: '🌙', hunger: +8, happiness: +25, energy: +20, name: 'Moon' },
+                    { emoji: '💎', hunger: +3, happiness: +30, energy: +25, name: 'Crystal' },
+                    { emoji: '🌈', hunger: +10, happiness: +35, energy: +30, name: 'Rainbow' },
+                    { emoji: '🦄', hunger: +15, happiness: +40, energy: +35, name: 'Unicorn Magic' }
+                ];
+                
+                this.achievements = {
+                    achievement1: { unlocked: false, requirement: 1, desc: "Eat your first icon" },
+                    achievement2: { unlocked: false, requirement: 10, desc: "Eat 10 icons" },
+                    achievement3: { unlocked: false, requirement: 50, desc: "Eat 50 icons" },
+                    achievement4: { unlocked: false, requirement: 100, desc: "Eat 100 icons" },
+                    achievement5: { unlocked: false, requirement: 200, desc: "Eat 200 icons" }
+                };
+                
+                this.foods = [];
+                this.particles = [];
+                
+                this.init();
+            }
+            
+            init() {
+                this.createStarField();
+                this.setupCustomCursor();
+                this.updateSheepPosition();
+                this.updateDisplay();
+                this.startGameLoop();
+                this.bindEvents();
+                
+                // Spawn initial food
+                for (let i = 0; i < 3; i++) {
+                    setTimeout(() => this.spawnRandomFood(), i * 1000);
+                }
+                
+                this.showMessage("🐑 Welcome! Help Woolly eat cosmic icons!");
+            }
+            
+            createStarField() {
+                const starField = document.getElementById('starField');
+                for (let i = 0; i < 100; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.left = Math.random() * 100 + '%';
+                    star.style.top = Math.random() * 100 + '%';
+                    star.style.width = Math.random() * 3 + 1 + 'px';
+                    star.style.height = star.style.width;
+                    star.style.animationDelay = Math.random() * 2 + 's';
+                    starField.appendChild(star);
+                }
+            }
+            
+            setupCustomCursor() {
+                const cursor = document.getElementById('customCursor');
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX - 10 + 'px';
+                    cursor.style.top = e.clientY - 10 + 'px';
+                });
+            }
+            
+            bindEvents() {
+                // Click to move sheep
+                this.gameContainer.addEventListener('click', (e) => {
+                    if (e.target === this.gameContainer || e.target.classList.contains('cosmic-bg')) {
+                        this.moveToPosition(e.clientX, e.clientY);
+                    }
+                });
+                
+                // Click sheep for interaction
+                this.sheep.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.petSheep();
+                });
+            }
+            
+            moveToPosition(x, y) {
+                this.targetPosition = { x: x - 50, y: y - 50 };
+                this.isMoving = true;
+                this.sheep.classList.add('moving');
+            }
+            
+            updateSheepPosition() {
+                const dx = this.targetPosition.x - this.position.x;
+                const dy = this.targetPosition.y - this.position.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance > 5) {
+                    const speed = 3;
+                    this.position.x += (dx / distance) * speed;
+                    this.position.y += (dy / distance) * speed;
+                } else {
+                    this.isMoving = false;
+                    this.sheep.classList.remove('moving');
+                }
+                
+                // Keep sheep within bounds
+                this.position.x = Math.max(50, Math.min(window.innerWidth - 100, this.position.x));
+                this.position.y = Math.max(50, Math.min(window.innerHeight - 100, this.position.y));
+                
+                this.sheep.style.left = this.position.x + 'px';
+                this.sheep.style.top = this.position.y + 'px';
+                
+                // Check for food collisions
+                this.checkFoodCollisions();
+            }
+            
+            spawnRandomFood() {
+                const food = this.foodTypes[Math.floor(Math.random() * this.foodTypes.length)];
+                const foodElement = document.createElement('div');
+                foodElement.className = 'food-icon';
+                foodElement.textContent = food.emoji;
+                foodElement.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+                foodElement.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+                foodElement.foodData = food;
+                
+                // Click to attract sheep
+                foodElement.addEventListener('click', () => {
+                    this.moveToPosition(
+                        parseInt(foodElement.style.left) + 25,
+                        parseInt(foodElement.style.top) + 25
+                    );
+                });
+                
+                this.gameContainer.appendChild(foodElement);
+                this.foods.push(foodElement);
+                
+                // Remove food after 15 seconds if not eaten
+                setTimeout(() => {
+                    if (foodElement.parentNode) {
+                        this.removeFoodElement(foodElement);
+                    }
+                }, 15000);
+            }
+            
+            checkFoodCollisions() {
+                this.foods.forEach((food, index) => {
+                    const foodRect = food.getBoundingClientRect();
+                    const sheepRect = this.sheep.getBoundingClientRect();
+                    
+                    const distance = Math.sqrt(
+                        Math.pow(foodRect.left - sheepRect.left, 2) + 
+                        Math.pow(foodRect.top - sheepRect.top, 2)
+                    );
+                    
+                    if (distance < 80) {
+                        this.eatFood(food, index);
+                    }
+                });
+            }
+            
+            eatFood(foodElement, index) {
+                const food = foodElement.foodData;
+                
+                // Update stats
+                this.stats.hunger = Math.min(100, this.stats.hunger + food.hunger);
+                this.stats.happiness = Math.min(100, this.stats.happiness + food.happiness);
+                this.stats.energy = Math.min(100, this.stats.energy + food.energy);
+                this.stats.growth = Math.min(100, this.stats.growth + 2);
+                this.stats.foodEaten++;
+                
+                // Animate eating
+                this.sheep.classList.add('eating');
+                setTimeout(() => this.sheep.classList.remove('eating'), 500);
+                
+                // Animate food disappearing
+                foodElement.classList.add('eaten');
+                
+                // Create particles
+                this.createParticles(foodElement, food);
+                
+                // Show message
+                this.showMessage(`🐑 Yum! Ate ${food.name}!`);
+                
+                // Remove food element
+                setTimeout(() => {
+                    this.removeFoodElement(foodElement);
+                }, 500);
+                
+                // Check for level up
+                if (this.stats.growth >= 100) {
+                    this.levelUp();
+                }
+                
+                // Check achievements
+                this.checkAchievements();
+                
+                this.updateDisplay();
+            }
+            
+            removeFoodElement(foodElement) {
+                const index = this.foods.indexOf(foodElement);
+                if (index > -1) {
+                    this.foods.splice(index, 1);
+                }
+                if (foodElement.parentNode) {
+                    foodElement.parentNode.removeChild(foodElement);
+                }
+            }
+            
+            createParticles(foodElement, food) {
+                for (let i = 0; i < 5; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.textContent = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+                    particle.style.left = foodElement.style.left;
+                    particle.style.top = foodElement.style.top;
+                    particle.style.animation = `particleFloat ${1.5 + Math.random()}s ease-out forwards`;
+                    particle.style.animationDelay = Math.random() * 0.3 + 's';
+                    
+                    this.gameContainer.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 2500);
+                }
+            }
+            
+            levelUp() {
+                this.stats.level++;
+                this.stats.growth = 0;
+                this.sheep.classList.add('happy');
+                setTimeout(() => this.sheep.classList.remove('happy'), 1000);
+                
+                // Evolve sheep appearance
+                const sheepForms = ['🐑', '🦄', '🌟', '👑', '🌈'];
+                this.sheep.textContent = sheepForms[Math.min(this.stats.level - 1, sheepForms.length - 1)];
+                
+                this.showMessage(`🎉 Level Up! Welcome to Level ${this.stats.level}!`);
+            }
+            
+            petSheep() {
+                this.stats.happiness = Math.min(100, this.stats.happiness + 10);
+                this.stats.energy = Math.min(100, this.stats.energy + 5);
+                
+                this.sheep.classList.add('happy');
+                setTimeout(() => this.sheep.classList.remove('happy'), 1000);
+                
+                this.showMessage("🐑 Woolly loves the attention! ❤️");
+                this.updateDisplay();
+            }
+            
+            checkAchievements() {
+                Object.keys(this.achievements).forEach(key => {
+                    const achievement = this.achievements[key];
+                    if (!achievement.unlocked && this.stats.foodEaten >= achievement.requirement) {
+                        achievement.unlocked = true;
+                        document.getElementById(key).classList.add('unlocked');
+                        this.showMessage(`🏆 Achievement Unlocked! ${achievement.desc}`);
+                    }
+                });
+            }
+            
+            updateDisplay() {
+                // Update stat bars
+                document.getElementById('hungerBar').style.width = this.stats.hunger + '%';
+                document.getElementById('hungerValue').textContent = Math.floor(this.stats.hunger);
+                
+                document.getElementById('happinessBar').style.width = this.stats.happiness + '%';
+                document.getElementById('happinessValue').textContent = Math.floor(this.stats.happiness);
+                
+                document.getElementById('energyBar').style.width = this.stats.energy + '%';
+                document.getElementById('energyValue').textContent = Math.floor(this.stats.energy);
+                
+                document.getElementById('growthBar').style.width = this.stats.growth + '%';
+                document.getElementById('growthValue').textContent = Math.floor(this.stats.growth);
+                
+                // Update info
+                document.getElementById('sheepLevel').textContent = this.stats.level;
+                document.getElementById('foodEaten').textContent = this.stats.foodEaten;
+            }
+            
+            showMessage(text) {
+                const messageOverlay = document.getElementById('messageOverlay');
+                messageOverlay.textContent = text;
+                messageOverlay.classList.add('show');
+                
+                setTimeout(() => {
+                    messageOverlay.classList.remove('show');
+                }, 2000);
+            }
+            
+            startGameLoop() {
+                setInterval(() => {
+                    const now = Date.now();
+                    const deltaTime = (now - this.lastUpdate) / 1000;
+                    this.lastUpdate = now;
+                    
+                    // Update sheep position
+                    this.updateSheepPosition();
+                    
+                    // Natural stat decay
+                    this.stats.hunger = Math.max(0, this.stats.hunger - deltaTime * 0.5);
+                    this.stats.happiness = Math.max(0, this.stats.happiness - deltaTime * 0.3);
+                    this.stats.energy = Math.min(100, this.stats.energy + deltaTime * 0.2);
+                    
+                    // Auto spawn food in auto mode
+                    if (this.autoMode && Math.random() < 0.02) {
+                        this.spawnRandomFood();
+                    }
+                    
+                    // Random food spawning
+                    if (Math.random() < 0.005 && this.foods.length < 5) {
+                        this.spawnRandomFood();
+                    }
+                    
+                    this.updateDisplay();
+                }, 50);
+            }
+            
+            resetSheep() {
+                this.stats = {
+                    hunger: 80,
+                    happiness: 90,
+                    energy: 75,
+                    growth: 30,
+                    level: 1,
+                    foodEaten: 0
+                };
+                
+                this.sheep.textContent = '🐑';
+                this.position = { x: 400, y: 300 };
+                this.targetPosition = { x: 400, y: 300 };
+                
+                // Reset achievements
+                Object.keys(this.achievements).forEach(key => {
+                    this.achievements[key].unlocked = false;
+                    document.getElementById(key).classList.remove('unlocked');
+                });
+                
+                // Clear all food
+                this.foods.forEach(food => {
+                    if (food.parentNode) {
+                        food.parentNode.removeChild(food);
+                    }
+                });
+                this.foods = [];
+                
+                this.updateDisplay();
+                this.showMessage("🔄 Woolly has been reset!");
+            }
+            
+            toggleAutoMode() {
+                this.autoMode = !this.autoMode;
+                this.showMessage(this.autoMode ? "🤖 Auto Mode ON" : "🤖 Auto Mode OFF");
+            }
+        }
+        
+        // Global functions for buttons
+        function spawnRandomFood() {
+            game.spawnRandomFood();
+        }
+        
+        function petSheep() {
+            game.petSheep();
+        }
+        
+        function resetSheep() {
+            game.resetSheep();
+        }
+        
+        function toggleAutoMode() {
+            game.toggleAutoMode();
+        }
+        
+        // Initialize the game
+        const game = new CosmicSheep();
+    </script>
+</body>
+</html>
