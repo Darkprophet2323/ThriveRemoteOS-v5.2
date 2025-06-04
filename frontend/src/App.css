@@ -47,9 +47,9 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #ffffff;
+  font-family: 'Noto Sans', 'Inter', sans-serif;
+  background: linear-gradient(135deg, var(--kde-bg-primary) 0%, var(--kde-bg-secondary) 100%);
+  color: var(--kde-text-primary);
   overflow: hidden;
   height: 100vh;
 }
