@@ -714,57 +714,7 @@ const DesktopPetsLauncher = () => (
 
 const JobPortalLauncher = () => (
   <div className="app-content">
-    <h3>🍽️ Remote Waitressing Jobs Portal</h3>
-    <div className="portal-info">
-      <p>Access comprehensive remote waitressing and hospitality job opportunities with AI-powered application tools.</p>
-      <div className="portal-stats">
-        <div className="stat-item">
-          <span className="stat-number">500+</span>
-          <span className="stat-label">Remote Positions</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-number">$18-35</span>
-          <span className="stat-label">Hourly Rate</span>
-        </div>
-        <div className="stat-item">
-          <span className="stat-number">72%</span>
-          <span className="stat-label">Success Rate</span>
-        </div>
-      </div>
-      <div className="job-categories">
-        <h4>Featured Categories:</h4>
-        <ul>
-          <li>💻 Virtual Restaurant Assistant (145+ positions)</li>
-          <li>📞 Remote Customer Service (89+ positions)</li>
-          <li>📋 Order Management (76+ positions)</li>
-          <li>💬 Hospitality Chat Support (112+ positions)</li>
-        </ul>
-      </div>
-      <div className="quick-tools">
-        <h4>Integrated Tools:</h4>
-        <div className="tools-grid">
-          <div className="tool-item">
-            <h5>🤖 AI Apply</h5>
-            <p>Automate job applications with AI</p>
-          </div>
-          <div className="tool-item">
-            <h5>🚗 Make My Drive Fun</h5>
-            <p>Plan your job search journey</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="action-buttons">
-      <button className="btn-primary" onClick={() => window.open('/waitress-job-portal/', '_blank')}>
-        🎯 Open Job Portal
-      </button>
-      <button className="btn-secondary" onClick={() => window.open('https://aiapply.co/', '_blank')}>
-        🤖 AI Apply Tool
-      </button>
-      <button className="btn-secondary" onClick={() => window.open('https://makemydrivefun.com/', '_blank')}>
-        🚗 Journey Planner
-      </button>
-    </div>
+    <WaitressJobPortal />
   </div>
 );
 
