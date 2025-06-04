@@ -19,6 +19,11 @@ import time
 import random
 from pathlib import Path
 from dotenv import load_dotenv
+import sys
+
+# Add backend directory to Python path
+sys.path.append(str(Path(__file__).parent))
+
 from youtube_service import get_youtube_service
 
 # Load environment variables
