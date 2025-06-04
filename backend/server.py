@@ -19,6 +19,7 @@ import time
 import random
 from pathlib import Path
 from dotenv import load_dotenv
+from youtube_service import get_youtube_service
 
 # Load environment variables
 ROOT_DIR = Path(__file__).parent
@@ -38,6 +39,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# YouTube service
+youtube_service = get_youtube_service()
+
+# Pydantic models
+class TrackRequest(BaseModel):
+    video_id: str
+
+class SearchRequest(BaseModel):
+    query: str
+    max_results: Optional[int] = 5
 
 # MySQL connection configuration
 DB_CONFIG = {
