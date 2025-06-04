@@ -109,46 +109,39 @@ const ThriveRemoteDesktop = () => {
       {/* Desktop Background */}
       <div className="desktop-wallpaper"></div>
 
-      {/* Desktop Icons */}
+      {/* Enhanced Desktop Icons with Music Player */}
       <div className="desktop-icons">
-        <div className="desktop-icon" onClick={() => createWindow('database', 'Database Manager', <DatabaseManager systemStatus={systemStatus} />, '🗄️')}>
-          <div className="icon">🗄️</div>
-          <div className="label">Database</div>
+        <div className="desktop-icon" onClick={() => createWindow('jobs', 'AI Job Portal', <WaitressJobPortal />, '🤖')}>
+          <div className="icon material-icons-outlined">smart_toy</div>
+          <div className="label">AI Jobs</div>
         </div>
-        
-        <div className="desktop-icon" onClick={() => createWindow('content', 'Content Manager', <ContentManager />, '📁')}>
-          <div className="icon">📁</div>
-          <div className="label">Content</div>
+        <div className="desktop-icon" onClick={() => createWindow('music', 'Music Player', <div style={{padding: '20px', textAlign: 'center'}}><h3>🎵 KDE Music Player</h3><p>Integrated in taskbar below</p></div>, '🎵')}>
+          <div className="icon material-icons-outlined">library_music</div>
+          <div className="label">Music</div>
         </div>
-        
-        <div className="desktop-icon" onClick={() => createWindow('pets', 'Virtual Pets', <VirtualPetsManager virtualPets={virtualPets} />, '🎮')}>
-          <div className="icon">🎮</div>
-          <div className="label">Virtual Pets</div>
+        <div className="desktop-icon" onClick={() => createWindow('pets', 'Virtual Pets', <VirtualPetsManager virtualPets={virtualPets} />, '🐾')}>
+          <div className="icon material-icons-outlined">pets</div>
+          <div className="label">Pets</div>
         </div>
-        
-        <div className="desktop-icon" onClick={() => createWindow('jobs', 'Job Portal', <JobPortal />, '💼')}>
-          <div className="icon">💼</div>
-          <div className="label">Jobs</div>
+        <div className="desktop-icon" onClick={() => createWindow('files', 'File Manager', <div style={{padding: '20px'}}><h3>📁 KDE File Manager</h3><p>Navigate your system files</p></div>, '📁')}>
+          <div className="icon material-icons-outlined">folder</div>
+          <div className="label">Files</div>
         </div>
-        
-        <div className="desktop-icon" onClick={() => createWindow('settings', 'System Settings', <SystemSettings />, '⚙️')}>
-          <div className="icon">⚙️</div>
-          <div className="label">Settings</div>
-        </div>
-        
-        <div className="desktop-icon" onClick={() => createWindow('terminal', 'Quantum Terminal', <QuantumTerminal />, '💻', { width: 800, height: 500 })}>
-          <div className="icon">💻</div>
+        <div className="desktop-icon" onClick={() => createWindow('terminal', 'Terminal', <QuantumTerminal />, '💻', { width: 800, height: 500 })}>
+          <div className="icon material-icons-outlined">terminal</div>
           <div className="label">Terminal</div>
         </div>
-        
-        <div className="desktop-icon" onClick={() => createWindow('desktop-pets', 'Desktop Pets', <DesktopPetsLauncher />, '🐾')}>
-          <div className="icon">🐾</div>
-          <div className="label">Desktop Pets</div>
+        <div className="desktop-icon" onClick={() => createWindow('settings', 'Settings', <SystemSettings />, '⚙️')}>
+          <div className="icon material-icons-outlined">settings</div>
+          <div className="label">Settings</div>
         </div>
-        
-        <div className="desktop-icon" onClick={() => createWindow('job-portal', 'Waitress Jobs', <JobPortalLauncher />, '🍽️')}>
-          <div className="icon">🍽️</div>
-          <div className="label">Waitress Jobs</div>
+        <div className="desktop-icon" onClick={() => createWindow('calculator', 'Calculator', <div style={{padding: '20px'}}><h3>🧮 KDE Calculator</h3><p>Perform calculations</p></div>, '🧮')}>
+          <div className="icon material-icons-outlined">calculate</div>
+          <div className="label">Calculator</div>
+        </div>
+        <div className="desktop-icon" onClick={() => createWindow('editor', 'Text Editor', <div style={{padding: '20px'}}><h3>📝 KDE Text Editor</h3><p>Edit documents and code</p></div>, '📝')}>
+          <div className="icon material-icons-outlined">edit_note</div>
+          <div className="label">Editor</div>
         </div>
       </div>
 
