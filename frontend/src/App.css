@@ -469,21 +469,26 @@ body {
   border-bottom-right-radius: 16px;
 }
 
-/* KDE VERME ITE TASKBAR - Enhanced with Music Player Space */
+/* BLACK & GOLD TASKBAR */
 .taskbar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 45px;
-  background: var(--kde-bg-overlay);
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.98) 0%, 
+    rgba(20, 20, 20, 0.95) 50%,
+    rgba(0, 0, 0, 0.98) 100%);
   backdrop-filter: blur(25px);
-  border-top: 1px solid var(--kde-border);
+  border-top: 2px solid rgba(218, 165, 32, 0.5);
   display: flex;
   align-items: center;
   padding: 0 12px;
   z-index: 1000;
-  box-shadow: 0 -5px 25px var(--kde-shadow);
+  box-shadow: 
+    0 -5px 25px rgba(0, 0, 0, 0.8),
+    inset 0 1px 0 rgba(218, 165, 32, 0.3);
 }
 
 .start-menu-container {
