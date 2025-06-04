@@ -1,47 +1,45 @@
-/* LUXURY FASHION AI PLATFORM - YSL INSPIRED AESTHETIC */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=Inter:wght@200;300;400;500;600;700;800&family=Crimson+Text:wght@400;600&display=swap');
+/* NOIR-GOLD LUXURY FASHION AI PLATFORM */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=Inter:wght@200;300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
 
 :root {
-  /* SOPHISTICATED COLOR THEORY - LUXURY FASHION PALETTE */
-  --luxury-black: #0A0A0A;
-  --deep-charcoal: #1C1C1C;
-  --sophisticated-gray: #2A2A2A;
-  --warm-cream: #F8F6F0;
-  --pearl-white: #FEFEFE;
-  --champagne: #F7E7CE;
+  /* NOIR-GOLD SOPHISTICATED PALETTE */
+  --noir-black: #0D0D0D;
+  --deep-noir: #1A1A1A;
+  --charcoal-noir: #2D2D2D;
+  --warm-gold: #D4AF37;
+  --rich-gold: #FFD700;
+  --antique-gold: #B8860B;
   --rose-gold: #E8B4B8;
-  --burgundy: #800020;
-  --deep-rouge: #9B111E;
-  --soft-blush: #F4C2C2;
-  --platinum: #E5E4E2;
-  --silver-mist: #C0C0C0;
+  --champagne: #F7E7CE;
+  --pearl: #F8F6F4;
+  --cream: #FDF5E6;
+  --deep-burgundy: #800020;
+  --noir-red: #8B0000;
   
-  /* SOPHISTICATED TRANSPARENCY LAYERS */
-  --glass-black: rgba(10, 10, 10, 0.95);
-  --silk-overlay: rgba(248, 246, 240, 0.08);
-  --velvet-shadow: rgba(0, 0, 0, 0.6);
-  --pearl-glow: rgba(254, 254, 254, 0.1);
-  --champagne-mist: rgba(247, 231, 206, 0.15);
+  /* DRAMATIC LIGHTING EFFECTS */
+  --gold-glow: rgba(212, 175, 55, 0.6);
+  --noir-shadow: rgba(13, 13, 13, 0.8);
+  --silk-mist: rgba(248, 246, 244, 0.1);
+  --velvet-shadow: rgba(0, 0, 0, 0.9);
+  --dramatic-gradient: linear-gradient(135deg, 
+    var(--noir-black) 0%, 
+    var(--deep-noir) 30%,
+    var(--charcoal-noir) 60%,
+    var(--deep-noir) 100%);
   
-  /* PHOTOREALISTIC GRADIENTS */
-  --luxury-gradient: linear-gradient(135deg, 
-    var(--luxury-black) 0%, 
-    var(--deep-charcoal) 25%,
-    var(--sophisticated-gray) 50%,
-    var(--deep-charcoal) 75%,
-    var(--luxury-black) 100%);
-  
-  --silk-gradient: linear-gradient(145deg,
-    var(--warm-cream) 0%,
-    var(--champagne) 30%,
-    var(--pearl-white) 60%,
-    var(--warm-cream) 100%);
+  /* CINEMATIC GRADIENTS */
+  --gold-gradient: linear-gradient(135deg,
+    var(--antique-gold) 0%,
+    var(--warm-gold) 40%,
+    var(--rich-gold) 70%,
+    var(--champagne) 100%);
     
-  --noir-gradient: linear-gradient(160deg,
-    var(--luxury-black) 0%,
-    rgba(128, 0, 32, 0.1) 40%,
-    var(--deep-charcoal) 100%);
+  --noir-gold-gradient: linear-gradient(145deg,
+    var(--noir-black) 0%,
+    rgba(212, 175, 55, 0.05) 30%,
+    var(--deep-noir) 60%,
+    rgba(184, 134, 11, 0.08) 100%);
 }
 
 * {
