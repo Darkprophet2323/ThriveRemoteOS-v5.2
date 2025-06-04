@@ -59,34 +59,37 @@ body {
   width: 100vw;
 }
 
-/* Boot Screen */
+/* Boot Screen - KDE Style */
 .boot-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--kde-bg-primary) 0%, var(--kde-bg-tertiary) 100%);
+  color: var(--kde-text-primary);
 }
 
 .boot-logo {
   font-size: 8rem;
   margin-bottom: 2rem;
-  animation: pulse 2s infinite;
+  animation: kdeBootPulse 2s infinite;
+  color: var(--kde-primary);
 }
 
 .boot-text {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 8px var(--kde-shadow);
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .boot-subtitle {
   font-size: 1.2rem;
   opacity: 0.8;
   margin-bottom: 3rem;
+  color: var(--kde-text-secondary);
 }
 
 .boot-progress {
@@ -99,20 +102,26 @@ body {
 
 .boot-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, #667eea, #764ba2);
+  background: linear-gradient(90deg, var(--kde-primary), var(--kde-primary-dark));
   border-radius: 2px;
-  animation: loading 3s ease-in-out infinite;
+  animation: kdeLoading 3s ease-in-out infinite;
 }
 
-@keyframes loading {
+@keyframes kdeLoading {
   0% { width: 0%; }
   50% { width: 70%; }
   100% { width: 100%; }
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+@keyframes kdeBootPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    filter: drop-shadow(0 0 20px var(--kde-primary));
+  }
+  50% { 
+    transform: scale(1.05); 
+    filter: drop-shadow(0 0 40px var(--kde-primary));
+  }
 }
 
 /* Desktop Environment */
