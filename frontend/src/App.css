@@ -1,5 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+/* KDE VERME ITE THEME INTEGRATION */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Outlined');
+
+:root {
+  /* KDE Verme Ite Color Palette */
+  --kde-primary: #3DAEE9;
+  --kde-primary-dark: #2980B9;
+  --kde-secondary: #8E44AD;
+  --kde-accent: #E74C3C;
+  --kde-success: #27AE60;
+  --kde-warning: #F39C12;
+  
+  /* Background Colors */
+  --kde-bg-primary: #2C3E50;
+  --kde-bg-secondary: #34495E;
+  --kde-bg-tertiary: #1B2631;
+  --kde-bg-overlay: rgba(44, 62, 80, 0.95);
+  
+  /* Text Colors */
+  --kde-text-primary: #ECF0F1;
+  --kde-text-secondary: #BDC3C7;
+  --kde-text-muted: #95A5A6;
+  
+  /* Surface Colors */
+  --kde-surface: rgba(52, 73, 94, 0.9);
+  --kde-surface-hover: rgba(52, 73, 94, 0.95);
+  --kde-surface-active: rgba(61, 174, 233, 0.2);
+  
+  /* Border and Shadows */
+  --kde-border: rgba(189, 195, 199, 0.2);
+  --kde-shadow: rgba(0, 0, 0, 0.3);
+  --kde-glow: rgba(61, 174, 233, 0.4);
+  
+  /* Spacing System */
+  --kde-space-xs: 4px;
+  --kde-space-sm: 8px;
+  --kde-space-md: 16px;
+  --kde-space-lg: 24px;
+  --kde-space-xl: 32px;
+}
 
 * {
   margin: 0;
