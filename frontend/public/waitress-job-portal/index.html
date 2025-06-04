@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
@@ -19,909 +17,1043 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            color: #333;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #667eea 100%);
+            overflow-x: hidden;
+            color: #ffffff;
             line-height: 1.6;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
+
+        /* Header with Arch Linux inspired styling */
+        .portal-header {
+            background: linear-gradient(
+                135deg,
+                rgba(23, 37, 84, 0.95) 0%,
+                rgba(85, 136, 170, 0.95) 50%,
+                rgba(102, 126, 234, 0.95) 100%
+            );
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 15px 0;
-            position: sticky;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-header::before {
+            content: '';
+            position: absolute;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(120, 180, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 120, 180, 0.1) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+            z-index: 1;
         }
-        
-        .nav {
+
+        .header-content {
+            position: relative;
+            z-index: 2;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #667eea;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-        
-        .nav-link {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: #667eea;
-        }
-        
-        .cta-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
-        }
-        
-        /* Hero Section */
-        .hero {
-            padding: 80px 0 60px;
-            text-align: center;
-            color: white;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-        
-        .hero .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .hero-cta {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
             flex-wrap: wrap;
         }
-        
-        .hero-button {
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 16px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+
+        .header-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        
-        .hero-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            background: white;
-        }
-        
-        .hero-button.secondary {
-            background: rgba(255, 255, 255, 0.1);
+
+        .header-icon .material-icons {
+            font-size: 2.5rem;
             color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
         }
-        
-        .hero-button.secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: rgba(255, 255, 255, 0.5);
+
+        .header-text {
+            flex: 1;
+            min-width: 300px;
         }
-        
-        /* Stats Section */
-        .stats {
-            background: white;
-            padding: 60px 0;
-            margin-top: -30px;
-            border-radius: 30px 30px 0 0;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            text-align: center;
-        }
-        
-        .stat-item {
-            padding: 20px;
-        }
-        
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #667eea;
-            display: block;
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            font-size: 1.1rem;
-            color: #666;
-            font-weight: 500;
-        }
-        
-        /* Job Categories */
-        .job-categories {
-            padding: 80px 0;
-            background: #f8fafc;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-        
-        .section-title h2 {
+
+        .header-text h1 {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #333;
-            margin-bottom: 15px;
+            margin: 0 0 0.5rem 0;
+            background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
-        .section-title p {
+
+        .header-text p {
             font-size: 1.2rem;
-            color: #666;
-            max-width: 600px;
+            opacity: 0.9;
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .header-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 120px;
+        }
+
+        .stat-item .material-icons {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .stat-label {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            color: #e0e7ff;
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            padding: 0 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .category-tab {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .category-tab:hover {
+            color: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .category-tab.active {
+            color: #ffffff;
+            border-bottom-color: #667eea;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .category-tab .material-icons {
+            font-size: 1.2rem;
+        }
+
+        /* Links Container */
+        .links-container {
+            padding: 2rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
-        
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
-        
-        .category-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            text-align: center;
-            cursor: pointer;
-        }
-        
-        .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-        }
-        
+
         .category-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            display: block;
+            font-size: 2rem;
         }
-        
-        .category-title {
-            font-size: 1.5rem;
+
+        .category-header h2 {
+            font-size: 1.8rem;
             font-weight: 600;
-            color: #333;
-            margin-bottom: 15px;
+            margin: 0;
+            color: #ffffff;
         }
-        
-        .category-desc {
-            color: #666;
-            margin-bottom: 20px;
+
+        .link-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #e0e7ff;
         }
-        
-        .category-jobs {
-            color: #667eea;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        /* Job Listings */
-        .job-listings {
-            padding: 80px 0;
-            background: white;
-        }
-        
-        .jobs-grid {
+
+        /* Links Grid */
+        .links-grid {
             display: grid;
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
-        
-        .job-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1f2937;
             border-radius: 16px;
-            padding: 30px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
-            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .job-card:hover {
-            border-color: #667eea;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
-        
-        .job-header {
+
+        .link-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
+            align-items: center;
+            margin-bottom: 1rem;
         }
-        
-        .job-info h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 8px;
+
+        .link-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
-        
-        .job-company {
-            color: #667eea;
-            font-weight: 500;
-            margin-bottom: 5px;
+
+        .link-icon .material-icons {
+            color: white;
+            font-size: 1.5rem;
         }
-        
-        .job-location {
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .job-salary {
+
+        .link-category {
             background: #e0e7ff;
             color: #3730a3;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-        
-        .job-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .job-tag {
-            background: #f1f5f9;
-            color: #475569;
-            padding: 6px 12px;
-            border-radius: 15px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
             font-size: 0.8rem;
             font-weight: 500;
         }
-        
-        .job-description {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
+
+        .card-content {
+            margin-bottom: 1.5rem;
         }
-        
-        .job-actions {
-            display: flex;
-            gap: 15px;
+
+        .link-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
         }
-        
-        .job-button {
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
+
+        .link-description {
+            color: #6b7280;
             font-size: 0.9rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            line-height: 1.5;
+            margin: 0 0 1rem 0;
         }
-        
-        .job-button.primary {
-            background: #667eea;
-            color: white;
+
+        .star-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            margin-bottom: 0.5rem;
         }
-        
-        .job-button.secondary {
-            background: #f1f5f9;
-            color: #475569;
+
+        .star {
+            font-size: 1rem;
         }
-        
-        .job-button:hover {
-            transform: translateY(-2px);
+
+        .star.filled {
+            color: #fbbf24;
         }
-        
-        /* Resources Section */
-        .resources {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+
+        .star.half {
+            color: #fbbf24;
         }
-        
-        .resources-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+
+        .star.empty {
+            color: #d1d5db;
         }
-        
-        .resource-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
+
+        .rating-text {
+            margin-left: 0.5rem;
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 500;
         }
-        
-        .resource-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+
+        .card-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
-        
-        .resource-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        .resource-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .resource-desc {
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        
-        .resource-link {
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            transition: border-color 0.3s ease;
-        }
-        
-        .resource-link:hover {
-            border-bottom-color: white;
-        }
-        
-        /* Tips Section */
-        .tips {
-            padding: 80px 0;
-            background: white;
-        }
-        
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .tip-card {
-            background: #f8fafc;
-            border-left: 4px solid #667eea;
-            padding: 30px;
-            border-radius: 12px;
-        }
-        
-        .tip-number {
-            background: #667eea;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+
+        .visit-button {
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        
-        .tip-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .tip-content {
-            color: #666;
-            line-height: 1.6;
-        }
-        
-        /* Footer */
-        .footer {
-            background: #1a202c;
+            gap: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 60px 0 30px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-section h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links a {
-            color: #a0aec0;
             text-decoration: none;
-            transition: color 0.3s ease;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
-        
-        .footer-links a:hover {
+
+        .visit-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .visit-button .material-icons {
+            font-size: 1.1rem;
+        }
+
+        .favorite-button {
+            width: 40px;
+            height: 40px;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-button:hover {
+            background: #fef2f2;
+            border-color: #fca5a5;
+            color: #dc2626;
+        }
+
+        .favorite-button .material-icons {
+            font-size: 1.2rem;
+            color: #6b7280;
+        }
+
+        .favorite-button:hover .material-icons {
+            color: #dc2626;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quick-actions h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 0 1.5rem 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .quick-actions h3 .material-icons {
+            color: #fbbf24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
         }
-        
-        .footer-bottom {
-            border-top: 1px solid #2d3748;
-            padding-top: 20px;
-            text-align: center;
-            color: #a0aec0;
+
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
         }
-        
-        /* Responsive */
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .action-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .action-btn .material-icons {
+            font-size: 1.1rem;
+        }
+
+        /* Back to Desktop */
+        .back-to-desktop {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1f2937;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-desktop:hover {
+            background: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-cta {
+            .header-content {
                 flex-direction: column;
-                align-items: center;
+                text-align: center;
+                gap: 1.5rem;
             }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .stats-grid {
+
+            .header-stats {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
+                width: 100%;
             }
-            
-            .categories-grid {
+
+            .header-text h1 {
+                font-size: 2rem;
+            }
+
+            .category-nav {
+                padding: 0 1rem;
+            }
+
+            .category-tab {
+                padding: 0.8rem 1rem;
+            }
+
+            .links-container {
+                padding: 1rem;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .quick-actions {
+                margin: 1rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-stats {
                 grid-template-columns: 1fr;
             }
-            
-            .job-header {
-                flex-direction: column;
-                gap: 15px;
+
+            .stat-item {
+                min-width: auto;
             }
-            
-            .job-actions {
+
+            .category-nav {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .card-actions {
                 flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .favorite-button {
+                width: 100%;
+                height: 40px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav container">
-            <div class="logo">
-                🍽️ WaitressJobs
-            </div>
-            <div class="nav-links">
-                <a href="#jobs" class="nav-link">Find Jobs</a>
-                <a href="#resources" class="nav-link">Resources</a>
-                <a href="#tips" class="nav-link">Tips</a>
-                <a href="#" class="cta-button">Get Started</a>
-            </div>
-        </nav>
-    </header>
+    <!-- Back to Desktop Link -->
+    <a href="/" class="back-to-desktop">
+        <span class="material-icons">arrow_back</span>
+        Back to Desktop
+    </a>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>🚀 Land Your Dream Remote Waitressing Job</h1>
-            <p class="subtitle">
-                Discover high-paying remote customer service and hospitality opportunities. 
-                Get hired faster with AI-powered applications and expert guidance.
-            </p>
-            <div class="hero-cta">
-                <a href="#jobs" class="hero-button">
-                    🔍 Browse Jobs
-                </a>
-                <a href="#tips" class="hero-button secondary">
-                    📚 Quick Start Guide
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">Remote Positions</span>
+    <div class="waitress-job-portal">
+        <!-- Header with Arch-inspired background -->
+        <div class="portal-header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <span class="material-icons">restaurant_menu</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">$18-35</span>
-                    <span class="stat-label">Hourly Rate Range</span>
+                <div class="header-text">
+                    <h1>Awesome Hospitality Job Portal</h1>
+                    <p>Curated links and resources for remote hospitality careers</p>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-number">72%</span>
-                    <span class="stat-label">Hiring Success Rate</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24hrs</span>
-                    <span class="stat-label">Average Response Time</span>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="material-icons">work</span>
+                        <div>
+                            <span class="stat-number">847</span>
+                            <span class="stat-label">Active Jobs</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="material-icons">send</span>
+                        <div>
+                            <span class="stat-number">23</span>
+                            <span class="stat-label">Applied Today</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="material-icons">trending_up</span>
+                        <div>
+                            <span class="stat-number">78%</span>
+                            <span class="stat-label">Response Rate</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="material-icons">payments</span>
+                        <div>
+                            <span class="stat-number">$28K</span>
+                            <span class="stat-label">Avg Salary</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Job Categories -->
-    <section class="job-categories" id="jobs">
-        <div class="container">
-            <div class="section-title">
-                <h2>🎯 Popular Remote Service Categories</h2>
-                <p>Find the perfect remote opportunity in hospitality and customer service</p>
-            </div>
-            <div class="categories-grid">
-                <div class="category-card" onclick="filterJobs('virtual-assistant')">
-                    <span class="category-icon">💻</span>
-                    <h3 class="category-title">Virtual Restaurant Assistant</h3>
-                    <p class="category-desc">Handle online orders, reservations, and customer inquiries remotely</p>
-                    <span class="category-jobs">145+ positions</span>
-                </div>
-                <div class="category-card" onclick="filterJobs('customer-service')">
-                    <span class="category-icon">📞</span>
-                    <h3 class="category-title">Remote Customer Service</h3>
-                    <p class="category-desc">Provide excellent customer support for restaurants and food services</p>
-                    <span class="category-jobs">89+ positions</span>
-                </div>
-                <div class="category-card" onclick="filterJobs('order-management')">
-                    <span class="category-icon">📋</span>
-                    <h3 class="category-title">Order Management</h3>
-                    <p class="category-desc">Coordinate delivery orders and manage restaurant operations</p>
-                    <span class="category-jobs">76+ positions</span>
-                </div>
-                <div class="category-card" onclick="filterJobs('hospitality-chat')">
-                    <span class="category-icon">💬</span>
-                    <h3 class="category-title">Hospitality Chat Support</h3>
-                    <p class="category-desc">Live chat support for hotels, restaurants, and hospitality services</p>
-                    <span class="category-jobs">112+ positions</span>
-                </div>
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <button class="category-tab active" onclick="showCategory('remote-jobs')" style="--category-color: #2196F3">
+                <span class="material-icons">work</span>
+                <span>Remote Job Boards</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('ai-tools')" style="--category-color: #FF5722">
+                <span class="material-icons">smart_toy</span>
+                <span>AI Job Tools</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('freelance')" style="--category-color: #4CAF50">
+                <span class="material-icons">person_search</span>
+                <span>Freelance Platforms</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('hospitality')" style="--category-color: #9C27B0">
+                <span class="material-icons">restaurant</span>
+                <span>Hospitality & Service</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('journey')" style="--category-color: #FF9800">
+                <span class="material-icons">map</span>
+                <span>Journey Planning</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('resources')" style="--category-color: #607D8B">
+                <span class="material-icons">school</span>
+                <span>Career Resources</span>
+            </button>
+        </div>
+
+        <!-- Links Container -->
+        <div class="links-container" id="linksContainer">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h3>
+                <span class="material-icons">flash_on</span>
+                Quick Actions
+            </h3>
+            <div class="action-buttons">
+                <button class="action-btn primary" onclick="openAIApply()">
+                    <span class="material-icons">auto_fix_high</span>
+                    AI Apply to All
+                </button>
+                <button class="action-btn secondary" onclick="saveFavorites()">
+                    <span class="material-icons">bookmark_add</span>
+                    Save Favorites
+                </button>
+                <button class="action-btn secondary" onclick="exportLinks()">
+                    <span class="material-icons">share</span>
+                    Export Links
+                </button>
+                <button class="action-btn secondary" onclick="viewAnalytics()">
+                    <span class="material-icons">analytics</span>
+                    View Analytics
+                </button>
             </div>
         </div>
-    </section>
-
-    <!-- Job Listings -->
-    <section class="job-listings">
-        <div class="container">
-            <div class="section-title">
-                <h2>🔥 Featured Remote Opportunities</h2>
-                <p>Hand-picked positions with verified employers and competitive pay</p>
-            </div>
-            <div class="jobs-grid" id="jobsGrid">
-                <!-- Job listings will be populated by JavaScript -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Resources -->
-    <section class="resources" id="resources">
-        <div class="container">
-            <div class="section-title">
-                <h2 style="color: white;">🛠️ Job Hunting Resources</h2>
-                <p style="color: rgba(255,255,255,0.9);">Tools and platforms to accelerate your job search</p>
-            </div>
-            <div class="resources-grid">
-                <div class="resource-card">
-                    <span class="resource-icon">🤖</span>
-                    <h3 class="resource-title">AI Apply</h3>
-                    <p class="resource-desc">Automate your job applications with AI-powered tools</p>
-                    <a href="https://aiapply.co/" target="_blank" class="resource-link">Visit AI Apply →</a>
-                </div>
-                <div class="resource-card">
-                    <span class="resource-icon">🚗</span>
-                    <h3 class="resource-title">Make My Drive Fun</h3>
-                    <p class="resource-desc">Plan your job search journey and discover opportunities along the way</p>
-                    <a href="https://makemydrivefun.com/" target="_blank" class="resource-link">Explore Routes →</a>
-                </div>
-                <div class="resource-card">
-                    <span class="resource-icon">🌐</span>
-                    <h3 class="resource-title">Remote Job Boards</h3>
-                    <p class="resource-desc">Curated list of the best remote job platforms</p>
-                    <a href="#" class="resource-link">View Boards →</a>
-                </div>
-                <div class="resource-card">
-                    <span class="resource-icon">📝</span>
-                    <h3 class="resource-title">Resume Builder</h3>
-                    <p class="resource-desc">Create professional resumes tailored for remote work</p>
-                    <a href="#" class="resource-link">Build Resume →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tips Section -->
-    <section class="tips" id="tips">
-        <div class="container">
-            <div class="section-title">
-                <h2>⚡ Get Hired Fast: Expert Tips</h2>
-                <p>Proven strategies to land remote waitressing jobs quickly</p>
-            </div>
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <div class="tip-number">1</div>
-                    <h3 class="tip-title">Optimize Your Profile</h3>
-                    <p class="tip-content">
-                        Highlight customer service experience, communication skills, and any remote work background. 
-                        Use keywords like "hospitality," "customer relations," and "virtual support."
-                    </p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-number">2</div>
-                    <h3 class="tip-title">Apply Within 24 Hours</h3>
-                    <p class="tip-content">
-                        Remote positions get hundreds of applications. Be among the first 10 applicants to significantly 
-                        increase your chances. Set up job alerts for instant notifications.
-                    </p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-number">3</div>
-                    <h3 class="tip-title">Master Video Interviews</h3>
-                    <p class="tip-content">
-                        Practice with video calling tools, ensure good lighting and audio. Prepare to demonstrate 
-                        your communication skills and professionalism on camera.
-                    </p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-number">4</div>
-                    <h3 class="tip-title">Showcase Tech Skills</h3>
-                    <p class="tip-content">
-                        Mention familiarity with POS systems, order management software, CRM tools, and chat platforms. 
-                        Remote roles require tech-savvy candidates.
-                    </p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-number">5</div>
-                    <h3 class="tip-title">Network on LinkedIn</h3>
-                    <p class="tip-content">
-                        Connect with restaurant managers and hospitality recruiters. Share content about customer service 
-                        excellence and engage with industry posts.
-                    </p>
-                </div>
-                <div class="tip-card">
-                    <div class="tip-number">6</div>
-                    <h3 class="tip-title">Use AI Tools</h3>
-                    <p class="tip-content">
-                        Leverage AI application tools like AI Apply to automate applications while maintaining 
-                        personalization. This increases your application volume and success rate.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Job Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://remote.co/">Remote.co</a></li>
-                        <li><a href="https://weworkremotely.com/">We Work Remotely</a></li>
-                        <li><a href="https://remoteok.io/">RemoteOK</a></li>
-                        <li><a href="https://flexjobs.com/">FlexJobs</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>AI Tools</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://aiapply.co/">AI Apply</a></li>
-                        <li><a href="https://resume.io/">Resume.io</a></li>
-                        <li><a href="https://zety.com/">Zety Resume Builder</a></li>
-                        <li><a href="https://grammarly.com/">Grammarly</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Learning Resources</h3>
-                    <ul class="footer-links">
-                        <li><a href="https://coursera.org/">Coursera</a></li>
-                        <li><a href="https://udemy.com/">Udemy</a></li>
-                        <li><a href="https://linkedin.com/learning">LinkedIn Learning</a></li>
-                        <li><a href="https://skillshare.com/">Skillshare</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Job Search Tips</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Resume Writing Guide</a></li>
-                        <li><a href="#">Interview Preparation</a></li>
-                        <li><a href="#">Salary Negotiation</a></li>
-                        <li><a href="#">Remote Work Best Practices</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 ThriveRemoteOS Waitress Jobs Portal. Part of the ThriveRemoteOS ecosystem.</p>
-            </div>
-        </div>
-    </footer>
+    </div>
 
     <script>
-        // Sample job data
-        const jobs = [
-            {
-                title: "Virtual Restaurant Coordinator",
-                company: "Hospitality Plus Remote",
-                location: "Work from Anywhere",
-                salary: "$22-28/hr",
-                type: "Full-time",
-                tags: ["Customer Service", "Order Management", "Remote", "Benefits"],
-                description: "Coordinate online orders, manage customer inquiries, and support restaurant operations remotely. Perfect for experienced waitresses transitioning to remote work.",
-                category: "virtual-assistant"
+        // Awesome Links with KDE-style categories and Google Material Icons
+        const awesomeLinks = {
+            'remote-jobs': {
+                title: 'Remote Job Boards',
+                icon: 'work',
+                color: '#2196F3',
+                links: [
+                    {
+                        name: 'Remote.co',
+                        url: 'https://remote.co/',
+                        description: 'Curated remote job listings from top companies',
+                        icon: 'business_center',
+                        rating: 4.8,
+                        category: 'Premium'
+                    },
+                    {
+                        name: 'We Work Remotely',
+                        url: 'https://weworkremotely.com/',
+                        description: 'Largest remote work community with job listings',
+                        icon: 'groups',
+                        rating: 4.6,
+                        category: 'Community'
+                    },
+                    {
+                        name: 'FlexJobs',
+                        url: 'https://flexjobs.com/',
+                        description: 'Hand-screened remote and flexible jobs',
+                        icon: 'verified',
+                        rating: 4.7,
+                        category: 'Premium'
+                    },
+                    {
+                        name: 'AngelList Talent',
+                        url: 'https://angel.co/jobs',
+                        description: 'Startup jobs and remote opportunities',
+                        icon: 'rocket_launch',
+                        rating: 4.5,
+                        category: 'Startups'
+                    },
+                    {
+                        name: 'Working Nomads',
+                        url: 'https://workingnomads.co/',
+                        description: 'Remote jobs for digital nomads',
+                        icon: 'travel_explore',
+                        rating: 4.4,
+                        category: 'Nomad'
+                    },
+                    {
+                        name: 'NoDesk',
+                        url: 'https://nodesk.co/',
+                        description: 'Remote work resources and job board',
+                        icon: 'laptop_mac',
+                        rating: 4.3,
+                        category: 'Resources'
+                    }
+                ]
             },
-            {
-                title: "Remote Customer Success Specialist",
-                company: "DineFlow Technologies",
-                location: "US Remote",
-                salary: "$35,000-45,000/year",
-                type: "Full-time",
-                tags: ["Customer Support", "SaaS", "Hospitality Tech", "Growth"],
-                description: "Help restaurant clients succeed with our platform. Use your hospitality experience to guide customers through onboarding and ongoing support.",
-                category: "customer-service"
+            'ai-tools': {
+                title: 'AI Job Application Tools',
+                icon: 'smart_toy',
+                color: '#FF5722',
+                links: [
+                    {
+                        name: 'AI Apply',
+                        url: 'https://aiapply.co/',
+                        description: 'AI-powered job application automation',
+                        icon: 'auto_fix_high',
+                        rating: 4.9,
+                        category: 'Automation'
+                    },
+                    {
+                        name: 'Resume Worded',
+                        url: 'https://resumeworded.com/',
+                        description: 'AI resume optimization and feedback',
+                        icon: 'description',
+                        rating: 4.6,
+                        category: 'Resume'
+                    },
+                    {
+                        name: 'Jobscan',
+                        url: 'https://jobscan.co/',
+                        description: 'ATS resume optimization tool',
+                        icon: 'scanner',
+                        rating: 4.5,
+                        category: 'ATS'
+                    },
+                    {
+                        name: 'Cover Letter AI',
+                        url: 'https://coverletterai.app/',
+                        description: 'AI-generated cover letters',
+                        icon: 'edit_document',
+                        rating: 4.4,
+                        category: 'Cover Letter'
+                    },
+                    {
+                        name: 'Interview Warmup',
+                        url: 'https://grow.google/certificates/interview-warmup/',
+                        description: 'AI-powered interview practice by Google',
+                        icon: 'mic',
+                        rating: 4.7,
+                        category: 'Interview'
+                    }
+                ]
             },
-            {
-                title: "Online Reservation Specialist",
-                company: "TableMaster Remote",
-                location: "Remote US & Canada",
-                salary: "$18-25/hr",
-                type: "Part-time",
-                tags: ["Reservations", "Scheduling", "Customer Service", "Flexible"],
-                description: "Manage online reservations and customer communications for multiple restaurant partners. Flexible scheduling available.",
-                category: "order-management"
+            'freelance': {
+                title: 'Freelance Platforms',
+                icon: 'person_search',
+                color: '#4CAF50',
+                links: [
+                    {
+                        name: 'Upwork',
+                        url: 'https://upwork.com/',
+                        description: 'Global freelancing platform',
+                        icon: 'language',
+                        rating: 4.2,
+                        category: 'Global'
+                    },
+                    {
+                        name: 'Fiverr',
+                        url: 'https://fiverr.com/',
+                        description: 'Marketplace for digital services',
+                        icon: 'store',
+                        rating: 4.3,
+                        category: 'Services'
+                    },
+                    {
+                        name: 'Toptal',
+                        url: 'https://toptal.com/',
+                        description: 'Top 3% of freelance talent',
+                        icon: 'military_tech',
+                        rating: 4.8,
+                        category: 'Elite'
+                    },
+                    {
+                        name: 'Guru',
+                        url: 'https://guru.com/',
+                        description: 'Freelance work marketplace',
+                        icon: 'school',
+                        rating: 4.1,
+                        category: 'Marketplace'
+                    },
+                    {
+                        name: 'PeoplePerHour',
+                        url: 'https://peopleperhour.com/',
+                        description: 'Hourly freelance services',
+                        icon: 'schedule',
+                        rating: 4.0,
+                        category: 'Hourly'
+                    }
+                ]
             },
-            {
-                title: "Virtual Hospitality Assistant",
-                company: "Concierge Connect",
-                location: "Global Remote",
-                salary: "$20-30/hr",
-                type: "Contract",
-                tags: ["Hospitality", "Virtual Assistant", "Customer Care", "Global"],
-                description: "Provide premium virtual hospitality services including restaurant recommendations, reservation management, and personalized customer service.",
-                category: "hospitality-chat"
+            'hospitality': {
+                title: 'Hospitality & Service Jobs',
+                icon: 'restaurant',
+                color: '#9C27B0',
+                links: [
+                    {
+                        name: 'Indeed Hospitality',
+                        url: 'https://indeed.com/jobs?q=hospitality+remote',
+                        description: 'Remote hospitality job listings',
+                        icon: 'search',
+                        rating: 4.5,
+                        category: 'Search'
+                    },
+                    {
+                        name: 'ZipRecruiter',
+                        url: 'https://ziprecruiter.com/',
+                        description: 'AI-powered job matching',
+                        icon: 'psychology',
+                        rating: 4.4,
+                        category: 'AI Matching'
+                    },
+                    {
+                        name: 'Glassdoor',
+                        url: 'https://glassdoor.com/',
+                        description: 'Jobs with company reviews',
+                        icon: 'reviews',
+                        rating: 4.6,
+                        category: 'Reviews'
+                    },
+                    {
+                        name: 'LinkedIn Jobs',
+                        url: 'https://linkedin.com/jobs/',
+                        description: 'Professional networking jobs',
+                        icon: 'business',
+                        rating: 4.7,
+                        category: 'Professional'
+                    },
+                    {
+                        name: 'SimplyHired',
+                        url: 'https://simplyhired.com/',
+                        description: 'Simple job search engine',
+                        icon: 'manage_search',
+                        rating: 4.2,
+                        category: 'Simple'
+                    }
+                ]
             },
-            {
-                title: "Remote Food Service Chat Support",
-                company: "QuickServe Digital",
-                location: "Remote Worldwide",
-                salary: "$16-22/hr",
-                type: "Full-time",
-                tags: ["Live Chat", "Food Service", "24/7", "Training Provided"],
-                description: "Provide live chat support for food delivery platforms and restaurant customers. Full training provided, perfect for career changers.",
-                category: "hospitality-chat"
+            'journey': {
+                title: 'Journey & Relocation Planning',
+                icon: 'map',
+                color: '#FF9800',
+                links: [
+                    {
+                        name: 'Make My Drive Fun',
+                        url: 'https://makemydrivefun.com/',
+                        description: 'Plan exciting stops for your road trip',
+                        icon: 'route',
+                        rating: 4.8,
+                        category: 'Road Trip'
+                    },
+                    {
+                        name: 'Rome2Rio',
+                        url: 'https://rome2rio.com/',
+                        description: 'Global trip planning',
+                        icon: 'flight',
+                        rating: 4.5,
+                        category: 'Global'
+                    },
+                    {
+                        name: 'Expatica',
+                        url: 'https://expatica.com/',
+                        description: 'Expat living guides',
+                        icon: 'public',
+                        rating: 4.3,
+                        category: 'Expat'
+                    },
+                    {
+                        name: 'Numbeo',
+                        url: 'https://numbeo.com/',
+                        description: 'Cost of living database',
+                        icon: 'attach_money',
+                        rating: 4.4,
+                        category: 'Cost Analysis'
+                    },
+                    {
+                        name: 'InterNations',
+                        url: 'https://internations.org/',
+                        description: 'Global expat community',
+                        icon: 'diversity_1',
+                        rating: 4.6,
+                        category: 'Community'
+                    }
+                ]
             },
-            {
-                title: "Digital Restaurant Manager",
-                company: "CloudKitchen Solutions",
-                location: "US Remote",
-                salary: "$45,000-60,000/year",
-                type: "Full-time",
-                tags: ["Management", "Operations", "Leadership", "Growth"],
-                description: "Lead remote teams managing digital restaurant operations. Great opportunity for experienced hospitality professionals to move into management.",
-                category: "virtual-assistant"
+            'resources': {
+                title: 'Career Resources & Tools',
+                icon: 'school',
+                color: '#607D8B',
+                links: [
+                    {
+                        name: 'Coursera',
+                        url: 'https://coursera.org/',
+                        description: 'Online courses from top universities',
+                        icon: 'menu_book',
+                        rating: 4.7,
+                        category: 'Education'
+                    },
+                    {
+                        name: 'Udemy',
+                        url: 'https://udemy.com/',
+                        description: 'Skill development courses',
+                        icon: 'cast_for_education',
+                        rating: 4.5,
+                        category: 'Skills'
+                    },
+                    {
+                        name: 'Khan Academy',
+                        url: 'https://khanacademy.org/',
+                        description: 'Free online education',
+                        icon: 'quiz',
+                        rating: 4.8,
+                        category: 'Free'
+                    },
+                    {
+                        name: 'Canva',
+                        url: 'https://canva.com/',
+                        description: 'Design tool for resumes and portfolios',
+                        icon: 'palette',
+                        rating: 4.9,
+                        category: 'Design'
+                    },
+                    {
+                        name: 'Grammarly',
+                        url: 'https://grammarly.com/',
+                        description: 'Writing assistant and proofreader',
+                        icon: 'spellcheck',
+                        rating: 4.6,
+                        category: 'Writing'
+                    }
+                ]
             }
-        ];
+        };
 
-        let currentCategory = 'all';
+        let activeCategory = 'remote-jobs';
 
-        function renderJobs(jobsToShow = jobs) {
-            const jobsGrid = document.getElementById('jobsGrid');
-            jobsGrid.innerHTML = '';
+        function getStarRating(rating) {
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+            const emptyStars = 5 - Math.ceil(rating);
+            
+            let stars = '';
+            for (let i = 0; i < fullStars; i++) {
+                stars += '<span class="material-icons star filled">star</span>';
+            }
+            if (hasHalfStar) {
+                stars += '<span class="material-icons star half">star_half</span>';
+            }
+            for (let i = 0; i < emptyStars; i++) {
+                stars += '<span class="material-icons star empty">star_border</span>';
+            }
+            
+            return `<div class="star-rating">${stars}<span class="rating-text">(${rating})</span></div>`;
+        }
 
-            jobsToShow.forEach(job => {
-                const jobCard = document.createElement('div');
-                jobCard.className = 'job-card';
-                jobCard.innerHTML = `
-                    <div class="job-header">
-                        <div class="job-info">
-                            <h3>${job.title}</h3>
-                            <div class="job-company">${job.company}</div>
-                            <div class="job-location">📍 ${job.location}</div>
+        function showCategory(category) {
+            activeCategory = category;
+            
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update content
+            const container = document.getElementById('linksContainer');
+            const categoryData = awesomeLinks[category];
+            
+            container.innerHTML = `
+                <div class="category-header">
+                    <span class="material-icons category-icon" style="color: ${categoryData.color}">${categoryData.icon}</span>
+                    <h2>${categoryData.title}</h2>
+                    <span class="link-count">${categoryData.links.length} resources</span>
+                </div>
+
+                <div class="links-grid">
+                    ${categoryData.links.map(link => `
+                        <div class="link-card">
+                            <div class="card-header">
+                                <div class="link-icon">
+                                    <span class="material-icons">${link.icon}</span>
+                                </div>
+                                <div class="link-category">${link.category}</div>
+                            </div>
+                            
+                            <div class="card-content">
+                                <h3 class="link-title">${link.name}</h3>
+                                <p class="link-description">${link.description}</p>
+                                ${getStarRating(link.rating)}
+                            </div>
+                            
+                            <div class="card-actions">
+                                <a href="${link.url}" target="_blank" rel="noopener noreferrer" class="visit-button">
+                                    <span class="material-icons">open_in_new</span>
+                                    Visit Site
+                                </a>
+                                <button class="favorite-button" onclick="toggleFavorite('${link.name}')">
+                                    <span class="material-icons">favorite_border</span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="job-salary">${job.salary}</div>
-                    </div>
-                    <div class="job-tags">
-                        ${job.tags.map(tag => `<span class="job-tag">${tag}</span>`).join('')}
-                    </div>
-                    <div class="job-description">${job.description}</div>
-                    <div class="job-actions">
-                        <button class="job-button primary" onclick="applyToJob('${job.title}')">Apply Now</button>
-                        <button class="job-button secondary" onclick="saveJob('${job.title}')">Save Job</button>
-                    </div>
-                `;
-                jobsGrid.appendChild(jobCard);
-            });
+                    `).join('')}
+                </div>
+            `;
         }
 
-        function filterJobs(category) {
-            currentCategory = category;
-            if (category === 'all') {
-                renderJobs(jobs);
-            } else {
-                const filteredJobs = jobs.filter(job => job.category === category);
-                renderJobs(filteredJobs);
-            }
-            
-            // Update UI to show active category
-            document.querySelectorAll('.category-card').forEach(card => {
-                card.style.borderColor = '#e2e8f0';
-            });
-            event.target.closest('.category-card').style.borderColor = '#667eea';
-        }
-
-        function applyToJob(jobTitle) {
-            // In a real application, this would open an application form or redirect to the job posting
-            const aiApplyUrl = `https://aiapply.co/?job=${encodeURIComponent(jobTitle)}`;
-            window.open(aiApplyUrl, '_blank');
-            
-            // Show success message
-            showNotification(`🚀 Opening AI Apply for "${jobTitle}". Good luck!`);
-        }
-
-        function saveJob(jobTitle) {
+        function toggleFavorite(linkName) {
             // In a real application, this would save to user's profile
-            showNotification(`💾 "${jobTitle}" saved to your profile!`);
+            showNotification(`💾 "${linkName}" added to favorites!`);
+        }
+
+        function openAIApply() {
+            window.open('https://aiapply.co/', '_blank');
+            showNotification('🚀 Opening AI Apply for automated job applications!');
+        }
+
+        function saveFavorites() {
+            showNotification('💾 Favorites saved to your profile!');
+        }
+
+        function exportLinks() {
+            showNotification('📤 Links exported successfully!');
+        }
+
+        function viewAnalytics() {
+            showNotification('📊 Opening analytics dashboard...');
         }
 
         function showNotification(message) {
@@ -949,23 +1081,9 @@
             }, 3000);
         }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            renderJobs();
+            showCategory('remote-jobs');
             
             // Add CSS animations
             const style = document.createElement('style');
