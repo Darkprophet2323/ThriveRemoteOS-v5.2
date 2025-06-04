@@ -442,43 +442,44 @@ body {
   border-bottom-right-radius: 16px;
 }
 
-/* OPTIMIZED TASKBAR - Reduced from 60px to 45px */
+/* KDE VERME ITE TASKBAR - Enhanced with Music Player Space */
 .taskbar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 45px;
-  background: rgba(15, 30, 60, 0.95);
+  background: var(--kde-bg-overlay);
   backdrop-filter: blur(25px);
-  border-top: 2px solid rgba(0, 255, 255, 0.3);
+  border-top: 1px solid var(--kde-border);
   display: flex;
   align-items: center;
   padding: 0 12px;
   z-index: 1000;
-  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -5px 25px var(--kde-shadow);
 }
 
 .start-menu-container {
   position: relative;
 }
 
-/* OPTIMIZED START BUTTON - Reduced padding and size */
+/* KDE Style Start Button */
 .start-button {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #0f4c75 100%);
-  border: 2px solid rgba(0, 255, 255, 0.5);
+  background: linear-gradient(135deg, var(--kde-primary) 0%, var(--kde-primary-dark) 100%);
+  border: 1px solid var(--kde-border);
   padding: 8px 12px;
-  border-radius: 10px;
-  color: white;
-  font-weight: 700;
+  border-radius: 6px;
+  color: var(--kde-text-primary);
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 2px var(--kde-shadow);
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .start-button::before {
@@ -497,49 +498,49 @@ body {
 }
 
 .start-button:hover {
-  transform: translateY(-2px) scale(1.05);
+  transform: translateY(-1px) scale(1.02);
   box-shadow: 
-    0 8px 20px rgba(0, 255, 255, 0.4),
-    0 0 20px rgba(0, 255, 255, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-color: rgba(0, 255, 255, 0.8);
-  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 50%, #0a2a5a 100%);
+    0 6px 15px var(--kde-glow),
+    0 0 15px var(--kde-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: var(--kde-primary);
+  background: linear-gradient(135deg, var(--kde-primary-dark) 0%, var(--kde-primary) 100%);
 }
 
 .start-icon {
   font-size: 1.1rem;
-  filter: drop-shadow(0 0 8px currentColor);
+  filter: drop-shadow(0 0 6px currentColor);
 }
 
 .start-text {
   font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
-/* OPTIMIZED START MENU - Reduced from 350px to 280px width */
+/* KDE VERME ITE START MENU */
 .start-menu {
   position: absolute;
   bottom: 55px;
   left: 0;
   width: 280px;
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--kde-surface);
   backdrop-filter: blur(25px);
-  border-radius: 16px;
-  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 8px;
+  border: 1px solid var(--kde-border);
   box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  color: #1f2937;
+    0 20px 40px var(--kde-shadow),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: var(--kde-text-primary);
   overflow: hidden;
-  animation: slideUpMenu 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: kdeSlideUpMenu 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@keyframes slideUpMenu {
+@keyframes kdeSlideUpMenu {
   from {
     opacity: 0;
-    transform: translateY(30px) scale(0.9);
+    transform: translateY(20px) scale(0.95);
   }
   to {
     opacity: 1;
@@ -548,8 +549,8 @@ body {
 }
 
 .start-menu-header {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #0f4c75 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--kde-primary) 0%, var(--kde-primary-dark) 100%);
+  color: var(--kde-text-primary);
   padding: 16px;
   text-align: center;
   position: relative;
@@ -564,20 +565,21 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  animation: headerShine 3s ease-in-out infinite;
+  animation: kdeHeaderShine 3s ease-in-out infinite;
 }
 
-@keyframes headerShine {
+@keyframes kdeHeaderShine {
   0%, 100% { left: -100%; }
   50% { left: 100%; }
 }
 
 .start-menu-title {
   font-size: 1.1rem;
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 4px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px var(--kde-shadow);
+  letter-spacing: 0.3px;
+  font-family: 'Noto Sans', sans-serif;
 }
 
 .start-menu-subtitle {
@@ -588,7 +590,7 @@ body {
 
 .start-menu-section {
   padding: 12px 0;
-  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  border-bottom: 1px solid var(--kde-border);
 }
 
 .start-menu-section:last-child {
@@ -598,7 +600,7 @@ body {
 .section-title {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #2a5298;
+  color: var(--kde-primary);
   padding: 0 16px;
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -606,7 +608,7 @@ body {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* OPTIMIZED MENU ITEMS - Reduced padding from 12px 20px to 8px 15px */
+/* KDE Style Menu Items */
 .menu-item {
   padding: 8px 15px;
   display: flex;
@@ -614,7 +616,7 @@ body {
   gap: 10px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.85rem;
   position: relative;
   overflow: hidden;
@@ -627,7 +629,7 @@ body {
   top: 0;
   width: 0;
   height: 100%;
-  background: linear-gradient(90deg, rgba(30, 60, 114, 0.1), rgba(0, 255, 255, 0.1));
+  background: linear-gradient(90deg, var(--kde-surface-active), transparent);
   transition: width 0.3s ease;
 }
 
@@ -636,17 +638,18 @@ body {
 }
 
 .menu-item:hover {
-  background: linear-gradient(90deg, rgba(30, 60, 114, 0.1), rgba(0, 255, 255, 0.05));
-  color: #1e3c72;
-  transform: translateX(5px);
-  box-shadow: inset 3px 0 0 #0ff;
+  background: var(--kde-surface-active);
+  color: var(--kde-primary);
+  transform: translateX(3px);
+  box-shadow: inset 3px 0 0 var(--kde-primary);
 }
 
 .menu-icon {
   font-size: 1rem;
   width: 18px;
   text-align: center;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 1px 2px var(--kde-shadow));
+  color: var(--kde-primary);
 }
 
 .start-menu-overlay {
