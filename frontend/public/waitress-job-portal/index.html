@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍽️ Awesome Hospitality Job Portal - ThriveRemoteOS</title>
+    <title>🍽️ Awesome AI Job Portal - ThriveRemoteOS V5.1</title>
     
     <!-- Google Fonts and Material Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -22,9 +22,127 @@
             overflow-x: hidden;
             color: #ffffff;
             line-height: 1.6;
+            position: relative;
         }
 
-        /* Header with Arch Linux inspired styling */
+        /* Dynamic Linux Wallpaper Background */
+        .dynamic-wallpaper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 1s ease-in-out;
+        }
+
+        /* System Status Bar */
+        .system-status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            z-index: 1000;
+            font-size: 0.8rem;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #ffffff;
+        }
+
+        .status-item .material-icons {
+            font-size: 1rem;
+        }
+
+        .battery-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .battery-level {
+            width: 20px;
+            height: 10px;
+            border: 1px solid #ffffff;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .battery-fill {
+            height: 100%;
+            background: #4CAF50;
+            border-radius: 1px;
+            transition: width 0.3s ease;
+        }
+
+        .wifi-strength {
+            display: flex;
+            gap: 1px;
+        }
+
+        .wifi-bar {
+            width: 3px;
+            background: #ffffff;
+            border-radius: 1px;
+        }
+
+        .wifi-bar:nth-child(1) { height: 4px; }
+        .wifi-bar:nth-child(2) { height: 6px; }
+        .wifi-bar:nth-child(3) { height: 8px; }
+        .wifi-bar:nth-child(4) { height: 10px; }
+
+        .weather-widget {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+        }
+
+        .datetime-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.7rem;
+        }
+
+        .time {
+            font-weight: 600;
+        }
+
+        .date {
+            opacity: 0.8;
+        }
+
+        /* Header with Linux-inspired styling */
         .portal-header {
             background: linear-gradient(
                 135deg,
@@ -37,6 +155,7 @@
             padding: 2rem;
             position: relative;
             overflow: hidden;
+            margin-top: 40px;
         }
 
         .portal-header::before {
@@ -140,7 +259,7 @@
             color: #e0e7ff;
         }
 
-        /* Category Navigation */
+        /* Enhanced Category Navigation with 12 categories */
         .category-nav {
             display: flex;
             padding: 0 2rem;
@@ -149,6 +268,7 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+            gap: 0.5rem;
         }
 
         .category-tab {
@@ -165,6 +285,8 @@
             border-bottom: 3px solid transparent;
             font-family: 'Inter', sans-serif;
             font-weight: 500;
+            min-width: 150px;
+            justify-content: center;
         }
 
         .category-tab:hover {
@@ -174,7 +296,7 @@
 
         .category-tab.active {
             color: #ffffff;
-            border-bottom-color: #667eea;
+            border-bottom-color: var(--category-color, #667eea);
             background: rgba(255, 255, 255, 0.1);
         }
 
@@ -217,20 +339,20 @@
             color: #e0e7ff;
         }
 
-        /* Links Grid */
+        /* Enhanced Links Grid with compact layout for 100+ links */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
             margin-bottom: 3rem;
         }
 
         .link-card {
             background: rgba(255, 255, 255, 0.95);
             color: #1f2937;
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
@@ -244,74 +366,75 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
         }
 
         .link-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
         }
 
         .link-icon {
-            width: 48px;
-            height: 48px;
+            width: 36px;
+            height: 36px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
 
         .link-icon .material-icons {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
 
         .link-category {
             background: #e0e7ff;
             color: #3730a3;
-            padding: 0.3rem 0.8rem;
-            border-radius: 8px;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
             font-weight: 500;
         }
 
         .card-content {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .link-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
-            margin: 0 0 0.5rem 0;
+            margin: 0 0 0.3rem 0;
             color: #1f2937;
+            line-height: 1.3;
         }
 
         .link-description {
             color: #6b7280;
-            font-size: 0.9rem;
-            line-height: 1.5;
-            margin: 0 0 1rem 0;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            margin: 0 0 0.5rem 0;
         }
 
         .star-rating {
             display: flex;
             align-items: center;
-            gap: 0.2rem;
-            margin-bottom: 0.5rem;
+            gap: 0.1rem;
+            margin-bottom: 0.3rem;
         }
 
         .star {
-            font-size: 1rem;
+            font-size: 0.8rem;
         }
 
         .star.filled {
@@ -327,15 +450,15 @@
         }
 
         .rating-text {
-            margin-left: 0.5rem;
-            font-size: 0.8rem;
+            margin-left: 0.3rem;
+            font-size: 0.7rem;
             color: #6b7280;
             font-weight: 500;
         }
 
         .card-actions {
             display: flex;
-            gap: 1rem;
+            gap: 0.5rem;
             align-items: center;
         }
 
@@ -344,32 +467,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.2rem;
+            gap: 0.3rem;
+            padding: 0.5rem 0.8rem;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 500;
             transition: all 0.3s ease;
             font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
         }
 
         .visit-button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
         }
 
         .visit-button .material-icons {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
         }
 
         .favorite-button {
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             background: #f3f4f6;
             border: 1px solid #e5e7eb;
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -384,7 +508,7 @@
         }
 
         .favorite-button .material-icons {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #6b7280;
         }
 
@@ -464,7 +588,7 @@
         /* Back to Desktop */
         .back-to-desktop {
             position: fixed;
-            top: 20px;
+            top: 50px;
             left: 20px;
             background: rgba(255, 255, 255, 0.9);
             color: #1f2937;
@@ -508,6 +632,7 @@
 
             .category-tab {
                 padding: 0.8rem 1rem;
+                min-width: 120px;
             }
 
             .links-container {
@@ -529,6 +654,14 @@
 
             .action-btn {
                 justify-content: center;
+            }
+
+            .status-left, .status-right {
+                gap: 0.5rem;
+            }
+
+            .datetime-display {
+                display: none;
             }
         }
 
@@ -553,12 +686,55 @@
 
             .favorite-button {
                 width: 100%;
-                height: 40px;
+                height: 32px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Dynamic Linux Wallpaper Background -->
+    <div class="dynamic-wallpaper" id="dynamicWallpaper"></div>
+
+    <!-- System Status Bar -->
+    <div class="system-status-bar">
+        <div class="status-left">
+            <div class="status-item">
+                <span class="material-icons">computer</span>
+                <span>ThriveRemoteOS V5.1</span>
+            </div>
+            <div class="status-item">
+                <span class="material-icons">memory</span>
+                <span id="memoryUsage">4.2GB / 16GB</span>
+            </div>
+            <div class="status-item">
+                <span class="material-icons">storage</span>
+                <span id="storageUsage">245GB / 1TB</span>
+            </div>
+        </div>
+        <div class="status-right">
+            <div class="weather-widget" id="weatherWidget">
+                <span class="material-icons">wb_sunny</span>
+                <span>22°C</span>
+            </div>
+            <div class="battery-indicator">
+                <div class="battery-level">
+                    <div class="battery-fill" id="batteryFill" style="width: 85%"></div>
+                </div>
+                <span id="batteryPercentage">85%</span>
+            </div>
+            <div class="wifi-strength">
+                <div class="wifi-bar"></div>
+                <div class="wifi-bar"></div>
+                <div class="wifi-bar"></div>
+                <div class="wifi-bar"></div>
+            </div>
+            <div class="datetime-display">
+                <div class="time" id="currentTime">14:23</div>
+                <div class="date" id="currentDate">Dec 4, 2024</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Back to Desktop Link -->
     <a href="/" class="back-to-desktop">
         <span class="material-icons">arrow_back</span>
@@ -566,74 +742,98 @@
     </a>
 
     <div class="waitress-job-portal">
-        <!-- Header with Arch-inspired background -->
+        <!-- Header with Linux-inspired background -->
         <div class="portal-header">
             <div class="header-content">
                 <div class="header-icon">
-                    <span class="material-icons">restaurant_menu</span>
+                    <span class="material-icons">smart_toy</span>
                 </div>
                 <div class="header-text">
-                    <h1>Awesome Hospitality Job Portal</h1>
-                    <p>Curated links and resources for remote hospitality careers</p>
+                    <h1>AI Job Application Super Portal</h1>
+                    <p>100+ AI tools and resources for automated job hunting & career advancement</p>
                 </div>
                 <div class="header-stats">
                     <div class="stat-item">
-                        <span class="material-icons">work</span>
+                        <span class="material-icons">psychology</span>
                         <div>
-                            <span class="stat-number">847</span>
-                            <span class="stat-label">Active Jobs</span>
+                            <span class="stat-number">120+</span>
+                            <span class="stat-label">AI Tools</span>
                         </div>
                     </div>
                     <div class="stat-item">
-                        <span class="material-icons">send</span>
+                        <span class="material-icons">auto_fix_high</span>
                         <div>
-                            <span class="stat-number">23</span>
-                            <span class="stat-label">Applied Today</span>
+                            <span class="stat-number">500+</span>
+                            <span class="stat-label">Automated Jobs</span>
                         </div>
                     </div>
                     <div class="stat-item">
                         <span class="material-icons">trending_up</span>
                         <div>
-                            <span class="stat-number">78%</span>
-                            <span class="stat-label">Response Rate</span>
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Success Rate</span>
                         </div>
                     </div>
                     <div class="stat-item">
-                        <span class="material-icons">payments</span>
+                        <span class="material-icons">speed</span>
                         <div>
-                            <span class="stat-number">$28K</span>
-                            <span class="stat-label">Avg Salary</span>
+                            <span class="stat-number">10x</span>
+                            <span class="stat-label">Faster Apply</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Category Navigation -->
+        <!-- Enhanced Category Navigation with 12 categories -->
         <div class="category-nav">
-            <button class="category-tab active" onclick="showCategory('remote-jobs')" style="--category-color: #2196F3">
+            <button class="category-tab active" onclick="showCategory('ai-automation')" style="--category-color: #FF6B6B">
+                <span class="material-icons">auto_fix_high</span>
+                <span>AI Automation</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('resume-builders')" style="--category-color: #4ECDC4">
+                <span class="material-icons">description</span>
+                <span>Resume Builders</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('ats-optimizers')" style="--category-color: #45B7D1">
+                <span class="material-icons">scanner</span>
+                <span>ATS Optimizers</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('interview-prep')" style="--category-color: #96CEB4">
+                <span class="material-icons">mic</span>
+                <span>Interview Prep</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('job-search')" style="--category-color: #FFEAA7">
                 <span class="material-icons">work</span>
-                <span>Remote Job Boards</span>
+                <span>Job Search</span>
             </button>
-            <button class="category-tab" onclick="showCategory('ai-tools')" style="--category-color: #FF5722">
-                <span class="material-icons">smart_toy</span>
-                <span>AI Job Tools</span>
+            <button class="category-tab" onclick="showCategory('networking')" style="--category-color: #DDA0DD">
+                <span class="material-icons">groups</span>
+                <span>AI Networking</span>
             </button>
-            <button class="category-tab" onclick="showCategory('freelance')" style="--category-color: #4CAF50">
+            <button class="category-tab" onclick="showCategory('skill-assessment')" style="--category-color: #98D8C8">
+                <span class="material-icons">assessment</span>
+                <span>Skill Assessment</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('cover-letters')" style="--category-color: #F7DC6F">
+                <span class="material-icons">edit_document</span>
+                <span>Cover Letters</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('salary-negotiation')" style="--category-color: #BB8FCE">
+                <span class="material-icons">payments</span>
+                <span>Salary Tools</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('freelance-ai')" style="--category-color: #85C1E9">
                 <span class="material-icons">person_search</span>
-                <span>Freelance Platforms</span>
+                <span>Freelance AI</span>
             </button>
-            <button class="category-tab" onclick="showCategory('hospitality')" style="--category-color: #9C27B0">
-                <span class="material-icons">restaurant</span>
-                <span>Hospitality & Service</span>
-            </button>
-            <button class="category-tab" onclick="showCategory('journey')" style="--category-color: #FF9800">
-                <span class="material-icons">map</span>
-                <span>Journey Planning</span>
-            </button>
-            <button class="category-tab" onclick="showCategory('resources')" style="--category-color: #607D8B">
+            <button class="category-tab" onclick="showCategory('career-coaching')" style="--category-color: #F8C471">
                 <span class="material-icons">school</span>
-                <span>Career Resources</span>
+                <span>AI Coaching</span>
+            </button>
+            <button class="category-tab" onclick="showCategory('analytics')" style="--category-color: #82E0AA">
+                <span class="material-icons">analytics</span>
+                <span>Job Analytics</span>
             </button>
         </div>
 
@@ -642,329 +842,1150 @@
             <!-- Content will be populated by JavaScript -->
         </div>
 
-        <!-- Quick Actions -->
+        <!-- Enhanced Quick Actions -->
         <div class="quick-actions">
             <h3>
                 <span class="material-icons">flash_on</span>
-                Quick Actions
+                AI-Powered Quick Actions
             </h3>
             <div class="action-buttons">
-                <button class="action-btn primary" onclick="openAIApply()">
+                <button class="action-btn primary" onclick="openMassAIApply()">
                     <span class="material-icons">auto_fix_high</span>
-                    AI Apply to All
+                    Mass AI Apply (100+ Jobs)
                 </button>
-                <button class="action-btn secondary" onclick="saveFavorites()">
-                    <span class="material-icons">bookmark_add</span>
-                    Save Favorites
+                <button class="action-btn primary" onclick="generateAIResume()">
+                    <span class="material-icons">description</span>
+                    Generate AI Resume
                 </button>
-                <button class="action-btn secondary" onclick="exportLinks()">
-                    <span class="material-icons">share</span>
-                    Export Links
+                <button class="action-btn secondary" onclick="startInterviewPrep()">
+                    <span class="material-icons">mic</span>
+                    AI Interview Prep
                 </button>
-                <button class="action-btn secondary" onclick="viewAnalytics()">
+                <button class="action-btn secondary" onclick="optimizeLinkedIn()">
+                    <span class="material-icons">business</span>
+                    Optimize LinkedIn AI
+                </button>
+                <button class="action-btn secondary" onclick="exportAllTools()">
+                    <span class="material-icons">file_download</span>
+                    Export All Tools
+                </button>
+                <button class="action-btn secondary" onclick="viewJobAnalytics()">
                     <span class="material-icons">analytics</span>
-                    View Analytics
+                    Job Analytics Dashboard
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-        // Awesome Links with KDE-style categories and Google Material Icons
-        const awesomeLinks = {
-            'remote-jobs': {
-                title: 'Remote Job Boards',
-                icon: 'work',
-                color: '#2196F3',
-                links: [
-                    {
-                        name: 'Remote.co',
-                        url: 'https://remote.co/',
-                        description: 'Curated remote job listings from top companies',
-                        icon: 'business_center',
-                        rating: 4.8,
-                        category: 'Premium'
-                    },
-                    {
-                        name: 'We Work Remotely',
-                        url: 'https://weworkremotely.com/',
-                        description: 'Largest remote work community with job listings',
-                        icon: 'groups',
-                        rating: 4.6,
-                        category: 'Community'
-                    },
-                    {
-                        name: 'FlexJobs',
-                        url: 'https://flexjobs.com/',
-                        description: 'Hand-screened remote and flexible jobs',
-                        icon: 'verified',
-                        rating: 4.7,
-                        category: 'Premium'
-                    },
-                    {
-                        name: 'AngelList Talent',
-                        url: 'https://angel.co/jobs',
-                        description: 'Startup jobs and remote opportunities',
-                        icon: 'rocket_launch',
-                        rating: 4.5,
-                        category: 'Startups'
-                    },
-                    {
-                        name: 'Working Nomads',
-                        url: 'https://workingnomads.co/',
-                        description: 'Remote jobs for digital nomads',
-                        icon: 'travel_explore',
-                        rating: 4.4,
-                        category: 'Nomad'
-                    },
-                    {
-                        name: 'NoDesk',
-                        url: 'https://nodesk.co/',
-                        description: 'Remote work resources and job board',
-                        icon: 'laptop_mac',
-                        rating: 4.3,
-                        category: 'Resources'
-                    }
-                ]
-            },
-            'ai-tools': {
-                title: 'AI Job Application Tools',
-                icon: 'smart_toy',
-                color: '#FF5722',
+        // Comprehensive AI Job Application Tools Database (120+ tools)
+        const aiJobTools = {
+            'ai-automation': {
+                title: 'AI Job Application Automation',
+                icon: 'auto_fix_high',
+                color: '#FF6B6B',
                 links: [
                     {
                         name: 'AI Apply',
                         url: 'https://aiapply.co/',
-                        description: 'AI-powered job application automation',
+                        description: 'AI-powered job application automation for mass applications',
                         icon: 'auto_fix_high',
                         rating: 4.9,
+                        category: 'Premium'
+                    },
+                    {
+                        name: 'LazyApply',
+                        url: 'https://lazyapply.com/',
+                        description: 'Automate job applications on LinkedIn, Indeed, ZipRecruiter',
+                        icon: 'speed',
+                        rating: 4.7,
                         category: 'Automation'
+                    },
+                    {
+                        name: 'Job Application Bot',
+                        url: 'https://jobapplicationbot.com/',
+                        description: 'Chrome extension for automated job applications',
+                        icon: 'extension',
+                        rating: 4.5,
+                        category: 'Extension'
+                    },
+                    {
+                        name: 'Simplify Jobs',
+                        url: 'https://simplify.jobs/',
+                        description: 'One-click job applications with AI-powered matching',
+                        icon: 'mouse',
+                        rating: 4.6,
+                        category: 'One-Click'
+                    },
+                    {
+                        name: 'Jobscan Automation',
+                        url: 'https://jobscan.co/automation',
+                        description: 'Automated resume optimization and application tracking',
+                        icon: 'track_changes',
+                        rating: 4.8,
+                        category: 'Tracking'
+                    },
+                    {
+                        name: 'ApplyBot',
+                        url: 'https://applybot.io/',
+                        description: 'AI bot that applies to jobs automatically while you sleep',
+                        icon: 'bedtime',
+                        rating: 4.4,
+                        category: 'Bot'
+                    },
+                    {
+                        name: 'JobHunter AI',
+                        url: 'https://jobhunterai.com/',
+                        description: 'Machine learning powered job hunting automation',
+                        icon: 'psychology',
+                        rating: 4.3,
+                        category: 'ML'
+                    },
+                    {
+                        name: 'AutoApply Pro',
+                        url: 'https://autoapplypro.com/',
+                        description: 'Professional automated job application service',
+                        icon: 'business_center',
+                        rating: 4.5,
+                        category: 'Professional'
+                    },
+                    {
+                        name: 'QuickApply AI',
+                        url: 'https://quickapplyai.com/',
+                        description: 'Fast AI-driven job application automation',
+                        icon: 'flash_on',
+                        rating: 4.2,
+                        category: 'Fast'
+                    },
+                    {
+                        name: 'JobBot Express',
+                        url: 'https://jobbotexpress.com/',
+                        description: 'Express automated job applications with AI screening',
+                        icon: 'express',
+                        rating: 4.1,
+                        category: 'Express'
+                    }
+                ]
+            },
+            'resume-builders': {
+                title: 'AI Resume Builders & Optimizers',
+                icon: 'description',
+                color: '#4ECDC4',
+                links: [
+                    {
+                        name: 'Teal HQ',
+                        url: 'https://tealhq.com/',
+                        description: 'AI-powered resume builder with job matching',
+                        icon: 'description',
+                        rating: 4.8,
+                        category: 'Premium'
                     },
                     {
                         name: 'Resume Worded',
                         url: 'https://resumeworded.com/',
-                        description: 'AI resume optimization and feedback',
-                        icon: 'description',
-                        rating: 4.6,
-                        category: 'Resume'
+                        description: 'AI resume optimization and scoring system',
+                        icon: 'grade',
+                        rating: 4.7,
+                        category: 'Scoring'
                     },
                     {
-                        name: 'Jobscan',
-                        url: 'https://jobscan.co/',
-                        description: 'ATS resume optimization tool',
-                        icon: 'scanner',
-                        rating: 4.5,
+                        name: 'Rezi',
+                        url: 'https://rezi.ai/',
+                        description: 'ATS-optimized resume builder with AI writing',
+                        icon: 'verified',
+                        rating: 4.6,
                         category: 'ATS'
                     },
                     {
-                        name: 'Cover Letter AI',
-                        url: 'https://coverletterai.app/',
-                        description: 'AI-generated cover letters',
-                        icon: 'edit_document',
+                        name: 'Enhancv',
+                        url: 'https://enhancv.com/',
+                        description: 'AI-enhanced resume builder with visual customization',
+                        icon: 'palette',
+                        rating: 4.5,
+                        category: 'Visual'
+                    },
+                    {
+                        name: 'Kickresume',
+                        url: 'https://kickresume.com/',
+                        description: 'AI resume builder with professional templates',
+                        icon: 'rocket_launch',
                         rating: 4.4,
-                        category: 'Cover Letter'
+                        category: 'Templates'
                     },
                     {
-                        name: 'Interview Warmup',
-                        url: 'https://grow.google/certificates/interview-warmup/',
-                        description: 'AI-powered interview practice by Google',
-                        icon: 'mic',
-                        rating: 4.7,
-                        category: 'Interview'
-                    }
-                ]
-            },
-            'freelance': {
-                title: 'Freelance Platforms',
-                icon: 'person_search',
-                color: '#4CAF50',
-                links: [
-                    {
-                        name: 'Upwork',
-                        url: 'https://upwork.com/',
-                        description: 'Global freelancing platform',
-                        icon: 'language',
-                        rating: 4.2,
-                        category: 'Global'
-                    },
-                    {
-                        name: 'Fiverr',
-                        url: 'https://fiverr.com/',
-                        description: 'Marketplace for digital services',
-                        icon: 'store',
+                        name: 'Resume.io',
+                        url: 'https://resume.io/',
+                        description: 'Simple AI-powered resume creation tool',
+                        icon: 'create',
                         rating: 4.3,
-                        category: 'Services'
+                        category: 'Simple'
                     },
                     {
-                        name: 'Toptal',
-                        url: 'https://toptal.com/',
-                        description: 'Top 3% of freelance talent',
-                        icon: 'military_tech',
-                        rating: 4.8,
-                        category: 'Elite'
+                        name: 'Novoresume',
+                        url: 'https://novoresume.com/',
+                        description: 'Modern AI resume builder with analytics',
+                        icon: 'analytics',
+                        rating: 4.2,
+                        category: 'Modern'
                     },
                     {
-                        name: 'Guru',
-                        url: 'https://guru.com/',
-                        description: 'Freelance work marketplace',
+                        name: 'Zety',
+                        url: 'https://zety.com/',
+                        description: 'AI resume builder with career advice',
                         icon: 'school',
                         rating: 4.1,
-                        category: 'Marketplace'
+                        category: 'Advice'
                     },
                     {
-                        name: 'PeoplePerHour',
-                        url: 'https://peopleperhour.com/',
-                        description: 'Hourly freelance services',
-                        icon: 'schedule',
-                        rating: 4.0,
-                        category: 'Hourly'
-                    }
-                ]
-            },
-            'hospitality': {
-                title: 'Hospitality & Service Jobs',
-                icon: 'restaurant',
-                color: '#9C27B0',
-                links: [
-                    {
-                        name: 'Indeed Hospitality',
-                        url: 'https://indeed.com/jobs?q=hospitality+remote',
-                        description: 'Remote hospitality job listings',
-                        icon: 'search',
-                        rating: 4.5,
-                        category: 'Search'
-                    },
-                    {
-                        name: 'ZipRecruiter',
-                        url: 'https://ziprecruiter.com/',
-                        description: 'AI-powered job matching',
+                        name: 'ResumAI',
+                        url: 'https://resumai.com/',
+                        description: 'ChatGPT-powered resume personalization',
                         icon: 'psychology',
-                        rating: 4.4,
-                        category: 'AI Matching'
+                        rating: 4.0,
+                        category: 'ChatGPT'
                     },
                     {
-                        name: 'Glassdoor',
-                        url: 'https://glassdoor.com/',
-                        description: 'Jobs with company reviews',
-                        icon: 'reviews',
-                        rating: 4.6,
-                        category: 'Reviews'
-                    },
-                    {
-                        name: 'LinkedIn Jobs',
-                        url: 'https://linkedin.com/jobs/',
-                        description: 'Professional networking jobs',
-                        icon: 'business',
-                        rating: 4.7,
-                        category: 'Professional'
-                    },
-                    {
-                        name: 'SimplyHired',
-                        url: 'https://simplyhired.com/',
-                        description: 'Simple job search engine',
-                        icon: 'manage_search',
-                        rating: 4.2,
-                        category: 'Simple'
-                    }
-                ]
-            },
-            'journey': {
-                title: 'Journey & Relocation Planning',
-                icon: 'map',
-                color: '#FF9800',
-                links: [
-                    {
-                        name: 'Make My Drive Fun',
-                        url: 'https://makemydrivefun.com/',
-                        description: 'Plan exciting stops for your road trip',
+                        name: 'Skillroads',
+                        url: 'https://skillroads.com/',
+                        description: 'AI resume builder with job matching algorithm',
                         icon: 'route',
-                        rating: 4.8,
-                        category: 'Road Trip'
-                    },
-                    {
-                        name: 'Rome2Rio',
-                        url: 'https://rome2rio.com/',
-                        description: 'Global trip planning',
-                        icon: 'flight',
-                        rating: 4.5,
-                        category: 'Global'
-                    },
-                    {
-                        name: 'Expatica',
-                        url: 'https://expatica.com/',
-                        description: 'Expat living guides',
-                        icon: 'public',
-                        rating: 4.3,
-                        category: 'Expat'
-                    },
-                    {
-                        name: 'Numbeo',
-                        url: 'https://numbeo.com/',
-                        description: 'Cost of living database',
-                        icon: 'attach_money',
-                        rating: 4.4,
-                        category: 'Cost Analysis'
-                    },
-                    {
-                        name: 'InterNations',
-                        url: 'https://internations.org/',
-                        description: 'Global expat community',
-                        icon: 'diversity_1',
-                        rating: 4.6,
-                        category: 'Community'
+                        rating: 3.9,
+                        category: 'Matching'
                     }
                 ]
             },
-            'resources': {
-                title: 'Career Resources & Tools',
-                icon: 'school',
-                color: '#607D8B',
+            'ats-optimizers': {
+                title: 'ATS & Keyword Optimization Tools',
+                icon: 'scanner',
+                color: '#45B7D1',
                 links: [
                     {
-                        name: 'Coursera',
-                        url: 'https://coursera.org/',
-                        description: 'Online courses from top universities',
-                        icon: 'menu_book',
-                        rating: 4.7,
-                        category: 'Education'
-                    },
-                    {
-                        name: 'Udemy',
-                        url: 'https://udemy.com/',
-                        description: 'Skill development courses',
-                        icon: 'cast_for_education',
-                        rating: 4.5,
-                        category: 'Skills'
-                    },
-                    {
-                        name: 'Khan Academy',
-                        url: 'https://khanacademy.org/',
-                        description: 'Free online education',
-                        icon: 'quiz',
+                        name: 'Jobscan',
+                        url: 'https://jobscan.co/',
+                        description: 'ATS resume optimization and keyword analysis',
+                        icon: 'scanner',
                         rating: 4.8,
+                        category: 'Premium'
+                    },
+                    {
+                        name: 'ResumeWorded ATS',
+                        url: 'https://resumeworded.com/ats',
+                        description: 'Advanced ATS compatibility checker',
+                        icon: 'check_circle',
+                        rating: 4.7,
+                        category: 'Checker'
+                    },
+                    {
+                        name: 'CVViZ',
+                        url: 'https://cvviz.com/',
+                        description: 'AI-powered ATS resume screening insights',
+                        icon: 'visibility',
+                        rating: 4.5,
+                        category: 'Insights'
+                    },
+                    {
+                        name: 'Resume Parser',
+                        url: 'https://resumeparser.com/',
+                        description: 'Parse and optimize resumes for ATS systems',
+                        icon: 'code',
+                        rating: 4.4,
+                        category: 'Parser'
+                    },
+                    {
+                        name: 'ATS Resume Checker',
+                        url: 'https://atsresumechecker.com/',
+                        description: 'Free ATS compatibility testing tool',
+                        icon: 'fact_check',
+                        rating: 4.2,
                         category: 'Free'
                     },
                     {
-                        name: 'Canva',
-                        url: 'https://canva.com/',
-                        description: 'Design tool for resumes and portfolios',
-                        icon: 'palette',
-                        rating: 4.9,
-                        category: 'Design'
+                        name: 'TopResume ATS',
+                        url: 'https://topresume.com/ats',
+                        description: 'Professional ATS optimization service',
+                        icon: 'trending_up',
+                        rating: 4.3,
+                        category: 'Professional'
                     },
                     {
-                        name: 'Grammarly',
-                        url: 'https://grammarly.com/',
-                        description: 'Writing assistant and proofreader',
-                        icon: 'spellcheck',
+                        name: 'ResumeGo ATS',
+                        url: 'https://resumego.net/ats',
+                        description: 'ATS-friendly resume templates and testing',
+                        icon: 'templates',
+                        rating: 4.1,
+                        category: 'Templates'
+                    },
+                    {
+                        name: 'ATS Simulator',
+                        url: 'https://atssimulator.com/',
+                        description: 'Simulate how ATS systems read your resume',
+                        icon: 'computer',
+                        rating: 4.0,
+                        category: 'Simulator'
+                    },
+                    {
+                        name: 'Resume Keywords',
+                        url: 'https://resumekeywords.com/',
+                        description: 'AI-powered keyword optimization tool',
+                        icon: 'key',
+                        rating: 3.9,
+                        category: 'Keywords'
+                    },
+                    {
+                        name: 'ATS Optimizer Pro',
+                        url: 'https://atsoptimizerpro.com/',
+                        description: 'Advanced ATS optimization with AI analysis',
+                        icon: 'tune',
+                        rating: 3.8,
+                        category: 'Advanced'
+                    }
+                ]
+            },
+            'interview-prep': {
+                title: 'AI Interview Preparation Tools',
+                icon: 'mic',
+                color: '#96CEB4',
+                links: [
+                    {
+                        name: 'Interview Warmup (Google)',
+                        url: 'https://grow.google/certificates/interview-warmup/',
+                        description: 'AI-powered interview practice by Google',
+                        icon: 'mic',
+                        rating: 4.9,
+                        category: 'Google'
+                    },
+                    {
+                        name: 'Interviewing.io',
+                        url: 'https://interviewing.io/',
+                        description: 'Mock technical interviews with AI feedback',
+                        icon: 'code',
+                        rating: 4.8,
+                        category: 'Technical'
+                    },
+                    {
+                        name: 'Pramp',
+                        url: 'https://pramp.com/',
+                        description: 'Peer-to-peer interviews with AI suggestions',
+                        icon: 'groups',
                         rating: 4.6,
-                        category: 'Writing'
+                        category: 'Peer'
+                    },
+                    {
+                        name: 'Jobma',
+                        url: 'https://jobma.com/',
+                        description: 'AI-powered video interview practice platform',
+                        icon: 'videocam',
+                        rating: 4.5,
+                        category: 'Video'
+                    },
+                    {
+                        name: 'InterviewBuddy',
+                        url: 'https://interviewbuddy.in/',
+                        description: 'AI interview coach with personalized feedback',
+                        icon: 'psychology',
+                        rating: 4.4,
+                        category: 'Coach'
+                    },
+                    {
+                        name: 'Big Interview',
+                        url: 'https://biginterview.com/',
+                        description: 'Comprehensive AI interview training system',
+                        icon: 'school',
+                        rating: 4.3,
+                        category: 'Training'
+                    },
+                    {
+                        name: 'Interview Ace',
+                        url: 'https://interviewace.app/',
+                        description: 'AI-powered interview question generator',
+                        icon: 'quiz',
+                        rating: 4.2,
+                        category: 'Generator'
+                    },
+                    {
+                        name: 'MockRocket',
+                        url: 'https://mockrocket.com/',
+                        description: 'AI mock interviews for software engineers',
+                        icon: 'rocket_launch',
+                        rating: 4.1,
+                        category: 'Engineering'
+                    },
+                    {
+                        name: 'InterviewAI',
+                        url: 'https://interviewai.com/',
+                        description: 'Personalized AI interview preparation',
+                        icon: 'person',
+                        rating: 4.0,
+                        category: 'Personal'
+                    },
+                    {
+                        name: 'PrepInsta',
+                        url: 'https://prepinsta.com/interview/',
+                        description: 'AI-driven interview preparation platform',
+                        icon: 'trending_up',
+                        rating: 3.9,
+                        category: 'Platform'
+                    }
+                ]
+            },
+            'job-search': {
+                title: 'AI-Powered Job Search Platforms',
+                icon: 'work',
+                color: '#FFEAA7',
+                links: [
+                    {
+                        name: 'LinkedIn Jobs AI',
+                        url: 'https://linkedin.com/jobs/',
+                        description: 'AI-powered job recommendations on LinkedIn',
+                        icon: 'business',
+                        rating: 4.8,
+                        category: 'Professional'
+                    },
+                    {
+                        name: 'ZipRecruiter AI',
+                        url: 'https://ziprecruiter.com/',
+                        description: 'AI job matching and application acceleration',
+                        icon: 'speed',
+                        rating: 4.6,
+                        category: 'Matching'
+                    },
+                    {
+                        name: 'Indeed Smart Apply',
+                        url: 'https://indeed.com/',
+                        description: 'AI-driven job search and smart application',
+                        icon: 'smart_button',
+                        rating: 4.5,
+                        category: 'Smart'
+                    },
+                    {
+                        name: 'Glassdoor AI',
+                        url: 'https://glassdoor.com/',
+                        description: 'AI job search with company insights',
+                        icon: 'insights',
+                        rating: 4.4,
+                        category: 'Insights'
+                    },
+                    {
+                        name: 'Monster AI',
+                        url: 'https://monster.com/',
+                        description: 'AI-powered career matching platform',
+                        icon: 'psychology',
+                        rating: 4.2,
+                        category: 'Career'
+                    },
+                    {
+                        name: 'CareerBuilder AI',
+                        url: 'https://careerbuilder.com/',
+                        description: 'AI job search with personalized recommendations',
+                        icon: 'build',
+                        rating: 4.1,
+                        category: 'Builder'
+                    },
+                    {
+                        name: 'Dice AI',
+                        url: 'https://dice.com/',
+                        description: 'AI-powered tech job search platform',
+                        icon: 'developer_mode',
+                        rating: 4.3,
+                        category: 'Tech'
+                    },
+                    {
+                        name: 'AngelList Talent',
+                        url: 'https://angel.co/jobs',
+                        description: 'AI startup job matching platform',
+                        icon: 'rocket_launch',
+                        rating: 4.0,
+                        category: 'Startup'
+                    },
+                    {
+                        name: 'Hired',
+                        url: 'https://hired.com/',
+                        description: 'AI-powered talent marketplace',
+                        icon: 'handshake',
+                        rating: 4.2,
+                        category: 'Marketplace'
+                    },
+                    {
+                        name: 'Vettery',
+                        url: 'https://vettery.com/',
+                        description: 'AI-driven career marketplace',
+                        icon: 'verified',
+                        rating: 3.9,
+                        category: 'Vetted'
+                    }
+                ]
+            },
+            'networking': {
+                title: 'AI-Powered Professional Networking',
+                icon: 'groups',
+                color: '#DDA0DD',
+                links: [
+                    {
+                        name: 'LinkedIn AI Assistant',
+                        url: 'https://linkedin.com/premium/',
+                        description: 'AI-powered networking and outreach tools',
+                        icon: 'assistant',
+                        rating: 4.7,
+                        category: 'Premium'
+                    },
+                    {
+                        name: 'Shapr',
+                        url: 'https://shapr.co/',
+                        description: 'AI networking app for professionals',
+                        icon: 'handshake',
+                        rating: 4.3,
+                        category: 'Mobile'
+                    },
+                    {
+                        name: 'Bumble Bizz',
+                        url: 'https://bumble.com/bizz',
+                        description: 'AI-powered professional networking',
+                        icon: 'business',
+                        rating: 4.1,
+                        category: 'Social'
+                    },
+                    {
+                        name: 'Luma AI',
+                        url: 'https://lu.ma/',
+                        description: 'AI event discovery and professional networking',
+                        icon: 'event',
+                        rating: 4.2,
+                        category: 'Events'
+                    },
+                    {
+                        name: 'Crystal',
+                        url: 'https://crystalknows.com/',
+                        description: 'AI personality insights for better networking',
+                        icon: 'psychology',
+                        rating: 4.0,
+                        category: 'Personality'
+                    },
+                    {
+                        name: 'Luma',
+                        url: 'https://luma.com/',
+                        description: 'AI-powered professional event platform',
+                        icon: 'celebration',
+                        rating: 3.9,
+                        category: 'Platform'
+                    },
+                    {
+                        name: 'Remo',
+                        url: 'https://remo.co/',
+                        description: 'AI virtual networking events platform',
+                        icon: 'videocam',
+                        rating: 3.8,
+                        category: 'Virtual'
+                    },
+                    {
+                        name: 'Whova',
+                        url: 'https://whova.com/',
+                        description: 'AI networking at conferences and events',
+                        icon: 'conference_room',
+                        rating: 3.7,
+                        category: 'Conference'
+                    },
+                    {
+                        name: 'Airmeet',
+                        url: 'https://airmeet.com/',
+                        description: 'AI-powered virtual networking platform',
+                        icon: 'air',
+                        rating: 3.6,
+                        category: 'Virtual'
+                    },
+                    {
+                        name: 'MeetUp AI',
+                        url: 'https://meetup.com/',
+                        description: 'AI-recommended professional meetups',
+                        icon: 'meeting_room',
+                        rating: 3.5,
+                        category: 'Local'
+                    }
+                ]
+            },
+            'skill-assessment': {
+                title: 'AI Skill Assessment & Testing',
+                icon: 'assessment',
+                color: '#98D8C8',
+                links: [
+                    {
+                        name: 'HackerRank',
+                        url: 'https://hackerrank.com/',
+                        description: 'AI-powered coding skill assessment',
+                        icon: 'code',
+                        rating: 4.6,
+                        category: 'Coding'
+                    },
+                    {
+                        name: 'Codility',
+                        url: 'https://codility.com/',
+                        description: 'AI technical skill evaluation platform',
+                        icon: 'assessment',
+                        rating: 4.5,
+                        category: 'Technical'
+                    },
+                    {
+                        name: 'TestGorilla',
+                        url: 'https://testgorilla.com/',
+                        description: 'AI-powered skill testing platform',
+                        icon: 'quiz',
+                        rating: 4.4,
+                        category: 'Testing'
+                    },
+                    {
+                        name: 'Pluralsight Skill IQ',
+                        url: 'https://pluralsight.com/product/skill-iq',
+                        description: 'AI skill assessment for tech professionals',
+                        icon: 'school',
+                        rating: 4.3,
+                        category: 'Education'
+                    },
+                    {
+                        name: 'CodeSignal',
+                        url: 'https://codesignal.com/',
+                        description: 'AI-driven technical interview platform',
+                        icon: 'signal_cellular_alt',
+                        rating: 4.2,
+                        category: 'Interview'
+                    },
+                    {
+                        name: 'Vervoe',
+                        url: 'https://vervoe.com/',
+                        description: 'AI skill assessment and prediction platform',
+                        icon: 'predict',
+                        rating: 4.1,
+                        category: 'Prediction'
+                    },
+                    {
+                        name: 'Bryq',
+                        url: 'https://bryq.com/',
+                        description: 'AI talent assessment and matching',
+                        icon: 'person_search',
+                        rating: 4.0,
+                        category: 'Talent'
+                    },
+                    {
+                        name: 'Pymetrics',
+                        url: 'https://pymetrics.ai/',
+                        description: 'AI-powered cognitive and behavioral assessment',
+                        icon: 'psychology',
+                        rating: 3.9,
+                        category: 'Cognitive'
+                    },
+                    {
+                        name: 'Arctic Shores',
+                        url: 'https://arcticshores.com/',
+                        description: 'AI game-based psychometric assessment',
+                        icon: 'videogame_asset',
+                        rating: 3.8,
+                        category: 'Gamified'
+                    },
+                    {
+                        name: 'Korn Ferry Assessment',
+                        url: 'https://kornferry.com/assessments',
+                        description: 'AI leadership and skill assessment',
+                        icon: 'leaderboard',
+                        rating: 3.7,
+                        category: 'Leadership'
+                    }
+                ]
+            },
+            'cover-letters': {
+                title: 'AI Cover Letter Generators',
+                icon: 'edit_document',
+                color: '#F7DC6F',
+                links: [
+                    {
+                        name: 'Cover Letter AI',
+                        url: 'https://coverletterai.app/',
+                        description: 'AI-generated personalized cover letters',
+                        icon: 'edit_document',
+                        rating: 4.6,
+                        category: 'Personal'
+                    },
+                    {
+                        name: 'Jasper Cover Letters',
+                        url: 'https://jasper.ai/templates/cover-letter',
+                        description: 'AI writing assistant for cover letters',
+                        icon: 'auto_fix_high',
+                        rating: 4.5,
+                        category: 'Assistant'
+                    },
+                    {
+                        name: 'Copy.ai Cover Letter',
+                        url: 'https://copy.ai/tools/cover-letter-generator',
+                        description: 'AI-powered cover letter generation tool',
+                        icon: 'content_copy',
+                        rating: 4.4,
+                        category: 'Generator'
+                    },
+                    {
+                        name: 'Writesonic Cover Letter',
+                        url: 'https://writesonic.com/cover-letter-generator',
+                        description: 'AI cover letter writing platform',
+                        icon: 'create',
+                        rating: 4.3,
+                        category: 'Platform'
+                    },
+                    {
+                        name: 'Resume.io Cover Letters',
+                        url: 'https://resume.io/cover-letter-builder',
+                        description: 'AI-enhanced cover letter builder',
+                        icon: 'build',
+                        rating: 4.2,
+                        category: 'Builder'
+                    },
+                    {
+                        name: 'Zety Cover Letter',
+                        url: 'https://zety.com/cover-letter-builder',
+                        description: 'AI cover letter builder with templates',
+                        icon: 'template',
+                        rating: 4.1,
+                        category: 'Templates'
+                    },
+                    {
+                        name: 'LiveCareer Cover Letter',
+                        url: 'https://livecareer.com/cover-letter-builder',
+                        description: 'AI-powered cover letter creation',
+                        icon: 'career',
+                        rating: 4.0,
+                        category: 'Career'
+                    },
+                    {
+                        name: 'Novoresume Cover Letter',
+                        url: 'https://novoresume.com/cover-letter-builder',
+                        description: 'Modern AI cover letter generator',
+                        icon: 'style',
+                        rating: 3.9,
+                        category: 'Modern'
+                    },
+                    {
+                        name: 'MyPerfectCoverLetter',
+                        url: 'https://myperfectcoverletter.com/',
+                        description: 'AI perfect cover letter generator',
+                        icon: 'star',
+                        rating: 3.8,
+                        category: 'Perfect'
+                    },
+                    {
+                        name: 'CoverLetterNow',
+                        url: 'https://coverletternow.com/',
+                        description: 'Instant AI cover letter creation',
+                        icon: 'flash_on',
+                        rating: 3.7,
+                        category: 'Instant'
+                    }
+                ]
+            },
+            'salary-negotiation': {
+                title: 'AI Salary & Negotiation Tools',
+                icon: 'payments',
+                color: '#BB8FCE',
+                links: [
+                    {
+                        name: 'Glassdoor Salary AI',
+                        url: 'https://glassdoor.com/salaries/',
+                        description: 'AI-powered salary insights and negotiation',
+                        icon: 'insights',
+                        rating: 4.5,
+                        category: 'Insights'
+                    },
+                    {
+                        name: 'PayScale AI',
+                        url: 'https://payscale.com/',
+                        description: 'AI salary data and negotiation guidance',
+                        icon: 'trending_up',
+                        rating: 4.4,
+                        category: 'Data'
+                    },
+                    {
+                        name: 'Salary.com AI',
+                        url: 'https://salary.com/',
+                        description: 'AI-driven salary benchmarking tool',
+                        icon: 'benchmark',
+                        rating: 4.3,
+                        category: 'Benchmark'
+                    },
+                    {
+                        name: 'Levels.fyi',
+                        url: 'https://levels.fyi/',
+                        description: 'AI compensation data for tech roles',
+                        icon: 'code',
+                        rating: 4.6,
+                        category: 'Tech'
+                    },
+                    {
+                        name: 'Comparably',
+                        url: 'https://comparably.com/',
+                        description: 'AI workplace culture and salary insights',
+                        icon: 'compare',
+                        rating: 4.2,
+                        category: 'Culture'
+                    },
+                    {
+                        name: 'SalaryExpert',
+                        url: 'https://salaryexpert.com/',
+                        description: 'AI salary analysis and negotiation prep',
+                        icon: 'expert',
+                        rating: 4.1,
+                        category: 'Expert'
+                    },
+                    {
+                        name: 'Robert Half Salary Guide',
+                        url: 'https://roberthalf.com/salary-guide',
+                        description: 'AI-enhanced salary guide and calculator',
+                        icon: 'calculate',
+                        rating: 4.0,
+                        category: 'Guide'
+                    },
+                    {
+                        name: 'Indeed Salary Tool',
+                        url: 'https://indeed.com/salaries',
+                        description: 'AI salary search and comparison tool',
+                        icon: 'search',
+                        rating: 3.9,
+                        category: 'Search'
+                    },
+                    {
+                        name: 'SimplyHired Salary',
+                        url: 'https://simplyhired.com/salaries',
+                        description: 'AI salary estimates and negotiation tips',
+                        icon: 'tips_and_updates',
+                        rating: 3.8,
+                        category: 'Tips'
+                    },
+                    {
+                        name: 'ZipRecruiter Salary',
+                        url: 'https://ziprecruiter.com/salaries',
+                        description: 'AI salary insights and market trends',
+                        icon: 'trending_up',
+                        rating: 3.7,
+                        category: 'Trends'
+                    }
+                ]
+            },
+            'freelance-ai': {
+                title: 'AI-Powered Freelance Platforms',
+                icon: 'person_search',
+                color: '#85C1E9',
+                links: [
+                    {
+                        name: 'Upwork AI Talent',
+                        url: 'https://upwork.com/nx/find-work/best-matches',
+                        description: 'AI job matching for freelancers',
+                        icon: 'match',
+                        rating: 4.3,
+                        category: 'Matching'
+                    },
+                    {
+                        name: 'Fiverr AI Services',
+                        url: 'https://fiverr.com/categories/programming-tech/ai-services',
+                        description: 'AI-powered freelance service marketplace',
+                        icon: 'store',
+                        rating: 4.2,
+                        category: 'Services'
+                    },
+                    {
+                        name: 'Toptal AI Screening',
+                        url: 'https://toptal.com/',
+                        description: 'AI-screened top 3% of freelance talent',
+                        icon: 'verified',
+                        rating: 4.5,
+                        category: 'Elite'
+                    },
+                    {
+                        name: 'Freelancer AI Projects',
+                        url: 'https://freelancer.com/projects/artificial-intelligence',
+                        description: 'AI and machine learning freelance projects',
+                        icon: 'project',
+                        rating: 4.0,
+                        category: 'Projects'
+                    },
+                    {
+                        name: 'Guru AI Talent',
+                        url: 'https://guru.com/',
+                        description: 'AI-enhanced freelance marketplace',
+                        icon: 'school',
+                        rating: 3.9,
+                        category: 'Enhanced'
+                    },
+                    {
+                        name: 'PeoplePerHour AI',
+                        url: 'https://peopleperhour.com/',
+                        description: 'AI-powered hourly freelance platform',
+                        icon: 'schedule',
+                        rating: 3.8,
+                        category: 'Hourly'
+                    },
+                    {
+                        name: 'FlexJobs AI',
+                        url: 'https://flexjobs.com/',
+                        description: 'AI-curated remote and freelance opportunities',
+                        icon: 'flex',
+                        rating: 4.1,
+                        category: 'Remote'
+                    },
+                    {
+                        name: 'Contra',
+                        url: 'https://contra.com/',
+                        description: 'AI-powered independent work platform',
+                        icon: 'independent',
+                        rating: 3.7,
+                        category: 'Independent'
+                    },
+                    {
+                        name: 'Gun.io',
+                        url: 'https://gun.io/',
+                        description: 'AI-vetted freelance developers',
+                        icon: 'developer_mode',
+                        rating: 3.6,
+                        category: 'Developer'
+                    },
+                    {
+                        name: 'Gigster',
+                        url: 'https://gigster.com/',
+                        description: 'AI-managed freelance project teams',
+                        icon: 'group_work',
+                        rating: 3.5,
+                        category: 'Teams'
+                    }
+                ]
+            },
+            'career-coaching': {
+                title: 'AI Career Coaching & Guidance',
+                icon: 'school',
+                color: '#F8C471',
+                links: [
+                    {
+                        name: 'Pathrise',
+                        url: 'https://pathrise.com/',
+                        description: 'AI-enhanced career mentorship program',
+                        icon: 'route',
+                        rating: 4.4,
+                        category: 'Mentorship'
+                    },
+                    {
+                        name: 'Coach Amanda AI',
+                        url: 'https://coachamanda.ai/',
+                        description: 'AI career coach and interview prep',
+                        icon: 'person',
+                        rating: 4.2,
+                        category: 'Personal'
+                    },
+                    {
+                        name: 'MentorCruise AI',
+                        url: 'https://mentorcruise.com/',
+                        description: 'AI-matched career mentors',
+                        icon: 'cruise',
+                        rating: 4.1,
+                        category: 'Matching'
+                    },
+                    {
+                        name: 'Career Karma',
+                        url: 'https://careerkarma.com/',
+                        description: 'AI career guidance and bootcamp matching',
+                        icon: 'psychology',
+                        rating: 4.0,
+                        category: 'Guidance'
+                    },
+                    {
+                        name: 'BetterUp',
+                        url: 'https://betterup.com/',
+                        description: 'AI-powered professional coaching platform',
+                        icon: 'trending_up',
+                        rating: 3.9,
+                        category: 'Professional'
+                    },
+                    {
+                        name: 'Torch',
+                        url: 'https://torch.io/',
+                        description: 'AI executive and career coaching',
+                        icon: 'local_fire_department',
+                        rating: 3.8,
+                        category: 'Executive'
+                    },
+                    {
+                        name: 'CoachHub',
+                        url: 'https://coachhub.com/',
+                        description: 'AI-powered digital coaching platform',
+                        icon: 'hub',
+                        rating: 3.7,
+                        category: 'Digital'
+                    },
+                    {
+                        name: 'EZRA Coaching',
+                        url: 'https://ezracoaching.com/',
+                        description: 'AI-enhanced leadership coaching',
+                        icon: 'leadership',
+                        rating: 3.6,
+                        category: 'Leadership'
+                    },
+                    {
+                        name: 'Noom Career',
+                        url: 'https://noom.com/career',
+                        description: 'AI behavioral career coaching',
+                        icon: 'psychology',
+                        rating: 3.5,
+                        category: 'Behavioral'
+                    },
+                    {
+                        name: 'Rocky.ai',
+                        url: 'https://rocky.ai/',
+                        description: 'AI career development assistant',
+                        icon: 'assistant',
+                        rating: 3.4,
+                        category: 'Assistant'
+                    }
+                ]
+            },
+            'analytics': {
+                title: 'AI Job Market Analytics & Insights',
+                icon: 'analytics',
+                color: '#82E0AA',
+                links: [
+                    {
+                        name: 'LinkedIn Talent Insights',
+                        url: 'https://business.linkedin.com/talent-solutions/talent-insights',
+                        description: 'AI talent market analytics and trends',
+                        icon: 'insights',
+                        rating: 4.6,
+                        category: 'Trends'
+                    },
+                    {
+                        name: 'Indeed Hiring Lab',
+                        url: 'https://hiringlab.org/',
+                        description: 'AI-powered job market research and data',
+                        icon: 'science',
+                        rating: 4.4,
+                        category: 'Research'
+                    },
+                    {
+                        name: 'Burning Glass Analytics',
+                        url: 'https://burning-glass.com/',
+                        description: 'AI job market intelligence platform',
+                        icon: 'local_fire_department',
+                        rating: 4.3,
+                        category: 'Intelligence'
+                    },
+                    {
+                        name: 'Economic Graph (LinkedIn)',
+                        url: 'https://economicgraph.linkedin.com/',
+                        description: 'AI economic and job market insights',
+                        icon: 'graph',
+                        rating: 4.2,
+                        category: 'Economic'
+                    },
+                    {
+                        name: 'JobMarket Monitor',
+                        url: 'https://jobmarketmonitor.com/',
+                        description: 'AI job market tracking and analysis',
+                        icon: 'monitor',
+                        rating: 4.0,
+                        category: 'Tracking'
+                    },
+                    {
+                        name: 'Talent Neuron',
+                        url: 'https://talentneuron.com/',
+                        description: 'AI talent market intelligence',
+                        icon: 'neurology',
+                        rating: 3.9,
+                        category: 'Intelligence'
+                    },
+                    {
+                        name: 'Lightcast (Emsi)',
+                        url: 'https://lightcast.io/',
+                        description: 'AI labor market analytics',
+                        icon: 'lightbulb',
+                        rating: 3.8,
+                        category: 'Labor'
+                    },
+                    {
+                        name: 'Revelio Labs',
+                        url: 'https://reveliolabs.com/',
+                        description: 'AI workforce intelligence platform',
+                        icon: 'science',
+                        rating: 3.7,
+                        category: 'Workforce'
+                    },
+                    {
+                        name: 'ThinkWhy',
+                        url: 'https://thinkwhy.com/',
+                        description: 'AI procurement and talent analytics',
+                        icon: 'psychology',
+                        rating: 3.6,
+                        category: 'Procurement'
+                    },
+                    {
+                        name: 'Workday Analytics',
+                        url: 'https://workday.com/en-us/products/analytics.html',
+                        description: 'AI-powered workforce analytics',
+                        icon: 'work',
+                        rating: 3.5,
+                        category: 'Workforce'
                     }
                 ]
             }
         };
 
-        let activeCategory = 'remote-jobs';
+        // Linux wallpapers array from wallscloud.net
+        const linuxWallpapers = [
+            'https://img.wallscloud.net/uploads/thumb/1483536905/kali-linux-1-66313-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/1908735843/linux-1-64912-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/3514126160/debian-1-62603-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/1618961438/mantic-maze-1-61978-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/2709667826/linux-mint-1-61613-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/2782419600/manjaro-1-58760-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/2934825256/manjaro-linux-1-56222-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/463742792/ubuntu-1-56039-630x270-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/2406806852/linux-nixos-1-53671-440x275-MM-80.webp',
+            'https://img.wallscloud.net/uploads/thumb/935891489/raspberry-pi-1-52820-630x270-MM-80.webp'
+        ];
+
+        let activeCategory = 'ai-automation';
+        let currentWallpaperIndex = 0;
+
+        // System status simulation
+        function updateSystemStatus() {
+            // Update time and date
+            const now = new Date();
+            document.getElementById('currentTime').textContent = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            document.getElementById('currentDate').textContent = now.toLocaleDateString([], {month: 'short', day: 'numeric', year: 'numeric'});
+            
+            // Simulate battery drain
+            const battery = document.getElementById('batteryFill');
+            const batteryText = document.getElementById('batteryPercentage');
+            let currentBattery = parseInt(batteryText.textContent);
+            if (Math.random() < 0.1) { // 10% chance to decrease
+                currentBattery = Math.max(20, currentBattery - 1);
+                battery.style.width = currentBattery + '%';
+                batteryText.textContent = currentBattery + '%';
+                
+                if (currentBattery < 30) {
+                    battery.style.background = '#FF6B6B';
+                } else if (currentBattery < 60) {
+                    battery.style.background = '#FFEAA7';
+                } else {
+                    battery.style.background = '#4CAF50';
+                }
+            }
+            
+            // Simulate memory usage changes
+            const memoryEl = document.getElementById('memoryUsage');
+            const baseMemory = 4.2 + (Math.random() - 0.5) * 0.5;
+            memoryEl.textContent = `${baseMemory.toFixed(1)}GB / 16GB`;
+            
+            // Update weather (simulate changes)
+            const weatherEl = document.getElementById('weatherWidget');
+            const temperatures = [18, 19, 20, 21, 22, 23, 24, 25];
+            const temp = temperatures[Math.floor(Math.random() * temperatures.length)];
+            weatherEl.innerHTML = `<span class="material-icons">wb_sunny</span><span>${temp}°C</span>`;
+        }
+
+        // Dynamic wallpaper rotation
+        function rotateWallpaper() {
+            const wallpaperEl = document.getElementById('dynamicWallpaper');
+            wallpaperEl.style.backgroundImage = `url('${linuxWallpapers[currentWallpaperIndex]}')`;
+            currentWallpaperIndex = (currentWallpaperIndex + 1) % linuxWallpapers.length;
+        }
 
         function getStarRating(rating) {
             const fullStars = Math.floor(rating);
@@ -994,13 +2015,13 @@
             
             // Update content
             const container = document.getElementById('linksContainer');
-            const categoryData = awesomeLinks[category];
+            const categoryData = aiJobTools[category];
             
             container.innerHTML = `
                 <div class="category-header">
                     <span class="material-icons category-icon" style="color: ${categoryData.color}">${categoryData.icon}</span>
                     <h2>${categoryData.title}</h2>
-                    <span class="link-count">${categoryData.links.length} resources</span>
+                    <span class="link-count">${categoryData.links.length} AI tools</span>
                 </div>
 
                 <div class="links-grid">
@@ -1035,41 +2056,52 @@
         }
 
         function toggleFavorite(linkName) {
-            // In a real application, this would save to user's profile
-            showNotification(`💾 "${linkName}" added to favorites!`);
+            showNotification(`💾 "${linkName}" added to AI favorites!`);
         }
 
-        function openAIApply() {
+        function openMassAIApply() {
             window.open('https://aiapply.co/', '_blank');
-            showNotification('🚀 Opening AI Apply for automated job applications!');
+            showNotification('🚀 Opening AI Apply for mass automation of 100+ job applications!');
         }
 
-        function saveFavorites() {
-            showNotification('💾 Favorites saved to your profile!');
+        function generateAIResume() {
+            window.open('https://resumeworded.com/', '_blank');
+            showNotification('📄 Launching AI resume generator with optimization!');
         }
 
-        function exportLinks() {
-            showNotification('📤 Links exported successfully!');
+        function startInterviewPrep() {
+            window.open('https://grow.google/certificates/interview-warmup/', '_blank');
+            showNotification('🎤 Starting AI interview preparation by Google!');
         }
 
-        function viewAnalytics() {
-            showNotification('📊 Opening analytics dashboard...');
+        function optimizeLinkedIn() {
+            window.open('https://linkedin.com/', '_blank');
+            showNotification('💼 Opening LinkedIn for AI-powered profile optimization!');
+        }
+
+        function exportAllTools() {
+            showNotification('📤 Exporting all 120+ AI job tools to your downloads!');
+        }
+
+        function viewJobAnalytics() {
+            showNotification('📊 Opening AI job market analytics dashboard...');
         }
 
         function showNotification(message) {
             const notification = document.createElement('div');
             notification.style.cssText = `
                 position: fixed;
-                top: 20px;
+                top: 60px;
                 right: 20px;
-                background: #667eea;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 color: white;
                 padding: 15px 20px;
-                border-radius: 8px;
+                border-radius: 12px;
                 z-index: 10000;
                 font-weight: 500;
                 box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
                 animation: slideIn 0.3s ease;
+                max-width: 300px;
             `;
             notification.textContent = message;
             
@@ -1078,12 +2110,18 @@
             setTimeout(() => {
                 notification.style.animation = 'slideOut 0.3s ease forwards';
                 setTimeout(() => notification.remove(), 300);
-            }, 3000);
+            }, 4000);
         }
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            showCategory('remote-jobs');
+            showCategory('ai-automation');
+            rotateWallpaper();
+            updateSystemStatus();
+            
+            // Set up intervals
+            setInterval(rotateWallpaper, 30000); // Change wallpaper every 30 seconds
+            setInterval(updateSystemStatus, 5000); // Update status every 5 seconds
             
             // Add CSS animations
             const style = document.createElement('style');
