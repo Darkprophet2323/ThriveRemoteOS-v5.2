@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import WaitressJobPortal from "./components/WaitressJobPortal";
 import YouTubeMusicPlayer from "./components/YouTubeMusicPlayer";
+import LuxuryNewsTicker from "./components/LuxuryNewsTicker";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
