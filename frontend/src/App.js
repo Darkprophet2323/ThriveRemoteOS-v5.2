@@ -114,39 +114,87 @@ const ThriveRemoteDesktop = () => {
       {/* Desktop Background */}
       <div className="desktop-wallpaper"></div>
 
-      {/* Enhanced Desktop Icons with Music Player */}
+      {/* Enhanced Desktop Icons with Sound Effects */}
       <div className="desktop-icons">
-        <div className="desktop-icon" onClick={() => createWindow('jobs', 'AI Job Portal', <WaitressJobPortal />, '🤖')}>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('AI Career Portal', 'smart_toy', <WaitressJobPortal />, 900, 650)}
+          onMouseEnter={() => sounds.playHover()}
+        >
           <div className="icon material-icons-outlined">smart_toy</div>
-          <div className="label">AI Jobs</div>
+          <div className="label">ai portal</div>
         </div>
-        <div className="desktop-icon" onClick={() => createWindow('music', 'Music Player', <div style={{padding: '20px', textAlign: 'center'}}><h3>🎵 KDE Music Player</h3><p>Integrated in taskbar below</p></div>, '🎵')}>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('Music Studio', 'library_music', 
+            <div style={{padding: '30px', textAlign: 'center', background: 'linear-gradient(135deg, #0D0D0D, #2D2D2D)', color: '#D4AF37'}}>
+              <h3 style={{fontFamily: 'Playfair Display', marginBottom: '20px'}}>🎵 Noir Music Studio</h3>
+              <p style={{opacity: 0.8}}>Premium YouTube integration active in taskbar player</p>
+            </div>, 500, 300)}
+          onMouseEnter={() => sounds.playHover()}
+        >
           <div className="icon material-icons-outlined">library_music</div>
-          <div className="label">Music</div>
+          <div className="label">music</div>
         </div>
-        <div className="desktop-icon" onClick={() => createWindow('pets', 'Virtual Pets', <VirtualPetsManager virtualPets={virtualPets} />, '🐾')}>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('Virtual Companions', 'pets', <VirtualPets />, 700, 500)}
+          onMouseEnter={() => sounds.playHover()}
+        >
           <div className="icon material-icons-outlined">pets</div>
-          <div className="label">Pets</div>
+          <div className="label">companions</div>
         </div>
-        <div className="desktop-icon" onClick={() => createWindow('files', 'File Manager', <div style={{padding: '20px'}}><h3>📁 KDE File Manager</h3><p>Navigate your system files</p></div>, '📁')}>
-          <div className="icon material-icons-outlined">folder</div>
-          <div className="label">Files</div>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('File Vault', 'folder_open', 
+            <div style={{padding: '30px', background: 'linear-gradient(135deg, #0D0D0D, #2D2D2D)', color: '#D4AF37'}}>
+              <h3 style={{fontFamily: 'Playfair Display', marginBottom: '20px'}}>📁 Noir File Vault</h3>
+              <p style={{opacity: 0.8}}>Secure document management with luxury aesthetics</p>
+            </div>, 600, 450)}
+          onMouseEnter={() => sounds.playHover()}
+        >
+          <div className="icon material-icons-outlined">folder_open</div>
+          <div className="label">vault</div>
         </div>
-        <div className="desktop-icon" onClick={() => createWindow('terminal', 'Terminal', <QuantumTerminal />, '💻', { width: 800, height: 500 })}>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('Neural Terminal', 'terminal', <Terminal />, 700, 500)}
+          onMouseEnter={() => sounds.playHover()}
+        >
           <div className="icon material-icons-outlined">terminal</div>
-          <div className="label">Terminal</div>
+          <div className="label">neural</div>
         </div>
-        <div className="desktop-icon" onClick={() => createWindow('settings', 'Settings', <SystemSettings />, '⚙️')}>
-          <div className="icon material-icons-outlined">settings</div>
-          <div className="label">Settings</div>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('Luxury Settings', 'tune', <Settings />, 650, 550)}
+          onMouseEnter={() => sounds.playHover()}
+        >
+          <div className="icon material-icons-outlined">tune</div>
+          <div className="label">settings</div>
         </div>
-        <div className="desktop-icon" onClick={() => createWindow('calculator', 'Calculator', <div style={{padding: '20px'}}><h3>🧮 KDE Calculator</h3><p>Perform calculations</p></div>, '🧮')}>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('Calculator Pro', 'calculate', 
+            <div style={{padding: '30px', background: 'linear-gradient(135deg, #0D0D0D, #2D2D2D)', color: '#D4AF37'}}>
+              <h3 style={{fontFamily: 'Playfair Display', marginBottom: '20px'}}>🧮 Noir Calculator</h3>
+              <p style={{opacity: 0.8}}>Sophisticated mathematical computations</p>
+            </div>, 400, 500)}
+          onMouseEnter={() => sounds.playHover()}
+        >
           <div className="icon material-icons-outlined">calculate</div>
-          <div className="label">Calculator</div>
+          <div className="label">calculator</div>
         </div>
-        <div className="desktop-icon" onClick={() => createWindow('editor', 'Text Editor', <div style={{padding: '20px'}}><h3>📝 KDE Text Editor</h3><p>Edit documents and code</p></div>, '📝')}>
+        <div 
+          className="desktop-icon" 
+          onClick={() => handleIconClick('Text Atelier', 'edit_note', 
+            <div style={{padding: '30px', background: 'linear-gradient(135deg, #0D0D0D, #2D2D2D)', color: '#D4AF37'}}>
+              <h3 style={{fontFamily: 'Playfair Display', marginBottom: '20px'}}>📝 Text Atelier</h3>
+              <p style={{opacity: 0.8}}>Elegant document creation and editing</p>
+            </div>, 650, 500)}
+          onMouseEnter={() => sounds.playHover()}
+        >
           <div className="icon material-icons-outlined">edit_note</div>
-          <div className="label">Editor</div>
+          <div className="label">atelier</div>
         </div>
       </div>
 
