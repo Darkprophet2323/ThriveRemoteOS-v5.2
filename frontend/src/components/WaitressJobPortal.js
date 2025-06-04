@@ -2,303 +2,439 @@ import React, { useState, useEffect } from 'react';
 import './WaitressJobPortal.css';
 
 const WaitressJobPortal = () => {
-  const [activeCategory, setActiveCategory] = useState('remote-jobs');
+  const [activeCategory, setActiveCategory] = useState('ai-automation');
   const [jobStats, setJobStats] = useState({
-    totalJobs: 847,
-    todayApplied: 23,
-    responseRate: 78,
-    avgSalary: 28
+    totalJobs: 1200,
+    todayApplied: 47,
+    responseRate: 95,
+    avgSalary: 85
   });
 
-  // Awesome Links with KDE-style categories and Google Material Icons
-  const awesomeLinks = {
-    'remote-jobs': {
-      title: 'Remote Job Boards',
-      icon: 'work',
-      color: '#2196F3',
-      links: [
-        {
-          name: 'Remote.co',
-          url: 'https://remote.co/',
-          description: 'Curated remote job listings from top companies',
-          icon: 'business_center',
-          rating: 4.8,
-          category: 'Premium'
-        },
-        {
-          name: 'We Work Remotely',
-          url: 'https://weworkremotely.com/',
-          description: 'Largest remote work community with job listings',
-          icon: 'groups',
-          rating: 4.6,
-          category: 'Community'
-        },
-        {
-          name: 'FlexJobs',
-          url: 'https://flexjobs.com/',
-          description: 'Hand-screened remote and flexible jobs',
-          icon: 'verified',
-          rating: 4.7,
-          category: 'Premium'
-        },
-        {
-          name: 'AngelList Talent',
-          url: 'https://angel.co/jobs',
-          description: 'Startup jobs and remote opportunities',
-          icon: 'rocket_launch',
-          rating: 4.5,
-          category: 'Startups'
-        },
-        {
-          name: 'Working Nomads',
-          url: 'https://workingnomads.co/',
-          description: 'Remote jobs for digital nomads',
-          icon: 'travel_explore',
-          rating: 4.4,
-          category: 'Nomad'
-        },
-        {
-          name: 'NoDesk',
-          url: 'https://nodesk.co/',
-          description: 'Remote work resources and job board',
-          icon: 'laptop_mac',
-          rating: 4.3,
-          category: 'Resources'
-        }
-      ]
-    },
-    'ai-tools': {
-      title: 'AI Job Application Tools',
-      icon: 'smart_toy',
-      color: '#FF5722',
+  // Enhanced AI Job Tools Database (120+ tools across 12 categories)
+  const aiJobTools = {
+    'ai-automation': {
+      title: 'AI Job Application Automation',
+      icon: 'auto_fix_high',
+      color: '#FF6B6B',
       links: [
         {
           name: 'AI Apply',
           url: 'https://aiapply.co/',
-          description: 'AI-powered job application automation',
+          description: 'AI-powered job application automation for mass applications',
           icon: 'auto_fix_high',
           rating: 4.9,
+          category: 'Premium'
+        },
+        {
+          name: 'LazyApply',
+          url: 'https://lazyapply.com/',
+          description: 'Automate job applications on LinkedIn, Indeed, ZipRecruiter',
+          icon: 'speed',
+          rating: 4.7,
           category: 'Automation'
+        },
+        {
+          name: 'Job Application Bot',
+          url: 'https://jobapplicationbot.com/',
+          description: 'Chrome extension for automated job applications',
+          icon: 'extension',
+          rating: 4.5,
+          category: 'Extension'
+        },
+        {
+          name: 'Simplify Jobs',
+          url: 'https://simplify.jobs/',
+          description: 'One-click job applications with AI-powered matching',
+          icon: 'mouse',
+          rating: 4.6,
+          category: 'One-Click'
+        },
+        {
+          name: 'Jobscan Automation',
+          url: 'https://jobscan.co/automation',
+          description: 'Automated resume optimization and application tracking',
+          icon: 'track_changes',
+          rating: 4.8,
+          category: 'Tracking'
+        },
+        {
+          name: 'ApplyBot',
+          url: 'https://applybot.io/',
+          description: 'AI bot that applies to jobs automatically while you sleep',
+          icon: 'bedtime',
+          rating: 4.4,
+          category: 'Bot'
+        },
+        {
+          name: 'JobHunter AI',
+          url: 'https://jobhunterai.com/',
+          description: 'Machine learning powered job hunting automation',
+          icon: 'psychology',
+          rating: 4.3,
+          category: 'ML'
+        },
+        {
+          name: 'AutoApply Pro',
+          url: 'https://autoapplypro.com/',
+          description: 'Professional automated job application service',
+          icon: 'business_center',
+          rating: 4.5,
+          category: 'Professional'
+        }
+      ]
+    },
+    'resume-builders': {
+      title: 'AI Resume Builders & Optimizers',
+      icon: 'description',
+      color: '#4ECDC4',
+      links: [
+        {
+          name: 'Teal HQ',
+          url: 'https://tealhq.com/',
+          description: 'AI-powered resume builder with job matching',
+          icon: 'description',
+          rating: 4.8,
+          category: 'Premium'
         },
         {
           name: 'Resume Worded',
           url: 'https://resumeworded.com/',
-          description: 'AI resume optimization and feedback',
-          icon: 'description',
-          rating: 4.6,
-          category: 'Resume'
+          description: 'AI resume optimization and scoring system',
+          icon: 'grade',
+          rating: 4.7,
+          category: 'Scoring'
         },
         {
-          name: 'Jobscan',
-          url: 'https://jobscan.co/',
-          description: 'ATS resume optimization tool',
-          icon: 'scanner',
-          rating: 4.5,
+          name: 'Rezi',
+          url: 'https://rezi.ai/',
+          description: 'ATS-optimized resume builder with AI writing',
+          icon: 'verified',
+          rating: 4.6,
           category: 'ATS'
         },
         {
-          name: 'Cover Letter AI',
-          url: 'https://coverletterai.app/',
-          description: 'AI-generated cover letters',
-          icon: 'edit_document',
-          rating: 4.4,
-          category: 'Cover Letter'
+          name: 'Enhancv',
+          url: 'https://enhancv.com/',
+          description: 'AI-enhanced resume builder with visual customization',
+          icon: 'palette',
+          rating: 4.5,
+          category: 'Visual'
         },
         {
-          name: 'Interview Warmup',
+          name: 'Kickresume',
+          url: 'https://kickresume.com/',
+          description: 'AI resume builder with professional templates',
+          icon: 'rocket_launch',
+          rating: 4.4,
+          category: 'Templates'
+        },
+        {
+          name: 'Resume.io',
+          url: 'https://resume.io/',
+          description: 'Simple AI-powered resume creation tool',
+          icon: 'create',
+          rating: 4.3,
+          category: 'Simple'
+        },
+        {
+          name: 'Zety',
+          url: 'https://zety.com/',
+          description: 'AI resume builder with career advice',
+          icon: 'school',
+          rating: 4.1,
+          category: 'Advice'
+        },
+        {
+          name: 'Novoresume',
+          url: 'https://novoresume.com/',
+          description: 'Modern AI resume builder with analytics',
+          icon: 'analytics',
+          rating: 4.2,
+          category: 'Modern'
+        }
+      ]
+    },
+    'interview-prep': {
+      title: 'AI Interview Preparation Tools',
+      icon: 'mic',
+      color: '#96CEB4',
+      links: [
+        {
+          name: 'Interview Warmup (Google)',
           url: 'https://grow.google/certificates/interview-warmup/',
           description: 'AI-powered interview practice by Google',
           icon: 'mic',
-          rating: 4.7,
-          category: 'Interview'
-        }
-      ]
-    },
-    'freelance': {
-      title: 'Freelance Platforms',
-      icon: 'person_search',
-      color: '#4CAF50',
-      links: [
-        {
-          name: 'Upwork',
-          url: 'https://upwork.com/',
-          description: 'Global freelancing platform',
-          icon: 'language',
-          rating: 4.2,
-          category: 'Global'
+          rating: 4.9,
+          category: 'Google'
         },
         {
-          name: 'Fiverr',
-          url: 'https://fiverr.com/',
-          description: 'Marketplace for digital services',
-          icon: 'store',
-          rating: 4.3,
-          category: 'Services'
-        },
-        {
-          name: 'Toptal',
-          url: 'https://toptal.com/',
-          description: 'Top 3% of freelance talent',
-          icon: 'military_tech',
+          name: 'Interviewing.io',
+          url: 'https://interviewing.io/',
+          description: 'Mock technical interviews with AI feedback',
+          icon: 'code',
           rating: 4.8,
-          category: 'Elite'
+          category: 'Technical'
         },
         {
-          name: 'Guru',
-          url: 'https://guru.com/',
-          description: 'Freelance work marketplace',
-          icon: 'school',
-          rating: 4.1,
-          category: 'Marketplace'
+          name: 'Pramp',
+          url: 'https://pramp.com/',
+          description: 'Peer-to-peer interviews with AI suggestions',
+          icon: 'groups',
+          rating: 4.6,
+          category: 'Peer'
         },
         {
-          name: 'PeoplePerHour',
-          url: 'https://peopleperhour.com/',
-          description: 'Hourly freelance services',
-          icon: 'schedule',
-          rating: 4.0,
-          category: 'Hourly'
-        }
-      ]
-    },
-    'hospitality': {
-      title: 'Hospitality & Service Jobs',
-      icon: 'restaurant',
-      color: '#9C27B0',
-      links: [
-        {
-          name: 'Indeed Hospitality',
-          url: 'https://indeed.com/jobs?q=hospitality+remote',
-          description: 'Remote hospitality job listings',
-          icon: 'search',
+          name: 'Jobma',
+          url: 'https://jobma.com/',
+          description: 'AI-powered video interview practice platform',
+          icon: 'videocam',
           rating: 4.5,
-          category: 'Search'
+          category: 'Video'
         },
         {
-          name: 'ZipRecruiter',
-          url: 'https://ziprecruiter.com/',
-          description: 'AI-powered job matching',
+          name: 'InterviewBuddy',
+          url: 'https://interviewbuddy.in/',
+          description: 'AI interview coach with personalized feedback',
           icon: 'psychology',
           rating: 4.4,
-          category: 'AI Matching'
+          category: 'Coach'
         },
         {
-          name: 'Glassdoor',
-          url: 'https://glassdoor.com/',
-          description: 'Jobs with company reviews',
-          icon: 'reviews',
-          rating: 4.6,
-          category: 'Reviews'
+          name: 'Big Interview',
+          url: 'https://biginterview.com/',
+          description: 'Comprehensive AI interview training system',
+          icon: 'school',
+          rating: 4.3,
+          category: 'Training'
         },
         {
-          name: 'LinkedIn Jobs',
+          name: 'Interview Ace',
+          url: 'https://interviewace.app/',
+          description: 'AI-powered interview question generator',
+          icon: 'quiz',
+          rating: 4.2,
+          category: 'Generator'
+        },
+        {
+          name: 'MockRocket',
+          url: 'https://mockrocket.com/',
+          description: 'AI mock interviews for software engineers',
+          icon: 'rocket_launch',
+          rating: 4.1,
+          category: 'Engineering'
+        }
+      ]
+    },
+    'job-search': {
+      title: 'AI-Powered Job Search Platforms',
+      icon: 'work',
+      color: '#FFEAA7',
+      links: [
+        {
+          name: 'LinkedIn Jobs AI',
           url: 'https://linkedin.com/jobs/',
-          description: 'Professional networking jobs',
+          description: 'AI-powered job recommendations on LinkedIn',
           icon: 'business',
-          rating: 4.7,
+          rating: 4.8,
           category: 'Professional'
         },
         {
-          name: 'SimplyHired',
-          url: 'https://simplyhired.com/',
-          description: 'Simple job search engine',
-          icon: 'manage_search',
-          rating: 4.2,
-          category: 'Simple'
-        }
-      ]
-    },
-    'journey': {
-      title: 'Journey & Relocation Planning',
-      icon: 'map',
-      color: '#FF9800',
-      links: [
-        {
-          name: 'Make My Drive Fun',
-          url: 'https://makemydrivefun.com/',
-          description: 'Plan exciting stops for your road trip',
-          icon: 'route',
-          rating: 4.8,
-          category: 'Road Trip'
-        },
-        {
-          name: 'Rome2Rio',
-          url: 'https://rome2rio.com/',
-          description: 'Global trip planning',
-          icon: 'flight',
-          rating: 4.5,
-          category: 'Global'
-        },
-        {
-          name: 'Expatica',
-          url: 'https://expatica.com/',
-          description: 'Expat living guides',
-          icon: 'public',
-          rating: 4.3,
-          category: 'Expat'
-        },
-        {
-          name: 'Numbeo',
-          url: 'https://numbeo.com/',
-          description: 'Cost of living database',
-          icon: 'attach_money',
-          rating: 4.4,
-          category: 'Cost Analysis'
-        },
-        {
-          name: 'InterNations',
-          url: 'https://internations.org/',
-          description: 'Global expat community',
-          icon: 'diversity_1',
+          name: 'ZipRecruiter AI',
+          url: 'https://ziprecruiter.com/',
+          description: 'AI job matching and application acceleration',
+          icon: 'speed',
           rating: 4.6,
-          category: 'Community'
+          category: 'Matching'
+        },
+        {
+          name: 'Indeed Smart Apply',
+          url: 'https://indeed.com/',
+          description: 'AI-driven job search and smart application',
+          icon: 'smart_button',
+          rating: 4.5,
+          category: 'Smart'
+        },
+        {
+          name: 'Glassdoor AI',
+          url: 'https://glassdoor.com/',
+          description: 'AI job search with company insights',
+          icon: 'insights',
+          rating: 4.4,
+          category: 'Insights'
+        },
+        {
+          name: 'Monster AI',
+          url: 'https://monster.com/',
+          description: 'AI-powered career matching platform',
+          icon: 'psychology',
+          rating: 4.2,
+          category: 'Career'
+        },
+        {
+          name: 'CareerBuilder AI',
+          url: 'https://careerbuilder.com/',
+          description: 'AI job search with personalized recommendations',
+          icon: 'build',
+          rating: 4.1,
+          category: 'Builder'
+        },
+        {
+          name: 'Dice AI',
+          url: 'https://dice.com/',
+          description: 'AI-powered tech job search platform',
+          icon: 'developer_mode',
+          rating: 4.3,
+          category: 'Tech'
+        },
+        {
+          name: 'AngelList Talent',
+          url: 'https://angel.co/jobs',
+          description: 'AI startup job matching platform',
+          icon: 'rocket_launch',
+          rating: 4.0,
+          category: 'Startup'
         }
       ]
     },
-    'resources': {
-      title: 'Career Resources & Tools',
-      icon: 'school',
-      color: '#607D8B',
+    'ats-optimizers': {
+      title: 'ATS & Keyword Optimization Tools',
+      icon: 'scanner',
+      color: '#45B7D1',
       links: [
         {
-          name: 'Coursera',
-          url: 'https://coursera.org/',
-          description: 'Online courses from top universities',
-          icon: 'menu_book',
-          rating: 4.7,
-          category: 'Education'
-        },
-        {
-          name: 'Udemy',
-          url: 'https://udemy.com/',
-          description: 'Skill development courses',
-          icon: 'cast_for_education',
-          rating: 4.5,
-          category: 'Skills'
-        },
-        {
-          name: 'Khan Academy',
-          url: 'https://khanacademy.org/',
-          description: 'Free online education',
-          icon: 'quiz',
+          name: 'Jobscan',
+          url: 'https://jobscan.co/',
+          description: 'ATS resume optimization and keyword analysis',
+          icon: 'scanner',
           rating: 4.8,
+          category: 'Premium'
+        },
+        {
+          name: 'ResumeWorded ATS',
+          url: 'https://resumeworded.com/ats',
+          description: 'Advanced ATS compatibility checker',
+          icon: 'check_circle',
+          rating: 4.7,
+          category: 'Checker'
+        },
+        {
+          name: 'CVViZ',
+          url: 'https://cvviz.com/',
+          description: 'AI-powered ATS resume screening insights',
+          icon: 'visibility',
+          rating: 4.5,
+          category: 'Insights'
+        },
+        {
+          name: 'Resume Parser',
+          url: 'https://resumeparser.com/',
+          description: 'Parse and optimize resumes for ATS systems',
+          icon: 'code',
+          rating: 4.4,
+          category: 'Parser'
+        },
+        {
+          name: 'ATS Resume Checker',
+          url: 'https://atsresumechecker.com/',
+          description: 'Free ATS compatibility testing tool',
+          icon: 'fact_check',
+          rating: 4.2,
           category: 'Free'
         },
         {
-          name: 'Canva',
-          url: 'https://canva.com/',
-          description: 'Design tool for resumes and portfolios',
-          icon: 'palette',
-          rating: 4.9,
-          category: 'Design'
+          name: 'TopResume ATS',
+          url: 'https://topresume.com/ats',
+          description: 'Professional ATS optimization service',
+          icon: 'trending_up',
+          rating: 4.3,
+          category: 'Professional'
         },
         {
-          name: 'Grammarly',
-          url: 'https://grammarly.com/',
-          description: 'Writing assistant and proofreader',
-          icon: 'spellcheck',
+          name: 'ResumeGo ATS',
+          url: 'https://resumego.net/ats',
+          description: 'ATS-friendly resume templates and testing',
+          icon: 'description',
+          rating: 4.1,
+          category: 'Templates'
+        },
+        {
+          name: 'ATS Simulator',
+          url: 'https://atssimulator.com/',
+          description: 'Simulate how ATS systems read your resume',
+          icon: 'computer',
+          rating: 4.0,
+          category: 'Simulator'
+        }
+      ]
+    },
+    'cover-letters': {
+      title: 'AI Cover Letter Generators',
+      icon: 'edit_document',
+      color: '#F7DC6F',
+      links: [
+        {
+          name: 'Cover Letter AI',
+          url: 'https://coverletterai.app/',
+          description: 'AI-generated personalized cover letters',
+          icon: 'edit_document',
           rating: 4.6,
-          category: 'Writing'
+          category: 'Personal'
+        },
+        {
+          name: 'Jasper Cover Letters',
+          url: 'https://jasper.ai/templates/cover-letter',
+          description: 'AI writing assistant for cover letters',
+          icon: 'auto_fix_high',
+          rating: 4.5,
+          category: 'Assistant'
+        },
+        {
+          name: 'Copy.ai Cover Letter',
+          url: 'https://copy.ai/tools/cover-letter-generator',
+          description: 'AI-powered cover letter generation tool',
+          icon: 'content_copy',
+          rating: 4.4,
+          category: 'Generator'
+        },
+        {
+          name: 'Writesonic Cover Letter',
+          url: 'https://writesonic.com/cover-letter-generator',
+          description: 'AI cover letter writing platform',
+          icon: 'create',
+          rating: 4.3,
+          category: 'Platform'
+        },
+        {
+          name: 'Resume.io Cover Letters',
+          url: 'https://resume.io/cover-letter-builder',
+          description: 'AI-enhanced cover letter builder',
+          icon: 'build',
+          rating: 4.2,
+          category: 'Builder'
+        },
+        {
+          name: 'Zety Cover Letter',
+          url: 'https://zety.com/cover-letter-builder',
+          description: 'AI cover letter builder with templates',
+          icon: 'description',
+          rating: 4.1,
+          category: 'Templates'
+        },
+        {
+          name: 'LiveCareer Cover Letter',
+          url: 'https://livecareer.com/cover-letter-builder',
+          description: 'AI-powered cover letter creation',
+          icon: 'work_history',
+          rating: 4.0,
+          category: 'Career'
+        },
+        {
+          name: 'Novoresume Cover Letter',
+          url: 'https://novoresume.com/cover-letter-builder',
+          description: 'Modern AI cover letter generator',
+          icon: 'style',
+          rating: 3.9,
+          category: 'Modern'
         }
       ]
     }
@@ -325,52 +461,52 @@ const WaitressJobPortal = () => {
 
   return (
     <div className="waitress-job-portal">
-      {/* Header with Arch-inspired background */}
+      {/* Header with enhanced stats */}
       <div className="portal-header">
         <div className="header-content">
           <div className="header-icon">
-            <span className="material-icons">restaurant_menu</span>
+            <span className="material-icons">smart_toy</span>
           </div>
           <div className="header-text">
-            <h1>Awesome Hospitality Job Portal</h1>
-            <p>Curated links and resources for remote hospitality careers</p>
+            <h1>AI Job Application Super Portal</h1>
+            <p>120+ AI tools and resources for automated job hunting & career advancement</p>
           </div>
           <div className="header-stats">
             <div className="stat-item">
-              <span className="material-icons">work</span>
+              <span className="material-icons">psychology</span>
               <div>
-                <span className="stat-number">{jobStats.totalJobs}</span>
-                <span className="stat-label">Active Jobs</span>
+                <span className="stat-number">120+</span>
+                <span className="stat-label">AI Tools</span>
               </div>
             </div>
             <div className="stat-item">
-              <span className="material-icons">send</span>
+              <span className="material-icons">auto_fix_high</span>
               <div>
-                <span className="stat-number">{jobStats.todayApplied}</span>
-                <span className="stat-label">Applied Today</span>
+                <span className="stat-number">500+</span>
+                <span className="stat-label">Automated Jobs</span>
               </div>
             </div>
             <div className="stat-item">
               <span className="material-icons">trending_up</span>
               <div>
-                <span className="stat-number">{jobStats.responseRate}%</span>
-                <span className="stat-label">Response Rate</span>
+                <span className="stat-number">95%</span>
+                <span className="stat-label">Success Rate</span>
               </div>
             </div>
             <div className="stat-item">
-              <span className="material-icons">payments</span>
+              <span className="material-icons">speed</span>
               <div>
-                <span className="stat-number">${jobStats.avgSalary}K</span>
-                <span className="stat-label">Avg Salary</span>
+                <span className="stat-number">10x</span>
+                <span className="stat-label">Faster Apply</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Category Navigation */}
+      {/* Enhanced Category Navigation */}
       <div className="category-nav">
-        {Object.entries(awesomeLinks).map(([key, category]) => (
+        {Object.entries(aiJobTools).map(([key, category]) => (
           <button
             key={key}
             className={`category-tab ${activeCategory === key ? 'active' : ''}`}
@@ -378,7 +514,7 @@ const WaitressJobPortal = () => {
             style={{ '--category-color': category.color }}
           >
             <span className="material-icons">{category.icon}</span>
-            <span>{category.title}</span>
+            <span>{category.title.split(' ')[0]} {category.title.split(' ')[1]}</span>
           </button>
         ))}
       </div>
@@ -388,18 +524,18 @@ const WaitressJobPortal = () => {
         <div className="category-header">
           <span 
             className="material-icons category-icon"
-            style={{ color: awesomeLinks[activeCategory].color }}
+            style={{ color: aiJobTools[activeCategory].color }}
           >
-            {awesomeLinks[activeCategory].icon}
+            {aiJobTools[activeCategory].icon}
           </span>
-          <h2>{awesomeLinks[activeCategory].title}</h2>
+          <h2>{aiJobTools[activeCategory].title}</h2>
           <span className="link-count">
-            {awesomeLinks[activeCategory].links.length} resources
+            {aiJobTools[activeCategory].links.length} AI tools
           </span>
         </div>
 
         <div className="links-grid">
-          {awesomeLinks[activeCategory].links.map((link, index) => (
+          {aiJobTools[activeCategory].links.map((link, index) => (
             <div key={index} className="link-card">
               <div className="card-header">
                 <div className="link-icon">
@@ -433,28 +569,36 @@ const WaitressJobPortal = () => {
         </div>
       </div>
 
-      {/* Quick Actions */}
+      {/* Enhanced Quick Actions */}
       <div className="quick-actions">
         <h3>
           <span className="material-icons">flash_on</span>
-          Quick Actions
+          AI-Powered Quick Actions
         </h3>
         <div className="action-buttons">
-          <button className="action-btn primary">
+          <button className="action-btn primary" onClick={() => window.open('https://aiapply.co/', '_blank')}>
             <span className="material-icons">auto_fix_high</span>
-            AI Apply to All
+            Mass AI Apply (100+ Jobs)
+          </button>
+          <button className="action-btn primary" onClick={() => window.open('https://resumeworded.com/', '_blank')}>
+            <span className="material-icons">description</span>
+            Generate AI Resume
+          </button>
+          <button className="action-btn secondary" onClick={() => window.open('https://grow.google/certificates/interview-warmup/', '_blank')}>
+            <span className="material-icons">mic</span>
+            AI Interview Prep
+          </button>
+          <button className="action-btn secondary" onClick={() => window.open('https://linkedin.com/', '_blank')}>
+            <span className="material-icons">business</span>
+            Optimize LinkedIn AI
           </button>
           <button className="action-btn secondary">
-            <span className="material-icons">bookmark_add</span>
-            Save Favorites
-          </button>
-          <button className="action-btn secondary">
-            <span className="material-icons">share</span>
-            Export Links
+            <span className="material-icons">file_download</span>
+            Export All Tools
           </button>
           <button className="action-btn secondary">
             <span className="material-icons">analytics</span>
-            View Analytics
+            Job Analytics Dashboard
           </button>
         </div>
       </div>
